@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resonant Spectra — a light show in time</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --anthropic-dark: #141413;
+            --anthropic-light: #faf9f5;
+            --anthropic-mid-gray: #b0aea5;
+            --anthropic-light-gray: #e8e6dc;
+            --anthropic-orange: #d97757;
+            --anthropic-blue: #6a9bcc;
+            --anthropic-green: #788c5d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--anthropic-light) 0%, #f5f3ee 100%);
+            min-height: 100vh;
+            color: var(--anthropic-dark);
+        }
+        .container { display: flex; min-height: 100vh; padding: 20px; gap: 20px; }
+        .sidebar {
+            width: 320px; flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 24px; border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(20, 20, 19, 0.1);
+            overflow-y: auto; overflow-x: hidden;
+        }
+        .sidebar h1 { font-family: 'Lora', serif; font-size: 24px; font-weight: 500; color: var(--anthropic-dark); margin-bottom: 8px; }
+        .sidebar .subtitle { color: var(--anthropic-mid-gray); font-size: 14px; margin-bottom: 28px; line-height: 1.45; }
+        .control-section { margin-bottom: 28px; }
+        .control-section h3 { font-size: 16px; font-weight: 600; color: var(--anthropic-dark); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .control-section h3::before { content: '•'; color: var(--anthropic-orange); font-weight: bold; }
+        .seed-input { width: 100%; background: var(--anthropic-light); padding: 12px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 14px; margin-bottom: 12px; border: 1px solid var(--anthropic-light-gray); text-align: center; }
+        .seed-input:focus { outline: none; border-color: var(--anthropic-orange); box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.1); background: white; }
+        .seed-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+        .regen-button { margin-bottom: 0; }
+        .control-group { margin-bottom: 20px; }
+        .control-group label { display: block; font-size: 14px; font-weight: 500; color: var(--anthropic-dark); margin-bottom: 8px; }
+        .slider-container { display: flex; align-items: center; gap: 12px; }
+        .slider-container input[type="range"] { flex: 1; height: 4px; background: var(--anthropic-light-gray); border-radius: 2px; outline: none; -webkit-appearance: none; }
+        .slider-container input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; background: var(--anthropic-orange); border-radius: 50%; cursor: pointer; transition: all 0.2s ease; }
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); background: #c86641; }
+        .slider-container input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; background: var(--anthropic-orange); border-radius: 50%; border: none; cursor: pointer; }
+        .value-display { font-family: 'Courier New', monospace; font-size: 12px; color: var(--anthropic-mid-gray); min-width: 52px; text-align: right; }
+        .color-group { margin-bottom: 14px; }
+        .color-group label { display: block; font-size: 12px; color: var(--anthropic-mid-gray); margin-bottom: 4px; }
+        .color-picker-container { display: flex; align-items: center; gap: 8px; }
+        .color-picker-container input[type="color"] { width: 32px; height: 32px; border: none; border-radius: 6px; cursor: pointer; background: none; padding: 0; }
+        .color-value { font-family: 'Courier New', monospace; font-size: 12px; color: var(--anthropic-mid-gray); }
+        .button { background: var(--anthropic-orange); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; width: 100%; }
+        .button:hover { background: #c86641; transform: translateY(-1px); }
+        .button:active { transform: translateY(0); }
+        .button.secondary { background: var(--anthropic-blue); }
+        .button.secondary:hover { background: #5a8bb8; }
+        .button.tertiary { background: var(--anthropic-green); }
+        .button.tertiary:hover { background: #6b7b52; }
+        .button.wide { margin-bottom: 8px; }
+        .button-row { display: flex; gap: 8px; }
+        .button-row .button { flex: 1; }
+        .canvas-area { flex: 1; display: flex; align-items: center; justify-content: center; min-width: 0; }
+        #canvas-container { width: 100%; max-width: 1000px; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(20, 20, 19, 0.18); background: #05060d; }
+        #canvas-container canvas { display: block; width: 100% !important; height: auto !important; }
+        .loading { display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--anthropic-mid-gray); padding: 80px 0; }
+        @media (max-width: 600px) { .container { flex-direction: column; } .sidebar { width: 100%; } .canvas-area { padding: 20px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>Resonant Spectra</h1>
+            <div class="subtitle">A generative light show poured into darkness and locked to a slinky funk groove in A — the sparse intro arriving, then the main riff taking hold. Press play and watch the pulse seize the color.</div>
+
+            <!-- Playback (drives the rhythm clock) -->
+            <div class="control-section">
+                <h3>Playback</h3>
+                <button class="button wide" id="playBtn" onclick="togglePlay()">⏸ Pause</button>
+                <div class="button-row">
+                    <button class="button secondary" onclick="restartPerformance()">⏮ Restart</button>
+                    <button class="button tertiary" id="gridBtn" onclick="toggleGrid()">Beat grid: on</button>
+                </div>
+            </div>
+
+            <!-- Seed (FIXED) -->
+            <div class="control-section">
+                <h3>Seed</h3>
+                <input type="number" id="seed-input" class="seed-input" value="1992" onchange="updateSeed()">
+                <div class="seed-controls">
+                    <button class="button secondary" onclick="previousSeed()">← Prev</button>
+                    <button class="button secondary" onclick="nextSeed()">Next →</button>
+                </div>
+                <button class="button tertiary regen-button" onclick="randomSeedAndUpdate()">↻ Random staging</button>
+            </div>
+
+            <!-- Parameters -->
+            <div class="control-section">
+                <h3>Parameters</h3>
+                <div class="control-group">
+                    <label>Tempo (BPM)</label>
+                    <div class="slider-container">
+                        <input type="range" id="bpm" min="70" max="140" step="1" value="104" oninput="updateParam('bpm', this.value)">
+                        <span class="value-display" id="bpm-value">104</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Groove punch</label>
+                    <div class="slider-container">
+                        <input type="range" id="groove" min="0" max="2" step="0.05" value="1" oninput="updateParam('groove', this.value)">
+                        <span class="value-display" id="groove-value">1.00</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Liquid flow</label>
+                    <div class="slider-container">
+                        <input type="range" id="flowSpeed" min="0.2" max="3" step="0.1" value="1" oninput="updateParam('flowSpeed', this.value)">
+                        <span class="value-display" id="flowSpeed-value">1.0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Magenta plumes</label>
+                    <div class="slider-container">
+                        <input type="range" id="plumes" min="0" max="2" step="0.05" value="1" oninput="updateParam('plumes', this.value)">
+                        <span class="value-display" id="plumes-value">1.00</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Amber beams</label>
+                    <div class="slider-container">
+                        <input type="range" id="beam" min="0" max="2" step="0.05" value="1" oninput="updateParam('beam', this.value)">
+                        <span class="value-display" id="beam-value">1.00</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Bloom response</label>
+                    <div class="slider-container">
+                        <input type="range" id="bloom" min="0" max="2" step="0.05" value="1" oninput="updateParam('bloom', this.value)">
+                        <span class="value-display" id="bloom-value">1.00</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Trail persistence</label>
+                    <div class="slider-container">
+                        <input type="range" id="trail" min="0.2" max="0.9" step="0.01" value="0.55" oninput="updateParam('trail', this.value)">
+                        <span class="value-display" id="trail-value">0.55</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colors -->
+            <div class="control-section">
+                <h3>Palette</h3>
+                <div class="color-group"><label>Upper haze (green)</label><div class="color-picker-container"><input type="color" id="colTop" value="#23d36a" onchange="updateColor('colTop', this.value)"><span class="color-value" id="colTop-value">#23d36a</span></div></div>
+                <div class="color-group"><label>Body (electric blue)</label><div class="color-picker-container"><input type="color" id="colBase" value="#1b3cff" onchange="updateColor('colBase', this.value)"><span class="color-value" id="colBase-value">#1b3cff</span></div></div>
+                <div class="color-group"><label>Depths (violet)</label><div class="color-picker-container"><input type="color" id="colDeep" value="#7a2bd6" onchange="updateColor('colDeep', this.value)"><span class="color-value" id="colDeep-value">#7a2bd6</span></div></div>
+                <div class="color-group"><label>Plumes (magenta)</label><div class="color-picker-container"><input type="color" id="colPlume" value="#ff2bd0" onchange="updateColor('colPlume', this.value)"><span class="color-value" id="colPlume-value">#ff2bd0</span></div></div>
+                <div class="color-group"><label>Beams (amber)</label><div class="color-picker-container"><input type="color" id="colBeam" value="#ffb13c" onchange="updateColor('colBeam', this.value)"><span class="color-value" id="colBeam-value">#ffb13c</span></div></div>
+            </div>
+
+            <!-- Actions (FIXED) -->
+            <div class="control-section">
+                <h3>Actions</h3>
+                <button class="button wide" onclick="downloadFrame()">⬇ Download still (PNG)</button>
+                <div class="button-row">
+                    <button class="button secondary" onclick="regenerate()">Regenerate</button>
+                    <button class="button" onclick="resetParameters()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-area">
+            <div id="canvas-container">
+                <div class="loading">Initializing light show…</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ════════════════════════════════════════════════════════════════
+    // RESONANT SPECTRA — a seeded liquid light show locked to a groove
+    // ════════════════════════════════════════════════════════════════
+
+    let params = {
+        seed: 1992,          // staging seed (Tweezer lives on A Picture of Nectar, 1992)
+        bpm: 104,            // slinky funk tempo
+        groove: 1.0,         // accent punch
+        flowSpeed: 1.0,      // liquid morph rate
+        plumes: 1.0,         // magenta plume density
+        beam: 1.0,           // amber beam brightness
+        bloom: 1.0,          // global glow response
+        trail: 0.55,         // trail persistence (lower = longer trails)
+        colTop:  '#23d36a',
+        colBase: '#1b3cff',
+        colDeep: '#7a2bd6',
+        colPlume:'#ff2bd0',
+        colBeam: '#ffb13c'
+    };
+    let defaultParams = {...params};
+
+    // ── The riff as rhythm: a syncopated 16-step funk figure (one bar) ──
+    // Strong "one", ghosted off-beat pushes, back-half accent, descending
+    // turnaround. The MAIN RIFF is this loop; the BEGINNING is it arriving.
+    const accentPattern = [
+        1.00, 0.12, 0.22, 0.46,   // beat 1  — the one, then a push
+        0.16, 0.30, 0.72, 0.18,   // beat 2  — syncopated kick on the "a"
+        0.86, 0.14, 0.40, 0.62,   // beat 3  — backbeat + push
+        0.20, 0.30, 0.74, 0.34    // beat 4  — descending turnaround
+    ];
+    const bassSteps = [0, 6, 8, 14]; // steps that birth magenta plumes
+    const beamSteps = [0, 8];        // steps that can detonate amber beams
+
+    // playback clock
+    let playing = true;
+    let playTime = 0;     // seconds of musical time elapsed
+    let lastStep = -1;
+    let showGrid = true;
+
+    // live envelopes (decay each frame)
+    let accentEnv = 0;    // global bloom kick
+    let beamEnv = 0;      // amber beam flash
+    let lastAccent = 0;   // most recent step accent (for grid display)
+    let curStepInBar = 0;
+
+    // staged elements (rebuilt on seed change)
+    let blobs = [];
+    let beams = [];
+    let plumes = [];
+    let glowSprite, vignette;
+
+    const CW = 1200, CH = 900;
+
+    function setup() {
+        let c = createCanvas(CW, CH);
+        c.parent('canvas-container');
+        pixelDensity(1);
+        glowSprite = makeGlow(360);
+        vignette = makeVignette();
+        stageSeed();
+        const l = document.querySelector('.loading'); if (l) l.style.display = 'none';
+    }
+
+    // soft radial white glow used for every emitted volume of light
+    function makeGlow(size) {
+        let g = createGraphics(size, size);
+        g.clear();
+        let ctx = g.drawingContext;
+        let r = size / 2;
+        let grad = ctx.createRadialGradient(r, r, 0, r, r, r);
+        grad.addColorStop(0.0, 'rgba(255,255,255,1.0)');
+        grad.addColorStop(0.18, 'rgba(255,255,255,0.85)');
+        grad.addColorStop(0.45, 'rgba(255,255,255,0.30)');
+        grad.addColorStop(0.75, 'rgba(255,255,255,0.06)');
+        grad.addColorStop(1.0, 'rgba(255,255,255,0.0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, size, size);
+        return g;
+    }
+
+    // dark frame: transparent center, dark edges (matches the photo's dark corners)
+    function makeVignette() {
+        let g = createGraphics(CW, CH);
+        g.clear();
+        let ctx = g.drawingContext;
+        let grad = ctx.createRadialGradient(CW*0.5, CH*0.55, CH*0.25, CW*0.5, CH*0.55, CH*0.95);
+        grad.addColorStop(0, 'rgba(3,4,12,0)');
+        grad.addColorStop(0.7, 'rgba(3,4,12,0.25)');
+        grad.addColorStop(1, 'rgba(2,3,9,0.78)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, CW, CH);
+        return g;
+    }
+
+    function hx(c){ let v=color(c); return [red(v),green(v),blue(v)]; }
+
+    // Build the staging for the current seed: wash positions, colors, beam spots
+    function stageSeed() {
+        randomSeed(params.seed);
+        noiseSeed(params.seed);
+        blobs = []; plumes = [];
+
+        const cTop = hx(params.colTop), cBase = hx(params.colBase), cDeep = hx(params.colDeep);
+        // upper green haze (2-3)
+        let nTop = 2 + floor(random(2));
+        for (let i = 0; i < nTop; i++)
+            blobs.push(makeBlob(cTop, random(0.05,0.95), random(0.02,0.30), random(0.34,0.5), 0.55, 0.35, i*11.3));
+        // electric-blue body — the dominant mass (3-4)
+        let nBlue = 3 + floor(random(2));
+        for (let i = 0; i < nBlue; i++)
+            blobs.push(makeBlob(cBase, random(0.05,0.95), random(0.30,0.78), random(0.42,0.62), 0.72, 0.55, 50+i*7.7));
+        // violet depths (2-3)
+        let nDeep = 2 + floor(random(2));
+        for (let i = 0; i < nDeep; i++)
+            blobs.push(makeBlob(cDeep, random(0.05,0.95), random(0.55,0.98), random(0.34,0.5), 0.5, 0.45, 120+i*9.1));
+
+        // two amber beam emitters, biased to the upper-left like the photo,
+        // with a little seeded scatter so each staging differs
+        beams = [];
+        let bx1 = constrain(0.16 + random(-0.05,0.06), 0.05, 0.4);
+        let bx2 = constrain(bx1 + 0.07 + random(0,0.04), 0.1, 0.5);
+        let by  = constrain(0.21 + random(-0.04,0.05), 0.1, 0.35);
+        beams.push({x:bx1, y:by, tilt:random(-0.22,0.05), phase:random(100)});
+        beams.push({x:bx2, y:by+random(-0.02,0.03), tilt:random(-0.18,0.08), phase:random(100)});
+    }
+
+    function makeBlob(col, x, y, r, bright, beat, seedoff) {
+        return { col, hx:x, hy:y, r, bright, beat, off:seedoff,
+                 dx:random(0.4,1.1), dy:random(0.3,0.9), breathSpd:random(0.3,0.8), breathOff:random(100) };
+    }
+
+    // Called once per 16th-note step — this is where the rhythm bites
+    function onStep(gStep, stepInBar, barIndex) {
+        // intro: only the strongest hits survive at first, the figure fills in
+        let thr = max(0, 0.9 - barIndex * 0.25);          // bars 0..3 gate it open
+        let jam = 0.15 + 0.85 * ((barIndex % 16) / 16);   // long swell, then reset
+        let raw = accentPattern[stepInBar];
+        let pass = raw >= thr ? raw : raw * 0.18;          // gated ghosts stay faint
+        let accent = pass * params.groove * (0.7 + 0.5 * jam);
+        lastAccent = pass;
+
+        accentEnv = min(2.2, accentEnv + accent * 0.9);
+
+        if (beamSteps.includes(stepInBar) && raw >= thr)
+            beamEnv = min(2.0, beamEnv + accent * 1.1);
+
+        if (bassSteps.includes(stepInBar) && raw >= thr) {
+            let n = floor(random(1, 3) * params.plumes * (0.6 + accent));
+            for (let i = 0; i < n; i++) spawnPlume(accent);
+        }
+    }
+
+    function spawnPlume(accent) {
+        plumes.push({
+            x: random(0.08, 0.92) * width,
+            y: height * random(0.86, 1.02),
+            vy: -random(70, 150) * (0.7 + accent),
+            sway: random(100),
+            r: random(60, 150),
+            life: 1, decay: random(0.55, 0.95),
+            bright: (0.6 + accent) * params.plumes
+        });
+    }
+
+    function draw() {
+        let dt = min(deltaTime / 1000, 0.05);
+        if (playing) playTime += dt;
+
+        let beatDur = 60 / params.bpm;
+        let stepDur = beatDur / 4;
+        let gStep = floor(playTime / stepDur);
+        curStepInBar = ((gStep % 16) + 16) % 16;
+        let barIndex = floor(gStep / 16);
+        if (gStep !== lastStep) { onStep(gStep, curStepInBar, barIndex); lastStep = gStep; }
+
+        // decay envelopes
+        accentEnv *= Math.exp(-dt * 5.5);
+        beamEnv   *= Math.exp(-dt * 3.8);
+
+        // 1) fade previous frame → liquid trails
+        let fade = map(params.trail, 0.2, 0.9, 16, 95);
+        push(); blendMode(BLEND); noStroke();
+        fill(4, 5, 13, fade); rect(0, 0, width, height); pop();
+
+        // 2) base liquid washes (additive)
+        push(); blendMode(ADD); noStroke(); imageMode(CENTER);
+        let t = playTime * params.flowSpeed;
+        let beatPulse = 1 + (accentEnv * 0.5 * params.bloom);
+        for (let b of blobs) {
+            let nx = noise(b.off, t * 0.06 * b.dx);
+            let ny = noise(b.off + 33.7, t * 0.05 * b.dy);
+            let x = (b.hx * 0.55 + nx * 0.45) * width;
+            let y = (b.hy * 0.6 + ny * 0.4) * height;
+            let breath = 0.6 + 0.4 * (0.5 + 0.5 * Math.sin(t * b.breathSpd + b.breathOff));
+            let amp = b.bright * breath * (1 + b.beat * accentEnv * 0.8 * params.bloom);
+            let rr = b.r * Math.min(width, height) * 1.7 * (0.92 + 0.12 * beatPulse * b.beat);
+            tint(b.col[0], b.col[1], b.col[2], 255 * Math.min(1, amp));
+            image(glowSprite, x, y, rr, rr);
+        }
+        pop();
+
+        // 3) magenta plumes rising on bass accents (additive)
+        push(); blendMode(ADD); noStroke(); imageMode(CENTER);
+        let pc = hx(params.colPlume);
+        for (let i = plumes.length - 1; i >= 0; i--) {
+            let p = plumes[i];
+            p.y += p.vy * dt;
+            p.vy *= 0.992;
+            p.x += Math.sin(playTime * 1.5 + p.sway) * 18 * dt * width * 0.002;
+            p.life -= dt * p.decay;
+            if (p.life <= 0 || p.y < -100) { plumes.splice(i, 1); continue; }
+            let a = Math.sin(p.life * Math.PI) * p.bright; // born→peak→fade
+            tint(pc[0], pc[1], pc[2], 255 * Math.min(1, a));
+            let rr = p.r * (1.4 - 0.4 * p.life);
+            image(glowSprite, p.x, p.y, rr * 1.5, rr * 2.6);
+        }
+        pop();
+
+        // 4) two amber beams — the warmest, rarest light, fired on hits
+        push(); blendMode(ADD); noStroke(); imageMode(CENTER);
+        let bc = hx(params.colBeam);
+        for (let bm of beams) {
+            let flick = 0.85 + 0.15 * noise(bm.phase, playTime * 3);
+            let a = beamEnv * params.beam * flick;
+            if (a < 0.02) continue;
+            let x = bm.x * width + Math.sin(playTime * 0.7 + bm.phase) * 6;
+            let y = bm.y * height;
+            tint(bc[0], bc[1], bc[2], 255 * Math.min(1, a));
+            push(); translate(x, y); rotate(bm.tilt);
+            image(glowSprite, 0, 0, 230 * (0.8 + a * 0.4), 70 * (0.8 + a * 0.3)); // streak
+            image(glowSprite, 0, 0, 90, 90);                                       // hot core
+            pop();
+        }
+        pop();
+
+        // 5) dark frame
+        push(); blendMode(BLEND); imageMode(CORNER); image(vignette, 0, 0, width, height); pop();
+
+        // 6) optional beat grid so you can SEE it locking to the riff
+        if (showGrid) drawGrid(beatDur);
+    }
+
+    function drawGrid(beatDur) {
+        push();
+        let n = 16, pad = 28, gap = 14;
+        let w = width - pad * 2;
+        let cell = (w - gap * (n - 1)) / n;
+        let y = height - 38;
+        for (let i = 0; i < n; i++) {
+            let x = pad + i * (cell + gap);
+            let strong = accentPattern[i] >= 0.6;
+            let on = i === curStepInBar;
+            noStroke();
+            fill(255, 255, 255, on ? 230 : (strong ? 70 : 32));
+            let h = on ? 10 : 6;
+            rect(x, y - h/2, cell, h, 3);
+        }
+        // downbeat pulse ring, top-right
+        let beatPhase = (playTime % beatDur) / beatDur;
+        let pr = map(beatPhase, 0, 1, 26, 8);
+        noFill(); stroke(255, 255, 255, map(beatPhase, 0, 1, 180, 0)); strokeWeight(2);
+        circle(width - 44, 44, pr * 2);
+        noStroke(); fill(255, 220, 120, 200); circle(width - 44, 44, 7);
+        pop();
+    }
+
+    // ── UI handlers ──
+    function updateParam(name, value) {
+        params[name] = (name === 'bpm') ? parseInt(value) : parseFloat(value);
+        let el = document.getElementById(name + '-value');
+        if (el) el.textContent = (name === 'bpm') ? params[name] : params[name].toFixed(2).replace(/0$/, '');
+        if (name === 'bpm') el.textContent = params.bpm;
+        if (name === 'flowSpeed') el.textContent = params.flowSpeed.toFixed(1);
+        if (name === 'trail') el.textContent = params.trail.toFixed(2);
+    }
+    function updateColor(id, value) {
+        params[id] = value;
+        document.getElementById(id + '-value').textContent = value;
+        stageSeed(); // restage so washes adopt new palette positions/colors
+    }
+    function togglePlay() {
+        playing = !playing;
+        document.getElementById('playBtn').textContent = playing ? '⏸ Pause' : '▶ Play';
+    }
+    function toggleGrid() {
+        showGrid = !showGrid;
+        document.getElementById('gridBtn').textContent = 'Beat grid: ' + (showGrid ? 'on' : 'off');
+    }
+    function restartPerformance() {
+        playTime = 0; lastStep = -1; accentEnv = 0; beamEnv = 0;
+        plumes = [];
+        background(4, 5, 13);
+    }
+    function downloadFrame() { saveCanvas('resonant_spectra_seed' + params.seed, 'png'); }
+    function regenerate() { stageSeed(); }
+
+    // ── Seed controls (fixed) ──
+    function updateSeedDisplay() { document.getElementById('seed-input').value = params.seed; }
+    function updateSeed() {
+        let v = parseInt(document.getElementById('seed-input').value);
+        if (v && v > 0) { params.seed = v; stageSeed(); } else updateSeedDisplay();
+    }
+    function previousSeed() { params.seed = Math.max(1, params.seed - 1); updateSeedDisplay(); stageSeed(); }
+    function nextSeed() { params.seed += 1; updateSeedDisplay(); stageSeed(); }
+    function randomSeedAndUpdate() { params.seed = Math.floor(Math.random() * 999999) + 1; updateSeedDisplay(); stageSeed(); }
+
+    function resetParameters() {
+        params = {...defaultParams};
+        for (let k of ['bpm','groove','flowSpeed','plumes','beam','bloom','trail']) {
+            let s = document.getElementById(k); if (s) s.value = params[k];
+            let d = document.getElementById(k + '-value');
+            if (d) d.textContent = (k==='bpm') ? params.bpm : (k==='flowSpeed'||k==='trail') ? params[k].toFixed(k==='trail'?2:1) : params[k].toFixed(2);
+        }
+        for (let k of ['colTop','colBase','colDeep','colPlume','colBeam']) {
+            document.getElementById(k).value = params[k];
+            document.getElementById(k + '-value').textContent = params[k];
+        }
+        updateSeedDisplay();
+        stageSeed();
+    }
+
+    window.addEventListener('load', updateSeedDisplay);
+    </script>
+</body>
+</html>
