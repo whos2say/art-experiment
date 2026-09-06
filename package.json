@@ -1,0 +1,13 @@
+{
+  "name": "art-experiment",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build:photos": "node build/fetch-album.mjs && node build/palette.mjs",
+    "verify:phishin": "node build/check-phishin.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {}
+}

@@ -1,38 +1,116 @@
-# Art Experiment — Resonant Spectra
+# Resonant Spectra — art-experiment
 
-A generative light show poured into darkness and locked to a slinky funk groove in A.
-Built with p5.js, fully self-contained in a single `index.html` — no build step, no server.
+A generative light show that reads photographs as musical scores. Each photo in
+the **PHishy Art** album is analysed into a palette and a set of gestures, then
+performed as a movement on canvas. When audio is playing, the visuals react to
+it in real time — bass drives the plumes, mids the washes, highs the beams.
 
-**Live:** https://whos2say.github.io/art-experiment/ *(after GitHub Pages is enabled — see below)*
+Live at **https://art.whostosay.org** (previously `whostosay.org/art-experiment`).
 
-## What it is
+## How it works
 
-A seeded liquid-light-show driven by a rhythm engine. The visuals are timed to a
-syncopated 16-step funk figure: a sparse intro that gradually "arrives" into the
-main looping riff, with magenta plumes surging on the bass accents, two amber beams
-detonating on the hardest hits, and a continuous oil-and-water color wash breathing
-underneath. Palette and staging are drawn from a Phish concert light-show photograph.
+Three things happen on load:
 
-No audio is reproduced — only the song's rhythmic *timing* drives the animation.
+1. **`photos/manifest.json`** is fetched. Each entry carries a pre-computed
+   palette (extracted at build time by `build/palette.mjs`), so the page never
+   has to do colour clustering in the browser.
+2. **Each photo becomes a "study"** — `buildStudy()` turns the image and its
+   palette into the parameters for one movement, and `computeConductor()`
+   derives the overall motion from the image's structure.
+3. **Audio, if any, modulates the performance.** Tracks stream from
+   [phish.in](https://phish.in) through a same-origin proxy so the Web Audio
+   FFT isn't tainted by CORS. You can also load a local file.
 
-## Controls
+If the manifest can't be reached, the page falls back to a single built-in
+photo so the engine still runs.
 
-- **Play / Pause / Restart** — runs the rhythm clock
-- **Beat grid** — shows the current step so you can watch it lock to the riff
-- **Seed** — each seed is a different staging of the same performance
-- **Tempo, Groove punch, Liquid flow, Plumes, Beams, Bloom, Trail** — live parameters
-- **Palette** — five color pickers
-- **Download still (PNG)** — capture any frame
+## Layout
 
-## Files
+```
+index.html                        the whole engine — no build step, no bundler
+api/phishin-proxy.js              same-origin proxy for phish.in/api/v2
+api/refresh-photos.js             POST endpoint that fires the refresh Action
+photos/                           ~55 album images
+photos/manifest.json              per-photo dimensions + extracted palette
+build/fetch-album.mjs             scrapes the Google Photos album
+build/palette.mjs                 extracts palettes, writes the manifest
+build/check-phishin.mjs           sanity-checks the phish.in API
+config.json                       album URL, audio bands, palette settings
+vercel.json                       the /api/phishin rewrite
+.github/workflows/refresh-photos.yml
+```
 
-- `index.html` — the complete interactive piece
-- `PHILOSOPHY.md` — the algorithmic philosophy ("Resonant Spectra")
+The app is served from the **repository root** — no subdirectory, no build step.
+`ASSET_BASE` in `index.html` is `'/'` for exactly this reason; if the app is ever
+moved back under a path prefix, that constant has to change with it.
 
-## Run locally
+## The phish.in proxy
 
-Just open `index.html` in any browser. That's it.
+`vercel.json` rewrites `/api/phishin/:path*` → `/api/phishin-proxy`, with **no
+query string**. The proxy reads the original request path from `req.url`, strips
+the `/api/phishin` prefix, and forwards the remainder to
+`https://phish.in/api/v2`:
 
----
+```
+/api/phishin/search/Tweezer           → phish.in/api/v2/search/Tweezer
+/api/phishin/tracks?song_slug=tweezer → phish.in/api/v2/tracks?song_slug=tweezer
+```
 
-*An algorithmic art experiment.*
+> Don't "fix" the rewrite to `/api/phishin-proxy?path=:path*`. That form belongs
+> to an older edge-function proxy that read a `path` query parameter. Pairing it
+> with this proxy produces upstream URLs like `phish.in/api/v2-proxy?path=…` and
+> every lookup fails.
+
+No API key is required — phish.in's v2 API is open.
+
+## Refreshing the album
+
+The photos are committed to the repo, not fetched at runtime. To pull in new
+album images:
+
+- **From the site** — the *Rescan album* button under Actions POSTs to
+  `/api/refresh-photos`, which fires a `repository_dispatch`. A 202 means the
+  Action started, not that it finished.
+- **From GitHub** — run the *Refresh photos* workflow manually from the Actions
+  tab.
+
+Either way the workflow runs `npm run build:photos`, commits anything that
+changed under `photos/`, and that commit triggers a redeploy.
+
+## Environment variables
+
+Set on the Vercel project for **Production and Preview**:
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `GITHUB_DISPATCH_TOKEN` | yes, for refresh | Fine-grained PAT on this repo, Contents: read/write. Without it `/api/refresh-photos` returns 500. |
+| `REFRESH_SECRET` | optional | If set, callers must send a matching `x-refresh-key` header. The in-page button does not send one, so setting this disables the button. |
+
+There is deliberately no `PHISHIN_API_KEY` — nothing in this repo reads one.
+
+## Local development
+
+`index.html` is plain HTML/JS and opens directly in a browser, but the phish.in
+search and the rescan button need the `/api` functions:
+
+```bash
+npm install
+npx vercel dev
+```
+
+To re-scrape the album locally:
+
+```bash
+npm run build:photos     # fetch-album.mjs, then palette.mjs
+npm run verify:phishin   # check the phish.in API is reachable
+```
+
+> There is intentionally no `build` script. Vercel runs `npm run build`
+> automatically when one exists, which would fire the album scrape on every
+> deploy. The workflow calls `build:photos` by name instead.
+
+## See also
+
+- [`PHILOSOPHY.md`](PHILOSOPHY.md) — what this piece is trying to be
+- [`CHANGELOG.md`](CHANGELOG.md)
+- [`docs/MCP.md`](docs/MCP.md)

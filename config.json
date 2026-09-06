@@ -1,0 +1,30 @@
+{
+  "googlePhotos": {
+    "albumUrl": "https://photos.app.goo.gl/ieGT5mNbG8nAmhmn9",
+    "albumName": "PHishy Art",
+    "outputDir": "photos",
+    "maxWidth": 1200,
+    "quality": 82
+  },
+  "audio": {
+    "phishinApiBase": "https://phish.in/api/v2",
+    "defaultSong": "tweezer",
+    "sampleRate": 44100,
+    "fftSize": 2048,
+    "smoothingTimeConstant": 0.85,
+    "bands": {
+      "low":  [20,  250],
+      "mid":  [250, 4000],
+      "high": [4000, 20000]
+    },
+    "reactivity": {
+      "low":  { "drives": "plumes",  "multiplier": 1.8 },
+      "mid":  { "drives": "washes",  "multiplier": 1.2 },
+      "high": { "drives": "beams",   "multiplier": 2.0 }
+    }
+  },
+  "palette": {
+    "clusters": 5,
+    "hotspotThreshold": 0.08
+  }
+}
