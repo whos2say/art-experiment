@@ -1,0 +1,42 @@
+name: Refresh photos
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [refresh-photos]
+  # schedule:
+  #   - cron: '0 8 * * 1'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-photos
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Scrape the PHishy Art album
+        run: |
+          npm install
+          npm run build:photos
+
+      - name: Commit changed photos
+        run: |
+          git config user.name "photo-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add photos
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore: refresh PHishy Art album photos"
+            git push
+          fi

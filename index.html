@@ -1,510 +1,545 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resonant Spectra — a light show in time</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --anthropic-dark: #141413;
-            --anthropic-light: #faf9f5;
-            --anthropic-mid-gray: #b0aea5;
-            --anthropic-light-gray: #e8e6dc;
-            --anthropic-orange: #d97757;
-            --anthropic-blue: #6a9bcc;
-            --anthropic-green: #788c5d;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--anthropic-light) 0%, #f5f3ee 100%);
-            min-height: 100vh;
-            color: var(--anthropic-dark);
-        }
-        .container { display: flex; min-height: 100vh; padding: 20px; gap: 20px; }
-        .sidebar {
-            width: 320px; flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 24px; border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(20, 20, 19, 0.1);
-            overflow-y: auto; overflow-x: hidden;
-        }
-        .sidebar h1 { font-family: 'Lora', serif; font-size: 24px; font-weight: 500; color: var(--anthropic-dark); margin-bottom: 8px; }
-        .sidebar .subtitle { color: var(--anthropic-mid-gray); font-size: 14px; margin-bottom: 28px; line-height: 1.45; }
-        .control-section { margin-bottom: 28px; }
-        .control-section h3 { font-size: 16px; font-weight: 600; color: var(--anthropic-dark); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-        .control-section h3::before { content: '•'; color: var(--anthropic-orange); font-weight: bold; }
-        .seed-input { width: 100%; background: var(--anthropic-light); padding: 12px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 14px; margin-bottom: 12px; border: 1px solid var(--anthropic-light-gray); text-align: center; }
-        .seed-input:focus { outline: none; border-color: var(--anthropic-orange); box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.1); background: white; }
-        .seed-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-        .regen-button { margin-bottom: 0; }
-        .control-group { margin-bottom: 20px; }
-        .control-group label { display: block; font-size: 14px; font-weight: 500; color: var(--anthropic-dark); margin-bottom: 8px; }
-        .slider-container { display: flex; align-items: center; gap: 12px; }
-        .slider-container input[type="range"] { flex: 1; height: 4px; background: var(--anthropic-light-gray); border-radius: 2px; outline: none; -webkit-appearance: none; }
-        .slider-container input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; background: var(--anthropic-orange); border-radius: 50%; cursor: pointer; transition: all 0.2s ease; }
-        .slider-container input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.1); background: #c86641; }
-        .slider-container input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; background: var(--anthropic-orange); border-radius: 50%; border: none; cursor: pointer; }
-        .value-display { font-family: 'Courier New', monospace; font-size: 12px; color: var(--anthropic-mid-gray); min-width: 52px; text-align: right; }
-        .color-group { margin-bottom: 14px; }
-        .color-group label { display: block; font-size: 12px; color: var(--anthropic-mid-gray); margin-bottom: 4px; }
-        .color-picker-container { display: flex; align-items: center; gap: 8px; }
-        .color-picker-container input[type="color"] { width: 32px; height: 32px; border: none; border-radius: 6px; cursor: pointer; background: none; padding: 0; }
-        .color-value { font-family: 'Courier New', monospace; font-size: 12px; color: var(--anthropic-mid-gray); }
-        .button { background: var(--anthropic-orange); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; width: 100%; }
-        .button:hover { background: #c86641; transform: translateY(-1px); }
-        .button:active { transform: translateY(0); }
-        .button.secondary { background: var(--anthropic-blue); }
-        .button.secondary:hover { background: #5a8bb8; }
-        .button.tertiary { background: var(--anthropic-green); }
-        .button.tertiary:hover { background: #6b7b52; }
-        .button.wide { margin-bottom: 8px; }
-        .button-row { display: flex; gap: 8px; }
-        .button-row .button { flex: 1; }
-        .canvas-area { flex: 1; display: flex; align-items: center; justify-content: center; min-width: 0; }
-        #canvas-container { width: 100%; max-width: 1000px; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(20, 20, 19, 0.18); background: #05060d; }
-        #canvas-container canvas { display: block; width: 100% !important; height: auto !important; }
-        .loading { display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--anthropic-mid-gray); padding: 80px 0; }
-        @media (max-width: 600px) { .container { flex-direction: column; } .sidebar { width: 100%; } .canvas-area { padding: 20px; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resonant Spectra — light grown from photographs</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#141413;--light:#faf9f5;--mid:#b0aea5;--lgray:#e8e6dc;--orange:#d97757;--blue:#6a9bcc;--green:#788c5d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,var(--light),#f5f3ee);min-height:100vh;color:var(--dark)}
+.container{display:flex;min-height:100vh;padding:20px;gap:20px}
+.sidebar{width:320px;flex-shrink:0;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:24px;border-radius:12px;box-shadow:0 10px 30px rgba(20,20,19,.1);overflow-y:auto}
+.sidebar h1{font-family:'Lora',serif;font-size:23px;font-weight:500;margin-bottom:6px}
+.sidebar .subtitle{color:var(--mid);font-size:13.5px;margin-bottom:24px;line-height:1.45}
+.section{margin-bottom:26px}
+.section h3{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section h3::before{content:'•';color:var(--orange);font-weight:bold}
+.nowshow{background:var(--light);border:1px solid var(--lgray);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--dark);margin-bottom:12px;line-height:1.5}
+.nowshow .nm{font-weight:600}
+.nowshow .swatches{display:flex;gap:4px;margin-top:8px}
+.nowshow .sw{width:18px;height:18px;border-radius:4px;border:1px solid rgba(0,0,0,.1)}
+.group{margin-bottom:16px}
+.group label{display:block;font-size:13.5px;font-weight:500;margin-bottom:7px}
+.slider{display:flex;align-items:center;gap:10px}
+.slider input[type=range]{flex:1;height:4px;background:var(--lgray);border-radius:2px;-webkit-appearance:none}
+.slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--orange);border-radius:50%;cursor:pointer}
+.val{font-family:'Courier New',monospace;font-size:12px;color:var(--mid);min-width:46px;text-align:right}
+.btn{background:var(--orange);color:#fff;border:none;padding:10px 14px;border-radius:6px;font-size:13.5px;font-weight:500;cursor:pointer;width:100%;transition:.15s}
+.btn:hover{background:#c86641;transform:translateY(-1px)}
+.btn.sec{background:var(--blue)}.btn.sec:hover{background:#5a8bb8}
+.btn.ter{background:var(--green)}.btn.ter:hover{background:#6b7b52}
+.btn.wide{margin-bottom:8px}
+.row{display:flex;gap:8px}.row .btn{flex:1}
+.toggle{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--light);border:1px solid var(--lgray);border-radius:8px;margin-bottom:8px;font-size:13.5px;cursor:pointer}
+.toggle .pill{width:38px;height:20px;border-radius:10px;background:var(--mid);position:relative;transition:.2s;flex-shrink:0}
+.toggle .pill::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;left:2px;transition:.2s}
+.toggle.on .pill{background:var(--orange)}.toggle.on .pill::after{left:20px}
+.hint{font-size:11.5px;color:var(--mid);line-height:1.5;margin-top:6px}
+.canvas-area{flex:1;display:flex;align-items:center;justify-content:center;min-width:0}
+#cc{width:100%;max-width:1000px;border-radius:12px;overflow:hidden;box-shadow:0 20px 40px rgba(20,20,19,.18);background:#05060d}
+#cc canvas{display:block;width:100%!important;height:auto!important}
+.loading{display:flex;align-items:center;justify-content:center;color:var(--mid);padding:80px 0}
+input[type=file]{font-size:12px;width:100%}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-height:280px;overflow-y:auto;padding:2px;margin-top:4px}
+.gallery .thumb{position:relative;width:100%;aspect-ratio:3/4;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;background:#0b0c14;transition:.15s}
+.gallery .thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.78;transition:.15s}
+.gallery .thumb:hover img{opacity:1}
+.gallery .thumb:hover{transform:translateY(-1px)}
+.gallery .thumb.active{border-color:var(--orange)}
+.gallery .thumb.active img{opacity:1}
+.gallery .thumb .idx{position:absolute;left:3px;top:2px;font-size:9px;font-family:'Courier New',monospace;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.9);pointer-events:none}
+@media(max-width:600px){.container{flex-direction:column}.sidebar{width:100%}.gallery{grid-template-columns:repeat(6,1fr);max-height:160px}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h1>Resonant Spectra</h1>
-            <div class="subtitle">A generative light show poured into darkness and locked to a slinky funk groove in A — the sparse intro arriving, then the main riff taking hold. Press play and watch the pulse seize the color.</div>
+<div class="container">
+  <div class="sidebar">
+    <h1>Resonant Spectra</h1>
+    <div class="subtitle">Each photograph is analyzed — its colors, its brightest lights, the direction of its blur — and the light show is grown from what's actually in the frame. Photos cycle as short movements.</div>
 
-            <!-- Playback (drives the rhythm clock) -->
-            <div class="control-section">
-                <h3>Playback</h3>
-                <button class="button wide" id="playBtn" onclick="togglePlay()">⏸ Pause</button>
-                <div class="button-row">
-                    <button class="button secondary" onclick="restartPerformance()">⏮ Restart</button>
-                    <button class="button tertiary" id="gridBtn" onclick="toggleGrid()">Beat grid: on</button>
-                </div>
-            </div>
-
-            <!-- Seed (FIXED) -->
-            <div class="control-section">
-                <h3>Seed</h3>
-                <input type="number" id="seed-input" class="seed-input" value="1992" onchange="updateSeed()">
-                <div class="seed-controls">
-                    <button class="button secondary" onclick="previousSeed()">← Prev</button>
-                    <button class="button secondary" onclick="nextSeed()">Next →</button>
-                </div>
-                <button class="button tertiary regen-button" onclick="randomSeedAndUpdate()">↻ Random staging</button>
-            </div>
-
-            <!-- Parameters -->
-            <div class="control-section">
-                <h3>Parameters</h3>
-                <div class="control-group">
-                    <label>Tempo (BPM)</label>
-                    <div class="slider-container">
-                        <input type="range" id="bpm" min="70" max="140" step="1" value="104" oninput="updateParam('bpm', this.value)">
-                        <span class="value-display" id="bpm-value">104</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label>Groove punch</label>
-                    <div class="slider-container">
-                        <input type="range" id="groove" min="0" max="2" step="0.05" value="1" oninput="updateParam('groove', this.value)">
-                        <span class="value-display" id="groove-value">1.00</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label>Liquid flow</label>
-                    <div class="slider-container">
-                        <input type="range" id="flowSpeed" min="0.2" max="3" step="0.1" value="1" oninput="updateParam('flowSpeed', this.value)">
-                        <span class="value-display" id="flowSpeed-value">1.0</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label>Magenta plumes</label>
-                    <div class="slider-container">
-                        <input type="range" id="plumes" min="0" max="2" step="0.05" value="1" oninput="updateParam('plumes', this.value)">
-                        <span class="value-display" id="plumes-value">1.00</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label>Amber beams</label>
-                    <div class="slider-container">
-                        <input type="range" id="beam" min="0" max="2" step="0.05" value="1" oninput="updateParam('beam', this.value)">
-                        <span class="value-display" id="beam-value">1.00</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label>Bloom response</label>
-                    <div class="slider-container">
-                        <input type="range" id="bloom" min="0" max="2" step="0.05" value="1" oninput="updateParam('bloom', this.value)">
-                        <span class="value-display" id="bloom-value">1.00</span>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label>Trail persistence</label>
-                    <div class="slider-container">
-                        <input type="range" id="trail" min="0.2" max="0.9" step="0.01" value="0.55" oninput="updateParam('trail', this.value)">
-                        <span class="value-display" id="trail-value">0.55</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Colors -->
-            <div class="control-section">
-                <h3>Palette</h3>
-                <div class="color-group"><label>Upper haze (green)</label><div class="color-picker-container"><input type="color" id="colTop" value="#23d36a" onchange="updateColor('colTop', this.value)"><span class="color-value" id="colTop-value">#23d36a</span></div></div>
-                <div class="color-group"><label>Body (electric blue)</label><div class="color-picker-container"><input type="color" id="colBase" value="#1b3cff" onchange="updateColor('colBase', this.value)"><span class="color-value" id="colBase-value">#1b3cff</span></div></div>
-                <div class="color-group"><label>Depths (violet)</label><div class="color-picker-container"><input type="color" id="colDeep" value="#7a2bd6" onchange="updateColor('colDeep', this.value)"><span class="color-value" id="colDeep-value">#7a2bd6</span></div></div>
-                <div class="color-group"><label>Plumes (magenta)</label><div class="color-picker-container"><input type="color" id="colPlume" value="#ff2bd0" onchange="updateColor('colPlume', this.value)"><span class="color-value" id="colPlume-value">#ff2bd0</span></div></div>
-                <div class="color-group"><label>Beams (amber)</label><div class="color-picker-container"><input type="color" id="colBeam" value="#ffb13c" onchange="updateColor('colBeam', this.value)"><span class="color-value" id="colBeam-value">#ffb13c</span></div></div>
-            </div>
-
-            <!-- Actions (FIXED) -->
-            <div class="control-section">
-                <h3>Actions</h3>
-                <button class="button wide" onclick="downloadFrame()">⬇ Download still (PNG)</button>
-                <div class="button-row">
-                    <button class="button secondary" onclick="regenerate()">Regenerate</button>
-                    <button class="button" onclick="resetParameters()">Reset</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="canvas-area">
-            <div id="canvas-container">
-                <div class="loading">Initializing light show…</div>
-            </div>
-        </div>
+    <div class="section">
+      <h3>Now showing</h3>
+      <div class="nowshow" id="nowshow"><span class="nm">loading…</span></div>
+      <div class="row">
+        <button class="btn sec" onclick="prevPhoto()">← Prev</button>
+        <button class="btn sec" onclick="nextPhoto()">Next →</button>
+      </div>
     </div>
 
-    <script>
-    // ════════════════════════════════════════════════════════════════
-    // RESONANT SPECTRA — a seeded liquid light show locked to a groove
-    // ════════════════════════════════════════════════════════════════
+    <div class="section">
+      <h3>Gallery</h3>
+      <div class="gallery" id="gallery"></div>
+      <div class="hint" id="galleryCount">Loading photos…</div>
+      <div class="hint">Click a photo to jump to its movement.</div>
+      <div class="hint" id="gallerySource">Gallery source: photos load from the album manifest at <code>/photos/manifest.json</code>. To add or remove photos, update <code>photos/</code> and rebuild the manifest (see README) — the gallery reads only from the album. If the manifest can't be reached, the page falls back to a single built-in photo.</div>
+    </div>
 
-    let params = {
-        seed: 1992,          // staging seed (Tweezer lives on A Picture of Nectar, 1992)
-        bpm: 104,            // slinky funk tempo
-        groove: 1.0,         // accent punch
-        flowSpeed: 1.0,      // liquid morph rate
-        plumes: 1.0,         // magenta plume density
-        beam: 1.0,           // amber beam brightness
-        bloom: 1.0,          // global glow response
-        trail: 0.55,         // trail persistence (lower = longer trails)
-        colTop:  '#23d36a',
-        colBase: '#1b3cff',
-        colDeep: '#7a2bd6',
-        colPlume:'#ff2bd0',
-        colBeam: '#ffb13c'
-    };
-    let defaultParams = {...params};
+    <div class="section">
+      <h3>Playback</h3>
+      <button class="btn wide" id="playBtn" onclick="togglePlay()">⏸ Pause</button>
+      <div class="toggle on" id="cycleTog" onclick="toggleCycle()"><span>Cycle through photos</span><span class="pill"></span></div>
+      <div class="toggle" id="srcTog" onclick="toggleSource()"><span>Show source photo (faint)</span><span class="pill"></span></div>
+      <div class="group" style="margin-top:14px">
+        <label>Movement length (per photo)</label>
+        <div class="slider"><input type="range" id="photoDur" min="8" max="30" step="1" value="24" oninput="setP('photoDur',this.value)"><span class="val" id="photoDur-v">24s</span></div>
+        <div class="hint">Each photo loops as a movement no longer than 30 seconds.</div>
+      </div>
+    </div>
 
-    // ── The riff as rhythm: a syncopated 16-step funk figure (one bar) ──
-    // Strong "one", ghosted off-beat pushes, back-half accent, descending
-    // turnaround. The MAIN RIFF is this loop; the BEGINNING is it arriving.
-    const accentPattern = [
-        1.00, 0.12, 0.22, 0.46,   // beat 1  — the one, then a push
-        0.16, 0.30, 0.72, 0.18,   // beat 2  — syncopated kick on the "a"
-        0.86, 0.14, 0.40, 0.62,   // beat 3  — backbeat + push
-        0.20, 0.30, 0.74, 0.34    // beat 4  — descending turnaround
-    ];
-    const bassSteps = [0, 6, 8, 14]; // steps that birth magenta plumes
-    const beamSteps = [0, 8];        // steps that can detonate amber beams
+    <div class="section">
+      <h3>Music — phish.in</h3>
+      <div class="row" style="gap:6px">
+        <input id="q" type="text" placeholder="search a song, e.g. Tweezer" style="flex:1;padding:9px;border:1px solid var(--lgray);border-radius:8px;font-size:13px" onkeydown="if(event.key==='Enter')searchSong()">
+        <button class="btn" style="width:auto;padding:9px 12px" onclick="searchSong()">Go</button>
+      </div>
+      <div id="results" style="margin-top:8px;max-height:180px;overflow:auto;font-size:12.5px"></div>
+      <div class="row" style="margin-top:8px"><button class="btn sec" id="aPlay" onclick="toggleAudio()" disabled>▶ Play</button></div>
+      <div id="np" class="hint"></div>
+      <div class="hint" style="margin-top:8px">…or load a local track:</div>
+      <input type="file" id="audioFile" accept="audio/*" onchange="loadLocal(this)">
+      <div class="hint">When audio plays, the visuals react to it (bass→plumes, mids→washes, highs→beams).</div>
+    </div>
 
-    // playback clock
-    let playing = true;
-    let playTime = 0;     // seconds of musical time elapsed
-    let lastStep = -1;
-    let showGrid = true;
+    <div class="section">
+      <h3>Look</h3>
+      <div class="group"><label>Intensity</label><div class="slider"><input type="range" id="intensity" min="0.3" max="2" step="0.05" value="1" oninput="setP('intensity',this.value)"><span class="val" id="intensity-v">1.00</span></div></div>
+      <div class="group"><label>Liquid flow</label><div class="slider"><input type="range" id="flow" min="0.2" max="3" step="0.1" value="1" oninput="setP('flow',this.value)"><span class="val" id="flow-v">1.0</span></div></div>
+      <div class="group"><label>Plumes</label><div class="slider"><input type="range" id="plumes" min="0" max="2" step="0.05" value="1" oninput="setP('plumes',this.value)"><span class="val" id="plumes-v">1.00</span></div></div>
+      <div class="group"><label>Beams</label><div class="slider"><input type="range" id="beams" min="0" max="2" step="0.05" value="1" oninput="setP('beams',this.value)"><span class="val" id="beams-v">1.00</span></div></div>
+      <div class="group"><label>Smear (motion blur)</label><div class="slider"><input type="range" id="smear" min="0" max="2" step="0.05" value="1" oninput="setP('smear',this.value)"><span class="val" id="smear-v">1.00</span></div></div>
+      <div class="group"><label>Beam motion (concert sweep)</label><div class="slider"><input type="range" id="sweep" min="0" max="2" step="0.05" value="1" oninput="setP('sweep',this.value)"><span class="val" id="sweep-v">1.00</span></div><div class="hint">How much the beams sweep & fan like moving-head fixtures.</div></div>
+      <div class="group"><label>Trail persistence</label><div class="slider"><input type="range" id="trail" min="0.2" max="0.9" step="0.01" value="0.55" oninput="setP('trail',this.value)"><span class="val" id="trail-v">0.55</span></div></div>
+    </div>
 
-    // live envelopes (decay each frame)
-    let accentEnv = 0;    // global bloom kick
-    let beamEnv = 0;      // amber beam flash
-    let lastAccent = 0;   // most recent step accent (for grid display)
-    let curStepInBar = 0;
+    <div class="section">
+      <h3>Actions</h3>
+      <button class="btn wide" onclick="dl()">⬇ Download still (PNG)</button>
+      <button class="btn ter wide" onclick="restart()">⏮ Restart movement</button>
+      <button class="btn sec" id="rescanBtn" onclick="rescanAlbum()">⟳ Rescan album</button>
+      <div class="hint" id="rescanMsg">Re-scrapes the PHishy Art album and commits any new photos. Takes a few minutes and redeploys the site — reload once it finishes.</div>
+    </div>
+  </div>
+  <div class="canvas-area"><div id="cc"><div class="loading">Analyzing photographs…</div></div></div>
+</div>
 
-    // staged elements (rebuilt on seed change)
-    let blobs = [];
-    let beams = [];
-    let plumes = [];
-    let glowSprite, vignette;
+<script>
+// Built-in fallback photo (the original concert shot) so analysis works before the album build runs.
+const FALLBACK_IMAGE = "data:image/jpeg;base64,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";
 
-    const CW = 1200, CH = 900;
+const CW=1200, CH=900, AW=96, AH=72, GX=8, GY=6, TRANS=1.4;
 
-    function setup() {
-        let c = createCanvas(CW, CH);
-        c.parent('canvas-container');
-        pixelDensity(1);
-        glowSprite = makeGlow(360);
-        vignette = makeVignette();
-        stageSeed();
-        const l = document.querySelector('.loading'); if (l) l.style.display = 'none';
+let params={intensity:1,flow:1,plumes:1,beams:1,smear:1,sweep:1,trail:.55,photoDur:24};
+let studies=[], curIdx=0, studyStart=0, pausedAt=0, prevStudy=null, prevSwitch=-9999;
+let playing=true, cycle=true, showSource=false;
+let plumes=[], glow, vignette;
+
+function setup(){
+  let c=createCanvas(CW,CH); c.parent('cc'); pixelDensity(1);
+  glow=makeGlow(360); vignette=makeVignette();
+  const l=document.querySelector('.loading'); if(l) l.remove();
+  loadSources();
+}
+
+function makeGlow(s){let g=createGraphics(s,s);g.clear();let x=g.drawingContext,r=s/2,gr=x.createRadialGradient(r,r,0,r,r,r);
+  gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.18,'rgba(255,255,255,.82)');gr.addColorStop(.45,'rgba(255,255,255,.28)');gr.addColorStop(.75,'rgba(255,255,255,.05)');gr.addColorStop(1,'rgba(255,255,255,0)');
+  x.fillStyle=gr;x.fillRect(0,0,s,s);return g;}
+function makeVignette(){let g=createGraphics(CW,CH);g.clear();let x=g.drawingContext,gr=x.createRadialGradient(CW*.5,CH*.55,CH*.25,CW*.5,CH*.55,CH*.95);
+  gr.addColorStop(0,'rgba(3,4,12,0)');gr.addColorStop(.7,'rgba(3,4,12,.25)');gr.addColorStop(1,'rgba(2,3,9,.8)');x.fillStyle=gr;x.fillRect(0,0,CW,CH);return g;}
+
+// ── Load image sources: manifest first, fallback otherwise ───────────────
+// ASSET_BASE is ABSOLUTE on purpose: a relative './photos/…' resolves
+// differently depending on whether the page was routed with a trailing
+// slash — which 404s and silently drops the whole album. The app now lives
+// at the domain root, so the base is simply '/'. Absolute paths load the
+// album no matter how the page was routed.
+const ASSET_BASE='/';
+let sourceMode='fallback';   // 'album' once the manifest loads
+async function loadSources(){
+  let sources=[];
+  try{
+    const r=await fetch(ASSET_BASE+'photos/manifest.json',{cache:'no-store'});
+    if(r.ok){const m=await r.json(); if(m.photos&&m.photos.length){
+      sources=m.photos.map(p=>{ let file=p.file||('photos/'+(p.filename||'')); 
+        return {url:ASSET_BASE+file, name:(p.filename||p.file||file).split('/').pop(), entry:p}; });
+      sourceMode='album';
+    }}
+  }catch(e){}
+  if(!sources.length) sources=[{url:FALLBACK_IMAGE, name:'Source photo (built-in)', entry:null}];
+  let slots=new Array(sources.length).fill(undefined);
+  sources.forEach((s,i)=>{
+    loadImage(s.url, img=>{ slots[i]=buildStudy(img,s); commit(slots); },
+                      ()=>{ slots[i]=null; commit(slots); });
+  });
+}
+function commit(slots){ studies=slots.filter(v=>v); buildGallery(); updateGalleryCount(slots); if(studies.length && studyStart===0){ curIdx=0; studyStart=millis(); updateHUD(); } else { updateHUD(); } }
+function updateGalleryCount(slots){ let el=document.getElementById('galleryCount'); if(!el) return;
+  if(sourceMode!=='album'){ el.textContent='Built-in fallback photo — album manifest not found.'; return; }
+  let done=slots.filter(v=>v!==undefined).length, ok=slots.filter(v=>v).length;
+  el.textContent= done<slots.length
+    ? (ok+' of '+slots.length+' photos loaded from the album…')
+    : (ok+' of '+slots.length+' photos loaded from the album.');
+}
+
+// ── Per-photo ANALYSIS: this is where the image becomes a score ───────────
+function buildStudy(img, src){
+  let g=createGraphics(AW,AH); g.image(img,0,0,AW,AH); g.loadPixels();
+  let px=g.pixels;
+  const at=(x,y)=>{let i=4*(y*AW+x);return[px[i],px[i+1],px[i+2]];};
+  let regions=[];
+  for(let gy=0;gy<GY;gy++)for(let gx=0;gx<GX;gx++){
+    let x0=Math.floor(gx*AW/GX),x1=Math.floor((gx+1)*AW/GX),y0=Math.floor(gy*AH/GY),y1=Math.floor((gy+1)*AH/GY);
+    let r=0,gg=0,b=0,n=0;
+    for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){let c=at(x,y);r+=c[0];gg+=c[1];b+=c[2];n++;}
+    r/=n;gg/=n;b/=n; let l=.2126*r+.7152*gg+.0722*b;
+    regions.push({x:(gx+.5)/GX,y:(gy+.5)/GY,r,g:gg,b,l});
+  }
+  let lum=[]; for(let i=0;i<px.length;i+=4)lum.push(.2126*px[i]+.7152*px[i+1]+.0722*px[i+2]);
+  let sorted=[...lum].sort((a,b)=>a-b); let thr=sorted[Math.floor(sorted.length*.985)]||200;
+  let spots=[];
+  for(let p=0;p<lum.length;p++){ if(lum[p]<thr)continue;
+    let x=(p%AW)/AW,y=Math.floor(p/AW)/AH;
+    let near=spots.find(s=>Math.hypot(s.x-x,s.y-y)<.16);
+    if(near){near.x=(near.x*near.n+x)/(near.n+1);near.y=(near.y*near.n+y)/(near.n+1);near.n++;near.l=Math.max(near.l,lum[p]);}
+    else spots.push({x,y,l:lum[p],n:1});
+  }
+  // For each light, sample the LOCAL streak direction (windowed structure tensor) so every
+  // beam knows which way its light points, and how directional ("aniso") that light is.
+  const localOrient=(cx,cy,rad)=>{ let xx=0,yy=0,xy=0;
+    let x0=Math.max(1,Math.floor(cx*AW)-rad),x1=Math.min(AW-1,Math.floor(cx*AW)+rad);
+    let y0=Math.max(1,Math.floor(cy*AH)-rad),y1=Math.min(AH-1,Math.floor(cy*AH)+rad);
+    for(let y=y0;y<y1;y++)for(let x=x0;x<x1;x++){ let lx=lum[y*AW+x+1]-lum[y*AW+x-1], ly=lum[(y+1)*AW+x]-lum[(y-1)*AW+x]; xx+=lx*lx;yy+=ly*ly;xy+=lx*ly; }
+    return {ang:0.5*Math.atan2(2*xy,(xx-yy)), coh:(xx+yy)>1e-6?Math.hypot(xx-yy,2*xy)/(xx+yy):0}; };
+  spots=spots.sort((a,b)=>b.n-a.n).slice(0,5).map(s=>{ let o=localOrient(s.x,s.y,Math.round(AW/8));
+    return {x:s.x,y:s.y,intensity:Math.min(1,s.l/255),ang:o.ang,aniso:o.coh}; });
+  let beamCol=[255,200,120];
+  if(spots[0]){let hx=Math.min(AW-1,Math.floor(spots[0].x*AW)),hy=Math.min(AH-1,Math.floor(spots[0].y*AH));beamCol=at(hx,hy);}
+  let plumeCol=[255,60,200], best=-1, wx=0,wy=0,wsum=0;
+  for(let c of regions){let hsv=rgb2hsv(c.r,c.g,c.b);let h=hsv[0],s=hsv[1],v=hsv[2];
+    let warm=(h>=265&&h<=345)?s*v:0; if(c.b>c.g&&c.r>c.g)warm=Math.max(warm,((c.r+c.b)/2-c.g)/255*.7);
+    if(warm>0){wx+=c.x*warm;wy+=c.y*warm;wsum+=warm;}
+    let score=(h>=265&&h<=350)?s*v:0; if(score>best){best=score;plumeCol=[c.r,c.g,c.b];}
+  }
+  let warm = wsum>0?{x:wx/wsum,y:wy/wsum}:{x:.5,y:.85};
+  let Jxx=0,Jyy=0,Jxy=0;
+  for(let y=1;y<AH-1;y++)for(let x=1;x<AW-1;x++){
+    let lx=lum[y*AW+x+1]-lum[y*AW+x-1], ly=lum[(y+1)*AW+x]-lum[(y-1)*AW+x];
+    Jxx+=lx*lx;Jyy+=ly*ly;Jxy+=lx*ly;
+  }
+  let smearAngle=0.5*Math.atan2(2*Jxy,(Jxx-Jyy));
+  let flowCoh=(Jxx+Jyy)>1e-6?Math.hypot(Jxx-Jyy,2*Jxy)/(Jxx+Jyy):0;   // how strongly directional the whole frame is
+  let mean=lum.reduce((a,b)=>a+b,0)/lum.length, varr=lum.reduce((a,b)=>a+(b-mean)*(b-mean),0)/lum.length;
+  let energy=Math.min(1, Math.sqrt(varr)/70 + spots.length*0.12);
+  let pal=[...regions].filter(c=>c.l>20).sort((a,b)=>satv(b)-satv(a)).slice(0,5).map(c=>hex(c.r,c.g,c.b));
+  return {img,name:src.name,url:src.url,regions,spots,beamCol,plumeCol,warm,smearAngle,flowCoh,energy,palette:pal};
+}
+function satv(c){let h=rgb2hsv(c.r,c.g,c.b);return h[1]*h[2];}
+function rgb2hsv(r,g,b){r/=255;g/=255;b/=255;let mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,h=0;
+  if(d){if(mx===r)h=((g-b)/d)%6;else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;if(h<0)h+=360;}
+  return[h,mx?d/mx:0,mx];}
+function hex(r,g,b){return'#'+[r,g,b].map(v=>Math.max(0,Math.min(255,v|0)).toString(16).padStart(2,'0')).join('');}
+const ss=(a,b,x)=>{x=Math.max(0,Math.min(1,(x-a)/(b-a)));return x*x*(3-2*x);};
+
+// ── Render one study at progress p∈[0,1] and overall alpha ────────────────
+function renderStudy(st, alpha, entrance){
+  let t=millis()/1000;
+  let master=entrance*params.intensity*alpha;
+  let build=tension;                         // 0..1 musical build
+  let ang=st.smearAngle, el=1+1.1*params.smear*(0.55+0.7*build);
+  let flow=params.flow*(1+1.6*build);
+  // washes — anchored to the photo, breathing & wandering harder as the jam builds
+  push(); blendMode(ADD); imageMode(CENTER); noStroke();
+  for(let c of st.regions){ if(c.l<12)continue;
+    let nx=noise(c.x*3+1,c.y*3, t*0.05*flow), ny=noise(c.x*3+9,c.y*3+4,t*0.045*flow);
+    let wander=0.28+0.27*build;              // composition holds the photo, drifts more at peak
+    // slide along the photo's dominant light direction so motion reads as coherent flow, not random jitter
+    let drift=(0.05+0.16*build)*st.flowCoh*Math.sin(t*(0.35+0.5*build)*flow + c.x*4 + c.y*2);
+    let x=(c.x*(1-wander)+nx*wander + Math.cos(ang)*drift)*width,
+        y=(c.y*(1-wander)+ny*wander + Math.sin(ang)*drift)*height;
+    let breath=0.7+0.3*Math.sin(t*(0.7+build*1.3)+c.x*5+c.y*3);
+    let a=master*mid*(c.l/255)*breath*(0.8+0.4*build);
+    if(a<=0.01)continue;
+    let base=Math.min(width,height)*0.30*(0.8+c.l/255*0.5)*(1+0.15*build);
+    tint(c.r,c.g,c.b,255*Math.min(1,a));
+    push();translate(x,y);rotate(ang);image(glow,0,0,base*el,base/el*0.9);pop();
+  }
+  pop();
+  // plumes — rise from the warm mass, surge with bass + build
+  if(build>0.04 && Math.random()<0.5*build*params.plumes*st.energy*bass){
+    plumes.push({x:(st.warm.x+(Math.random()-.5)*.3)*width, y:height*(0.9+Math.random()*.12),
+      vy:-(70+Math.random()*120)*(0.7+bass*0.6+build*0.6), r:60+Math.random()*100, life:1,
+      decay:0.55+Math.random()*0.4, col:st.plumeCol, sway:Math.random()*100});
+  }
+  push(); blendMode(ADD); imageMode(CENTER); noStroke();
+  let dt=Math.min(deltaTime/1000,.05);
+  for(let i=plumes.length-1;i>=0;i--){let pl=plumes[i];
+    pl.y+=pl.vy*dt; pl.vy*=.992; pl.x+=Math.sin(t*1.5+pl.sway)*16*dt; pl.life-=dt*pl.decay;
+    if(pl.life<=0){plumes.splice(i,1);continue;}
+    let a=Math.sin(pl.life*Math.PI)*params.plumes*alpha*0.9;
+    tint(pl.col[0],pl.col[1],pl.col[2],255*Math.min(1,a));
+    let rr=pl.r*(1.3-.3*pl.life); image(glow,pl.x,pl.y,rr*1.4,rr*2.5);
+  }
+  pop();
+  // beams — moving-head shafts: each ignites in sequence as the jam climbs, points along the
+  // light direction sampled from the photo, then sweeps & fans like concert fixtures at the peak.
+  push(); blendMode(ADD); imageMode(CENTER); noStroke();
+  let N=st.spots.length||1, swp=params.sweep||1, midI=(N-1)/2;
+  st.spots.forEach((s,i)=>{
+    let thr=0.20+i*0.14, gate=ss(thr,thr+0.18,build);
+    let a=gate*params.beams*treb*(0.85+0.15*noise(i*7,t*3))*master*(0.5+s.intensity);
+    if(a<0.02)return;
+    let x=s.x*width,y=s.y*height;
+    let bAng=(typeof s.ang==='number'?s.ang:ang);                       // direction the photo's light points
+    let sweep=swp*(0.12+0.55*build)*Math.sin(t*(0.5+0.9*build)+i*1.7);   // moving-head oscillation
+    let fan=(i-midI)*(0.10+0.55*build)*swp;                             // beams fan apart as the jam peaks
+    let angle=bAng+sweep+fan;
+    let tight=0.45+0.55*(s.aniso||0.3);                                 // sharper light → longer, tighter shaft
+    let len=Math.min(width,height)*(0.34+0.5*build)*tight*el;
+    let thick=Math.max(16,len*0.16/(0.6+0.8*tight));
+    tint(st.beamCol[0],st.beamCol[1],st.beamCol[2],255*Math.min(1,a));
+    push(); translate(x,y); rotate(angle);
+    image(glow,len*0.5,0,len,thick);                                   // shaft projects outward from the fixture
+    image(glow,0,0,90,90);                                             // bright source at the emitter
+    pop();
+  });
+  pop();
+  if(showSource){push();tint(255,40*alpha);imageMode(CENTER);
+    let iw=width,ih=width*st.img.height/st.img.width; if(ih<height){ih=height;iw=height*st.img.width/st.img.height;}
+    image(st.img,width/2,height/2,iw,ih);pop();}
+}
+function avg(a,lo,hi){lo|=0;hi|=0;let s=0,n=0;for(let i=lo;i<hi;i++){s+=a[i];n++;}return n?s/n:0;}
+
+function draw(){
+  if(!studies.length){return;}
+  let now=millis(), dt=Math.min(deltaTime/1000,.05);
+  let audioOn = !!(analyser && audioPlaying);
+  computeConductor(dt, now, audioOn);
+  // music drives transitions when audio plays; otherwise the ≤photoDur timer does
+  if(playing && !audioOn){
+    let p=(now-studyStart)/(params.photoDur*1000);
+    if(p>=1){ if(cycle && studies.length>1){ prevStudy=studies[curIdx]; prevSwitch=now; curIdx=(curIdx+1)%studies.length; } studyStart=now; updateHUD(); }
+  }
+  // trails lengthen (less fade) as tension rises
+  let fadeA=map(params.trail,.2,.9,16,95)*(1-0.55*tension);
+  push();blendMode(BLEND);noStroke();fill(4,5,13,Math.max(6,fadeA));rect(0,0,width,height);pop();
+  let st=studies[curIdx]; if(!st){return;}
+  let age=(now-studyStart)/1000, emerge=ss(0,1.4,age);
+  let fade=Math.max(0,1-(now-prevSwitch)/(TRANS*1000));
+  if(fade>0 && prevStudy && prevStudy!==st) renderStudy(prevStudy, fade, 1);
+  renderStudy(st, 1, emerge);
+  // release explosion
+  if(flash>0.01){ push(); blendMode(ADD); noStroke();
+    fill(255,255,255,210*flash); rect(0,0,width,height);
+    let c=st.beamCol; fill(c[0],c[1],c[2],110*flash); rect(0,0,width,height); pop(); }
+  push();blendMode(BLEND);imageMode(CORNER);image(vignette,0,0,width,height);pop();
+  drawHUD(audioOn);
+}
+
+// The conductor: turn audio into a single normalized "tension" and detect release.
+function computeConductor(dt, now, audioOn){
+  if(audioOn && !wasAudioOn){ studyStart=now; tHist=[]; releaseCD=Math.max(releaseCD,1.0); }
+  wasAudioOn=audioOn;
+  if(audioOn){
+    analyser.getByteFrequencyData(freq); let n=freq.length;
+    bass=0.4+avg(freq,0,n*.08)/140*1.3; mid=0.6+avg(freq,n*.08,n*.4)/130; treb=0.4+avg(freq,n*.4,n)/110*1.4;
+    let e=0,num=0,den=0,fl=0;
+    for(let i=0;i<n;i++){ let v=freq[i]; e+=v; num+=i*v; den+=v; if(fluxPrev){ let d=v-fluxPrev[i]; if(d>0) fl+=d; } }
+    e/=(n*255); let cent=den?(num/den)/n:0; fl/=(n*255);
+    if(!fluxPrev) fluxPrev=new Uint8Array(n); fluxPrev.set(freq);
+    // auto-gain: track a decaying peak so tension is relative to the track's own dynamics
+    gMax.e=Math.max(e,gMax.e-gMax.e*0.06*dt); gMax.c=Math.max(cent,gMax.c-gMax.c*0.06*dt); gMax.f=Math.max(fl,gMax.f-gMax.f*0.06*dt);
+    let nE=gMax.e>1e-4?Math.min(1,e/gMax.e):0, nC=gMax.c>1e-4?Math.min(1,cent/gMax.c):0, nF=gMax.f>1e-4?Math.min(1,fl/gMax.f):0;
+    let target=0.5*nE+0.2*nC+0.3*nF;          // energy + brightness + onset density
+    if(jamStartSec>0 && audioEl && audioEl.currentTime<jamStartSec) target=Math.min(target,0.22); // composed head stays calm
+    let k=target>tension?(1-Math.exp(-dt/0.28)):(1-Math.exp(-dt/0.9)); // rise faster than fall
+    tension+=(target-tension)*k;
+  } else {
+    let p=Math.min(1,(playing?(now-studyStart):pausedAt)/(params.photoDur*1000));
+    tension=ss(.12,.55,p)*(1-ss(.8,1,p)); bass=mid=treb=0.9+0.1*Math.sin(now/1000*3);
+  }
+  tHist.push({t:now,v:tension}); while(tHist.length && now-tHist[0].t>1800) tHist.shift();
+  releaseCD-=dt; flash=Math.max(0,flash-dt*1.7);
+  if(audioOn && releaseCD<=0){
+    let vAgo=tHist.length?tHist[0].v:tension, recentMax=tHist.reduce((m,h)=>Math.max(m,h.v),0);
+    let slope=tension-vAgo, held=(now-studyStart)/1000, fired=false;
+    if(recentMax>0.8 && slope<-0.22) fired=true;     // peak → drop = tension release
+    else if(held>MAXHOLD) fired=true;                // safety cap
+    else if(audioEl && audioEl.ended) fired=true;    // track ended
+    if(fired){ flash=1; releaseCD=4.5; tHist=[];
+      if(cycle && studies.length>1){ prevStudy=studies[curIdx]; prevSwitch=now; curIdx=(curIdx+1)%studies.length; }
+      studyStart=now; updateHUD(); }
+  }
+}
+
+function drawHUD(audioOn){
+  push();
+  let pad=28,w=width-pad*2,y=height-26;
+  let val=audioOn?tension:Math.min(1,(playing?(millis()-studyStart):pausedAt)/(params.photoDur*1000));
+  noStroke();fill(255,255,255,40);rect(pad,y,w,4,2);fill(255,255,255,200);rect(pad,y,w*val,4,2);
+  if(studies.length>1){let n=studies.length,gap=Math.min(16,w/n);
+    for(let i=0;i<n;i++){fill(255,255,255,i===curIdx?230:50);circle(pad+i*gap+4,y-14,i===curIdx?7:4);}}
+  if(showDbg){ noStroke(); fill(255,255,255,190); textSize(12); textAlign(LEFT,BOTTOM);
+    text((audioOn?'TENSION ':'TIMELINE ')+val.toFixed(2)+(audioOn?('   bass '+bass.toFixed(2)+'  mid '+mid.toFixed(2)+'  treb '+treb.toFixed(2)+'   jam@'+jamStartSec+'s'):''), pad, y-26); }
+  pop();
+}
+
+// ── HUD / controls ────────────────────────────────────────────────────────
+function updateHUD(){let st=studies[curIdx];if(!st){return;}
+  let el=document.getElementById('nowshow');
+  el.innerHTML='<span class="nm">'+st.name+'</span><br>'+(curIdx+1)+' / '+studies.length+
+    ' · energy '+st.energy.toFixed(2)+' · smear '+(st.smearAngle*180/Math.PI).toFixed(0)+'°'+
+    '<div class="swatches">'+st.palette.map(h=>'<span class="sw" style="background:'+h+'"></span>').join('')+'</div>';
+  highlightGallery();
+}
+// ── Gallery strip: clickable thumbnails of every source photo ──
+let galleryN=-1;
+function buildGallery(){
+  let g=document.getElementById('gallery'); if(!g) return;
+  if(galleryN===studies.length){ highlightGallery(); return; }   // already built for this set
+  galleryN=studies.length; g.innerHTML='';
+  studies.forEach((st,i)=>{
+    let d=document.createElement('div'); d.className='thumb'+(i===curIdx?' active':''); d.title=st.name||('Photo '+(i+1));
+    let im=document.createElement('img'); im.loading='lazy'; im.src=st.url||''; im.alt=st.name||('Photo '+(i+1));
+    let n=document.createElement('span'); n.className='idx'; n.textContent=i+1;
+    d.appendChild(im); d.appendChild(n); d.onclick=()=>selectPhoto(i); g.appendChild(d);
+  });
+}
+function highlightGallery(){ let g=document.getElementById('gallery'); if(!g) return;
+  [...g.children].forEach((c,i)=>c.classList.toggle('active', i===curIdx)); }
+function selectPhoto(i){ if(!studies.length||i===curIdx||!studies[i]) return;
+  prevStudy=studies[curIdx]; prevSwitch=millis(); curIdx=i; studyStart=millis(); updateHUD(); }
+function setP(k,v){params[k]=parseFloat(v);let d=document.getElementById(k+'-v');
+  if(d)d.textContent=(k==='photoDur')?params[k]+'s':(k==='flow')?params[k].toFixed(1):(k==='trail')?params[k].toFixed(2):params[k].toFixed(2);}
+function togglePlay(){
+  if(playing){ pausedAt=millis()-studyStart; playing=false; }
+  else { studyStart=millis()-pausedAt; playing=true; }
+  document.getElementById('playBtn').textContent=playing?'⏸ Pause':'▶ Play';
+}
+function toggleCycle(){cycle=!cycle;document.getElementById('cycleTog').classList.toggle('on',cycle);}
+function toggleSource(){showSource=!showSource;document.getElementById('srcTog').classList.toggle('on',showSource);}
+function nextPhoto(){if(studies.length<2)return;prevStudy=studies[curIdx];prevSwitch=millis();curIdx=(curIdx+1)%studies.length;studyStart=millis();updateHUD();}
+function prevPhoto(){if(studies.length<2)return;prevStudy=studies[curIdx];prevSwitch=millis();curIdx=(curIdx-1+studies.length)%studies.length;studyStart=millis();updateHUD();}
+function restart(){studyStart=millis();pausedAt=0;plumes=[];}
+function dl(){saveCanvas('resonant_spectra','png');}
+
+// ── Rescan: ask the API to fire the GitHub Action that re-scrapes the album ──
+// Fire-and-forget by design: the Action takes minutes and commits into the
+// repo, which triggers its own redeploy. We only report whether the request
+// was accepted (202), never whether the scrape itself succeeded.
+async function rescanAlbum(){
+  const btn=document.getElementById('rescanBtn'), msg=document.getElementById('rescanMsg');
+  if(!btn||btn.disabled) return;
+  const label=btn.textContent;
+  btn.disabled=true; btn.textContent='⟳ Requesting…';
+  try{
+    const r=await fetch('/api/refresh-photos',{method:'POST',headers:{'Content-Type':'application/json'}});
+    let d={}; try{ d=await r.json(); }catch(e){}
+    if(r.status===202){
+      msg.textContent='Scan started. The Action is running on GitHub; new photos appear after it commits and the site redeploys (a few minutes).';
+      btn.textContent='✓ Scan started';
+    }else{
+      msg.textContent='Could not start the scan ('+r.status+(d.error?': '+d.error:'')+'). The album still loads from the last successful scan.';
+      btn.textContent=label; btn.disabled=false;
     }
+  }catch(e){
+    msg.textContent='Could not reach the refresh endpoint. The album still loads from the last successful scan.';
+    btn.textContent=label; btn.disabled=false;
+  }
+}
 
-    // soft radial white glow used for every emitted volume of light
-    function makeGlow(size) {
-        let g = createGraphics(size, size);
-        g.clear();
-        let ctx = g.drawingContext;
-        let r = size / 2;
-        let grad = ctx.createRadialGradient(r, r, 0, r, r, r);
-        grad.addColorStop(0.0, 'rgba(255,255,255,1.0)');
-        grad.addColorStop(0.18, 'rgba(255,255,255,0.85)');
-        grad.addColorStop(0.45, 'rgba(255,255,255,0.30)');
-        grad.addColorStop(0.75, 'rgba(255,255,255,0.06)');
-        grad.addColorStop(1.0, 'rgba(255,255,255,0.0)');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, size, size);
-        return g;
+// ── Audio: phish.in via same-origin proxy, or a local file. ────────────────
+const PROXY='/api/phishin';            // → phish.in/api/v2 (Vercel function)
+const MAXHOLD=60;                      // safety cap (s): force a release if a jam never resolves
+let audioEl=null, actx=null, analyser=null, freq=null, audioPlaying=false;
+// ── conductor (music drives the visual) ──
+let jamStartSec=0, tension=0, fluxPrev=null, gMax={e:1e-4,c:1e-4,f:1e-4}, tHist=[], releaseCD=0, flash=0, showDbg=false, wasAudioOn=false;
+let bass=1, mid=1, treb=1;
+
+function ensureCtx(){ actx=actx||new (window.AudioContext||window.webkitAudioContext)(); }
+function setupAudio(url, jamSec){
+  if(audioEl){ try{audioEl.pause();}catch(e){} }
+  audioEl=new Audio(); audioEl.crossOrigin='anonymous'; audioEl.src=url; // crossOrigin BEFORE src, or FFT is tainted
+  jamStartSec = jamSec||0;
+  ensureCtx();
+  try{ let src=actx.createMediaElementSource(audioEl);
+    analyser=actx.createAnalyser(); analyser.fftSize=1024; analyser.smoothingTimeConstant=0.82;
+    freq=new Uint8Array(analyser.frequencyBinCount);
+    src.connect(analyser); analyser.connect(actx.destination);
+  }catch(e){ analyser=null; }
+  fluxPrev=null; tension=0; gMax={e:1e-4,c:1e-4,f:1e-4}; tHist=[]; releaseCD=0; flash=0;
+  document.getElementById('aPlay').disabled=false;
+}
+function loadLocal(inp){let f=inp.files[0];if(!f)return; setupAudio(URL.createObjectURL(f));
+  document.getElementById('np').textContent='Local file: '+f.name;
+  document.getElementById('aPlay').textContent='▶ Play'; audioPlaying=false; }
+function toggleAudio(){ if(!audioEl)return; ensureCtx(); actx.resume();
+  if(audioPlaying) audioEl.pause(); else audioEl.play().catch(()=>{});
+  audioPlaying=!audioPlaying; document.getElementById('aPlay').textContent=audioPlaying?'⏸ Pause':'▶ Play'; }
+
+// phish.in search through the proxy. Confirm endpoint shapes at
+// https://phish.in/api/v2/swagger_doc — parsing below is intentionally defensive.
+async function api(path){ const r=await fetch(PROXY+'/'+path,{headers:{accept:'application/json'}});
+  if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
+async function searchSong(){
+  let term=document.getElementById('q').value.trim(); if(!term) return;
+  let box=document.getElementById('results'); box.textContent='Searching…';
+  try{
+    let data=null;
+    try{ data=await api('search/'+encodeURIComponent(term)); }
+    catch(e){ data=await api('songs?title='+encodeURIComponent(term)); }
+    let perf=collectTracks(data);
+    if(!perf.length){ box.innerHTML='<span style="color:var(--mid)">No playable tracks parsed. Confirm phish.in endpoint names in docs/ALGORITHM.md.</span>'; return; }
+    box.innerHTML='';
+    perf.slice(0,40).forEach(t=>{
+      let d=document.createElement('div');
+      d.style.cssText='padding:7px 6px;border-bottom:1px solid var(--lgray);cursor:pointer';
+      d.textContent=[t.title,t.date,t.venue,t.dur].filter(Boolean).join(' · ');
+      d.onclick=()=>{ setupAudio(t.url, t.jam); ensureCtx(); actx.resume();
+        audioEl.play().catch(()=>{}); audioPlaying=true;
+        document.getElementById('aPlay').disabled=false; document.getElementById('aPlay').textContent='⏸ Pause';
+        let np=document.getElementById('np'); np.textContent='♪ '+d.textContent;
+        if(t.note){ let cap=document.createElement('div');
+          cap.style.cssText='margin-top:5px;font-style:italic;color:var(--mid);font-size:11px;line-height:1.4';
+          cap.textContent=t.note; np.appendChild(cap); } };
+      box.appendChild(d);
+    });
+  }catch(e){ box.innerHTML='<span style="color:var(--mid)">Couldn\'t reach phish.in — the Vercel proxy must be live. ('+e.message+')</span>'; }
+}
+// Recursively pull {title,date,venue,dur,url} from arbitrary phish.in JSON.
+function collectTracks(data){
+  let out=[], seen=new Set();
+  const mp3=o=>o&&(o.mp3_url||o.mp3||o.audio||o.url);
+  const walk=(node,ctx)=>{
+    if(Array.isArray(node)){node.forEach(n=>walk(n,ctx));return;}
+    if(node&&typeof node==='object'){
+      let nc=Object.assign({},ctx);
+      if(node.date||node.show_date) nc.date=node.date||node.show_date;
+      if(node.venue_name) nc.venue=node.venue_name;
+      else if(node.venue&&node.venue.name) nc.venue=node.venue.name;
+      else if(typeof node.venue==='string') nc.venue=node.venue;
+      if(node.title && !node.songs && !node.tracks) nc.title=node.title;
+      let u=mp3(node);
+      if(u && typeof u==='string' && /\.mp3|\/audio|stream/i.test(u) && !seen.has(u)){ seen.add(u);
+        let jn=node.jamchart_description||node.jam_notes||node.jamchart_notes;
+        out.push({url:u, title:node.title||nc.title, date:node.date||nc.date, venue:nc.venue,
+          dur:node.duration?fmt(node.duration):'', jam:(typeof node.jam_starts_at_second==='number'?node.jam_starts_at_second:0),
+          note:(typeof jn==='string'?jn:'')}); }
+      Object.keys(node).forEach(k=>{ if(node[k]&&typeof node[k]==='object') walk(node[k],nc); });
     }
-
-    // dark frame: transparent center, dark edges (matches the photo's dark corners)
-    function makeVignette() {
-        let g = createGraphics(CW, CH);
-        g.clear();
-        let ctx = g.drawingContext;
-        let grad = ctx.createRadialGradient(CW*0.5, CH*0.55, CH*0.25, CW*0.5, CH*0.55, CH*0.95);
-        grad.addColorStop(0, 'rgba(3,4,12,0)');
-        grad.addColorStop(0.7, 'rgba(3,4,12,0.25)');
-        grad.addColorStop(1, 'rgba(2,3,9,0.78)');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, CW, CH);
-        return g;
-    }
-
-    function hx(c){ let v=color(c); return [red(v),green(v),blue(v)]; }
-
-    // Build the staging for the current seed: wash positions, colors, beam spots
-    function stageSeed() {
-        randomSeed(params.seed);
-        noiseSeed(params.seed);
-        blobs = []; plumes = [];
-
-        const cTop = hx(params.colTop), cBase = hx(params.colBase), cDeep = hx(params.colDeep);
-        // upper green haze (2-3)
-        let nTop = 2 + floor(random(2));
-        for (let i = 0; i < nTop; i++)
-            blobs.push(makeBlob(cTop, random(0.05,0.95), random(0.02,0.30), random(0.34,0.5), 0.55, 0.35, i*11.3));
-        // electric-blue body — the dominant mass (3-4)
-        let nBlue = 3 + floor(random(2));
-        for (let i = 0; i < nBlue; i++)
-            blobs.push(makeBlob(cBase, random(0.05,0.95), random(0.30,0.78), random(0.42,0.62), 0.72, 0.55, 50+i*7.7));
-        // violet depths (2-3)
-        let nDeep = 2 + floor(random(2));
-        for (let i = 0; i < nDeep; i++)
-            blobs.push(makeBlob(cDeep, random(0.05,0.95), random(0.55,0.98), random(0.34,0.5), 0.5, 0.45, 120+i*9.1));
-
-        // two amber beam emitters, biased to the upper-left like the photo,
-        // with a little seeded scatter so each staging differs
-        beams = [];
-        let bx1 = constrain(0.16 + random(-0.05,0.06), 0.05, 0.4);
-        let bx2 = constrain(bx1 + 0.07 + random(0,0.04), 0.1, 0.5);
-        let by  = constrain(0.21 + random(-0.04,0.05), 0.1, 0.35);
-        beams.push({x:bx1, y:by, tilt:random(-0.22,0.05), phase:random(100)});
-        beams.push({x:bx2, y:by+random(-0.02,0.03), tilt:random(-0.18,0.08), phase:random(100)});
-    }
-
-    function makeBlob(col, x, y, r, bright, beat, seedoff) {
-        return { col, hx:x, hy:y, r, bright, beat, off:seedoff,
-                 dx:random(0.4,1.1), dy:random(0.3,0.9), breathSpd:random(0.3,0.8), breathOff:random(100) };
-    }
-
-    // Called once per 16th-note step — this is where the rhythm bites
-    function onStep(gStep, stepInBar, barIndex) {
-        // intro: only the strongest hits survive at first, the figure fills in
-        let thr = max(0, 0.9 - barIndex * 0.25);          // bars 0..3 gate it open
-        let jam = 0.15 + 0.85 * ((barIndex % 16) / 16);   // long swell, then reset
-        let raw = accentPattern[stepInBar];
-        let pass = raw >= thr ? raw : raw * 0.18;          // gated ghosts stay faint
-        let accent = pass * params.groove * (0.7 + 0.5 * jam);
-        lastAccent = pass;
-
-        accentEnv = min(2.2, accentEnv + accent * 0.9);
-
-        if (beamSteps.includes(stepInBar) && raw >= thr)
-            beamEnv = min(2.0, beamEnv + accent * 1.1);
-
-        if (bassSteps.includes(stepInBar) && raw >= thr) {
-            let n = floor(random(1, 3) * params.plumes * (0.6 + accent));
-            for (let i = 0; i < n; i++) spawnPlume(accent);
-        }
-    }
-
-    function spawnPlume(accent) {
-        plumes.push({
-            x: random(0.08, 0.92) * width,
-            y: height * random(0.86, 1.02),
-            vy: -random(70, 150) * (0.7 + accent),
-            sway: random(100),
-            r: random(60, 150),
-            life: 1, decay: random(0.55, 0.95),
-            bright: (0.6 + accent) * params.plumes
-        });
-    }
-
-    function draw() {
-        let dt = min(deltaTime / 1000, 0.05);
-        if (playing) playTime += dt;
-
-        let beatDur = 60 / params.bpm;
-        let stepDur = beatDur / 4;
-        let gStep = floor(playTime / stepDur);
-        curStepInBar = ((gStep % 16) + 16) % 16;
-        let barIndex = floor(gStep / 16);
-        if (gStep !== lastStep) { onStep(gStep, curStepInBar, barIndex); lastStep = gStep; }
-
-        // decay envelopes
-        accentEnv *= Math.exp(-dt * 5.5);
-        beamEnv   *= Math.exp(-dt * 3.8);
-
-        // 1) fade previous frame → liquid trails
-        let fade = map(params.trail, 0.2, 0.9, 16, 95);
-        push(); blendMode(BLEND); noStroke();
-        fill(4, 5, 13, fade); rect(0, 0, width, height); pop();
-
-        // 2) base liquid washes (additive)
-        push(); blendMode(ADD); noStroke(); imageMode(CENTER);
-        let t = playTime * params.flowSpeed;
-        let beatPulse = 1 + (accentEnv * 0.5 * params.bloom);
-        for (let b of blobs) {
-            let nx = noise(b.off, t * 0.06 * b.dx);
-            let ny = noise(b.off + 33.7, t * 0.05 * b.dy);
-            let x = (b.hx * 0.55 + nx * 0.45) * width;
-            let y = (b.hy * 0.6 + ny * 0.4) * height;
-            let breath = 0.6 + 0.4 * (0.5 + 0.5 * Math.sin(t * b.breathSpd + b.breathOff));
-            let amp = b.bright * breath * (1 + b.beat * accentEnv * 0.8 * params.bloom);
-            let rr = b.r * Math.min(width, height) * 1.7 * (0.92 + 0.12 * beatPulse * b.beat);
-            tint(b.col[0], b.col[1], b.col[2], 255 * Math.min(1, amp));
-            image(glowSprite, x, y, rr, rr);
-        }
-        pop();
-
-        // 3) magenta plumes rising on bass accents (additive)
-        push(); blendMode(ADD); noStroke(); imageMode(CENTER);
-        let pc = hx(params.colPlume);
-        for (let i = plumes.length - 1; i >= 0; i--) {
-            let p = plumes[i];
-            p.y += p.vy * dt;
-            p.vy *= 0.992;
-            p.x += Math.sin(playTime * 1.5 + p.sway) * 18 * dt * width * 0.002;
-            p.life -= dt * p.decay;
-            if (p.life <= 0 || p.y < -100) { plumes.splice(i, 1); continue; }
-            let a = Math.sin(p.life * Math.PI) * p.bright; // born→peak→fade
-            tint(pc[0], pc[1], pc[2], 255 * Math.min(1, a));
-            let rr = p.r * (1.4 - 0.4 * p.life);
-            image(glowSprite, p.x, p.y, rr * 1.5, rr * 2.6);
-        }
-        pop();
-
-        // 4) two amber beams — the warmest, rarest light, fired on hits
-        push(); blendMode(ADD); noStroke(); imageMode(CENTER);
-        let bc = hx(params.colBeam);
-        for (let bm of beams) {
-            let flick = 0.85 + 0.15 * noise(bm.phase, playTime * 3);
-            let a = beamEnv * params.beam * flick;
-            if (a < 0.02) continue;
-            let x = bm.x * width + Math.sin(playTime * 0.7 + bm.phase) * 6;
-            let y = bm.y * height;
-            tint(bc[0], bc[1], bc[2], 255 * Math.min(1, a));
-            push(); translate(x, y); rotate(bm.tilt);
-            image(glowSprite, 0, 0, 230 * (0.8 + a * 0.4), 70 * (0.8 + a * 0.3)); // streak
-            image(glowSprite, 0, 0, 90, 90);                                       // hot core
-            pop();
-        }
-        pop();
-
-        // 5) dark frame
-        push(); blendMode(BLEND); imageMode(CORNER); image(vignette, 0, 0, width, height); pop();
-
-        // 6) optional beat grid so you can SEE it locking to the riff
-        if (showGrid) drawGrid(beatDur);
-    }
-
-    function drawGrid(beatDur) {
-        push();
-        let n = 16, pad = 28, gap = 14;
-        let w = width - pad * 2;
-        let cell = (w - gap * (n - 1)) / n;
-        let y = height - 38;
-        for (let i = 0; i < n; i++) {
-            let x = pad + i * (cell + gap);
-            let strong = accentPattern[i] >= 0.6;
-            let on = i === curStepInBar;
-            noStroke();
-            fill(255, 255, 255, on ? 230 : (strong ? 70 : 32));
-            let h = on ? 10 : 6;
-            rect(x, y - h/2, cell, h, 3);
-        }
-        // downbeat pulse ring, top-right
-        let beatPhase = (playTime % beatDur) / beatDur;
-        let pr = map(beatPhase, 0, 1, 26, 8);
-        noFill(); stroke(255, 255, 255, map(beatPhase, 0, 1, 180, 0)); strokeWeight(2);
-        circle(width - 44, 44, pr * 2);
-        noStroke(); fill(255, 220, 120, 200); circle(width - 44, 44, 7);
-        pop();
-    }
-
-    // ── UI handlers ──
-    function updateParam(name, value) {
-        params[name] = (name === 'bpm') ? parseInt(value) : parseFloat(value);
-        let el = document.getElementById(name + '-value');
-        if (el) el.textContent = (name === 'bpm') ? params[name] : params[name].toFixed(2).replace(/0$/, '');
-        if (name === 'bpm') el.textContent = params.bpm;
-        if (name === 'flowSpeed') el.textContent = params.flowSpeed.toFixed(1);
-        if (name === 'trail') el.textContent = params.trail.toFixed(2);
-    }
-    function updateColor(id, value) {
-        params[id] = value;
-        document.getElementById(id + '-value').textContent = value;
-        stageSeed(); // restage so washes adopt new palette positions/colors
-    }
-    function togglePlay() {
-        playing = !playing;
-        document.getElementById('playBtn').textContent = playing ? '⏸ Pause' : '▶ Play';
-    }
-    function toggleGrid() {
-        showGrid = !showGrid;
-        document.getElementById('gridBtn').textContent = 'Beat grid: ' + (showGrid ? 'on' : 'off');
-    }
-    function restartPerformance() {
-        playTime = 0; lastStep = -1; accentEnv = 0; beamEnv = 0;
-        plumes = [];
-        background(4, 5, 13);
-    }
-    function downloadFrame() { saveCanvas('resonant_spectra_seed' + params.seed, 'png'); }
-    function regenerate() { stageSeed(); }
-
-    // ── Seed controls (fixed) ──
-    function updateSeedDisplay() { document.getElementById('seed-input').value = params.seed; }
-    function updateSeed() {
-        let v = parseInt(document.getElementById('seed-input').value);
-        if (v && v > 0) { params.seed = v; stageSeed(); } else updateSeedDisplay();
-    }
-    function previousSeed() { params.seed = Math.max(1, params.seed - 1); updateSeedDisplay(); stageSeed(); }
-    function nextSeed() { params.seed += 1; updateSeedDisplay(); stageSeed(); }
-    function randomSeedAndUpdate() { params.seed = Math.floor(Math.random() * 999999) + 1; updateSeedDisplay(); stageSeed(); }
-
-    function resetParameters() {
-        params = {...defaultParams};
-        for (let k of ['bpm','groove','flowSpeed','plumes','beam','bloom','trail']) {
-            let s = document.getElementById(k); if (s) s.value = params[k];
-            let d = document.getElementById(k + '-value');
-            if (d) d.textContent = (k==='bpm') ? params.bpm : (k==='flowSpeed'||k==='trail') ? params[k].toFixed(k==='trail'?2:1) : params[k].toFixed(2);
-        }
-        for (let k of ['colTop','colBase','colDeep','colPlume','colBeam']) {
-            document.getElementById(k).value = params[k];
-            document.getElementById(k + '-value').textContent = params[k];
-        }
-        updateSeedDisplay();
-        stageSeed();
-    }
-
-    window.addEventListener('load', updateSeedDisplay);
-    </script>
+  };
+  walk(data,{}); return out;
+}
+function fmt(v){let s=Math.round(v>10000?v/1000:v);let m=Math.floor(s/60);return m+':'+String(s%60).padStart(2,'0');}
+function triggerRelease(){ flash=1; releaseCD=4.5; tHist=[];
+  if(cycle && studies.length>1){ prevStudy=studies[curIdx]; prevSwitch=millis(); curIdx=(curIdx+1)%studies.length; }
+  studyStart=millis(); updateHUD(); }
+window.addEventListener('keydown',e=>{
+  if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+  if(e.key==='d'||e.key==='D') showDbg=!showDbg;
+  else if(e.key==='r'||e.key==='R') triggerRelease();
+});
+</script>
 </body>
 </html>
