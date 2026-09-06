@@ -1,6 +1,4 @@
 {
-  "buildCommand": "",
-  "outputDirectory": ".",
   "rewrites": [
     { "source": "/api/phishin/:path*", "destination": "/api/phishin-proxy" }
   ]
