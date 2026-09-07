@@ -22,6 +22,9 @@ applied to the light colours and to a cached, stylised copy of the photo
 (Natural / Duotone / Mono / Negative), so picture and light always agree.
 Duotone endpoints derive from the photo's own dominant colour and its complement.
 
+`Home` starts over: back to the first photograph, shown untouched for one
+second with colour reset, then the performance begins again.
+
 Controls: drag on the canvas (x → hue, y → intensity), wheel → zoom, `[` `]`
 hue, `-` `=` intensity, `C` colour mode, `0` reset, `1`–`4`/`L` looks, `←` `→`
 photos, `space` pause, `R` release, `M` audio, `F`/double-click fullscreen,

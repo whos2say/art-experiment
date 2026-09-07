@@ -229,6 +229,7 @@ details.sec summary::-webkit-details-marker{display:none}
   <div class="sec">
     <h3>Actions <span><kbd>S</kbd> save</span></h3>
     <div class="row"><button class="btn" onclick="dl()">⬇ Save still</button><button class="btn" onclick="restart()">⏮ Restart</button></div>
+    <button class="btn" style="margin-top:8px" onclick="startOver()">⟲ Start over from photo 1 <kbd style="margin-left:6px">Home</kbd></button>
     <button class="btn" id="rescanBtn" style="margin-top:8px" onclick="rescanAlbum()">⟳ Rescan album</button>
     <div class="hint" id="rescanMsg">Re-scrapes the PHishy Art album and commits any new photos. Takes a few minutes and redeploys — reload once it finishes.</div>
     <div class="hint" id="galleryCount" style="margin-top:10px"></div>
@@ -265,6 +266,7 @@ details.sec summary::-webkit-details-marker{display:none}
         <div class="k"><div class="keys"><kbd>←</kbd><kbd>→</kbd></div><div>Previous / next photograph</div></div>
         <div class="k"><div class="keys"><kbd>space</kbd></div><div>Pause / resume the movement</div></div>
         <div class="k"><div class="keys"><kbd>R</kbd></div><div>Release — flash and move on, as the music would</div></div>
+        <div class="k"><div class="keys"><kbd>Home</kbd></div><div>Start over — back to the first photograph, shown untouched for a second, colour reset, then the show begins again</div></div>
         <div class="k"><div class="keys"><kbd>M</kbd></div><div>Play / pause the loaded track</div></div>
         <h4 style="margin-top:14px">View</h4>
         <div class="k"><div class="keys"><kbd>F</kbd></div><div>Fullscreen</div></div>
@@ -309,7 +311,7 @@ const LOOK_HINT={
 let params={intensity:1,flow:1,plumes:1,beams:1,smear:1,sweep:1,trail:.55,photoDur:24, zoom:1.12, drift:1, presence:1};
 let look='bloom', cmode='natural', hueShift=0, satMul=1;
 let studies=[], curIdx=0, studyStart=0, pausedAt=0, prevStudy=null, prevSwitch=-9999, transKind='dissolve';
-let playing=true, cycle=true;
+let playing=true, cycle=true, revealUntil=-1;   // >now while the clean 'start over' reveal is holding
 let plumes=[], glow, vignette, lightG, photoG, maskG, tmpG;
 let W=1200, H=900;
 
@@ -631,12 +633,15 @@ function draw(){
   const st=studies[curIdx]; if(!st) return;
   const age=(now-studyStart)/1000, emerge=ss(0,1.4,age);
   const fade=Math.max(0,1-(now-prevSwitch)/(TRANS*1000));
+  const rv=1-ss(revealUntil, revealUntil+900, now);          // 'start over' hold: 1 while holding, dissolving to 0
   renderLightLayer(st, prevStudy, fade, emerge, t);
-  renderPhotoLayer(st, prevStudy, fade, emerge, t);
+  renderPhotoLayer(st, prevStudy, fade, Math.max(emerge,rv), t);
   composite(st);
   if(flash>0.01){ push(); blendMode(ADD); noStroke();
     fill(255,255,255,210*flash); rect(0,0,W,H);
     const c=C(st.beamCol[0],st.beamCol[1],st.beamCol[2]); fill(c[0],c[1],c[2],110*flash); rect(0,0,W,H); pop(); }
+  // 'Start over' reveal: the untouched photograph, held clean for a second, then dissolving into the show
+  if(rv>0.001){ push(); blendMode(BLEND); tint(255,255*rv); image(photoG,0,0); pop(); }
   push(); blendMode(BLEND); noTint(); imageMode(CORNER); image(vignette,0,0,W,H); pop();
   drawHUD(audioOn);
 }
@@ -742,6 +747,16 @@ function togglePlay(){
 }
 function toggleCycle(){cycle=!cycle;document.getElementById('cycleTog').classList.toggle('on',cycle);}
 function restart(){studyStart=millis();pausedAt=0;plumes=[];}
+// Home: back to the first photograph, shown untouched for one second, then the performance starts over.
+function startOver(){
+  if(!studies.length) return;
+  setHue(0); setSat(1); setCmode('natural'); refreshStyleKey();
+  plumes=[]; prevStudy=null; prevSwitch=-9999; flash=0; tHist=[]; pausedAt=0; playing=true;
+  document.getElementById('playBtn').textContent='⏸ Pause';
+  curIdx=0; const now=millis(); revealUntil=now+1000; studyStart=now+1000;   // the movement's clock starts when the hold ends
+  background(4,5,13);
+  updateHUD(); toast('Starting over from the first photograph',1600);
+}
 function dl(){saveCanvas('resonant_spectra','png');}
 function syncUI(){ setLook(look); setCmode(cmode); setHue(hueShift); setSat(satMul);
   for(const k of ['zoom','drift','presence','photoDur','intensity','flow','plumes','beams','smear','sweep','trail']) setP(k,params[k]); }
@@ -802,6 +817,7 @@ window.addEventListener('keydown',e=>{
   else if(k>='1'&&k<='4'){ setLook(LOOKS[+k-1]); toast('Look: '+look,1400); }
   else if(k==='f'||k==='F') toggleFullscreen(); else if(k==='p'||k==='P') togglePanel();
   else if(k==='s'||k==='S') dl(); else if(k==='r'||k==='R') triggerRelease(); else if(k==='d'||k==='D') showDbg=!showDbg;
+  else if(k==='Home') startOver();
   else if(k==='m'||k==='M') toggleAudio();
   else return;
   e.preventDefault();

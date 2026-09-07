@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build:photos": "node build/fetch-album.mjs && node build/palette.mjs",
-    "verify:phishin": "node build/check-phishin.mjs"
+    "verify:phishin": "node build/check-phishin.mjs",
+    "export:rigs": "node build/export-rigs.mjs"
   },
   "dependencies": {
     "sharp": "^0.33.5"

@@ -1,0 +1,464 @@
+{
+  "name": "photo_021",
+  "file": "photos/photo_021.jpg",
+  "width": 1200,
+  "height": 900,
+  "energy": 1,
+  "smearAngleDeg": 68.9,
+  "flowCoh": 0.225,
+  "palette": [
+    "#6296ed",
+    "#6a9ef4",
+    "#5486dd",
+    "#6b9cf4",
+    "#4772c3"
+  ],
+  "duotone": [
+    [
+      41,
+      30,
+      12
+    ],
+    [
+      105,
+      161,
+      255
+    ]
+  ],
+  "beamColor": [
+    114,
+    164,
+    240
+  ],
+  "plumeColor": [
+    135,
+    106,
+    154
+  ],
+  "warm": {
+    "u": 0.289,
+    "v": 0.672
+  },
+  "fog": {
+    "density": 0.062,
+    "albedo": [
+      173,
+      199,
+      242
+    ],
+    "scatteringDistribution": 0.7,
+    "extinctionScale": 1.1
+  },
+  "beams": [
+    {
+      "id": 0,
+      "u": 0.636,
+      "v": 0.152,
+      "location": [
+        620,
+        300.1,
+        747.8
+      ],
+      "direction": [
+        -0.41,
+        0.58,
+        -0.703
+      ],
+      "color": [
+        114,
+        164,
+        240
+      ],
+      "intensityCd": 9436,
+      "outerConeDeg": 18.9,
+      "innerConeDeg": 10.4,
+      "attenuationRadius": 2800,
+      "volumetricScattering": 2.2,
+      "ignite": 0.2
+    },
+    {
+      "id": 1,
+      "u": 0.846,
+      "v": 0.077,
+      "location": [
+        620,
+        760.6,
+        802.7
+      ],
+      "direction": [
+        -0.41,
+        0.647,
+        -0.643
+      ],
+      "color": [
+        110,
+        137,
+        247
+      ],
+      "intensityCd": 8563,
+      "outerConeDeg": 19.2,
+      "innerConeDeg": 10.6,
+      "attenuationRadius": 2800,
+      "volumetricScattering": 2.2,
+      "ignite": 0.3
+    },
+    {
+      "id": 2,
+      "u": 0.813,
+      "v": 0.528,
+      "location": [
+        620,
+        687.5,
+        469.4
+      ],
+      "direction": [
+        -0.41,
+        0.055,
+        -0.91
+      ],
+      "color": [
+        138,
+        199,
+        137
+      ],
+      "intensityCd": 10535,
+      "outerConeDeg": 12.5,
+      "innerConeDeg": 6.9,
+      "attenuationRadius": 2800,
+      "volumetricScattering": 2.2,
+      "ignite": 0.5
+    },
+    {
+      "id": 3,
+      "u": 0.552,
+      "v": 0.434,
+      "location": [
+        620,
+        114.6,
+        538.8
+      ],
+      "direction": [
+        -0.41,
+        0.407,
+        -0.816
+      ],
+      "color": [
+        133,
+        146,
+        152
+      ],
+      "intensityCd": 10184,
+      "outerConeDeg": 13.2,
+      "innerConeDeg": 7.3,
+      "attenuationRadius": 2800,
+      "volumetricScattering": 2.2,
+      "ignite": 0.6
+    },
+    {
+      "id": 4,
+      "u": 0.443,
+      "v": 0.896,
+      "location": [
+        620,
+        -126,
+        197.1
+      ],
+      "direction": [
+        -0.41,
+        0.044,
+        0.911
+      ],
+      "color": [
+        191,
+        172,
+        195
+      ],
+      "intensityCd": 8405,
+      "outerConeDeg": 17.5,
+      "innerConeDeg": 9.6,
+      "attenuationRadius": 2800,
+      "volumetricScattering": 2.2,
+      "ignite": 0.8
+    }
+  ],
+  "washes": [
+    {
+      "id": 0,
+      "u": 0.688,
+      "v": 0.083,
+      "location": [
+        640,
+        412.5,
+        798.3
+      ],
+      "color": [
+        106,
+        159,
+        244
+      ],
+      "intensity": 265,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 1,
+      "u": 0.813,
+      "v": 0.083,
+      "location": [
+        640,
+        687.5,
+        798.3
+      ],
+      "color": [
+        108,
+        156,
+        244
+      ],
+      "intensity": 263,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 2,
+      "u": 0.563,
+      "v": 0.083,
+      "location": [
+        640,
+        137.5,
+        798.3
+      ],
+      "color": [
+        99,
+        151,
+        238
+      ],
+      "intensity": 255,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 3,
+      "u": 0.563,
+      "v": 0.25,
+      "location": [
+        640,
+        137.5,
+        675
+      ],
+      "color": [
+        117,
+        163,
+        234
+      ],
+      "intensity": 271,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 4,
+      "u": 0.688,
+      "v": 0.25,
+      "location": [
+        640,
+        412.5,
+        675
+      ],
+      "color": [
+        126,
+        170,
+        233
+      ],
+      "intensity": 280,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 5,
+      "u": 0.438,
+      "v": 0.083,
+      "location": [
+        640,
+        -137.5,
+        798.3
+      ],
+      "color": [
+        85,
+        135,
+        222
+      ],
+      "intensity": 234,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 6,
+      "u": 0.438,
+      "v": 0.25,
+      "location": [
+        640,
+        -137.5,
+        675
+      ],
+      "color": [
+        107,
+        151,
+        225
+      ],
+      "intensity": 256,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 7,
+      "u": 0.938,
+      "v": 0.083,
+      "location": [
+        640,
+        962.5,
+        798.3
+      ],
+      "color": [
+        102,
+        140,
+        225
+      ],
+      "intensity": 244,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 8,
+      "u": 0.813,
+      "v": 0.25,
+      "location": [
+        640,
+        687.5,
+        675
+      ],
+      "color": [
+        121,
+        159,
+        219
+      ],
+      "intensity": 267,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 9,
+      "u": 0.313,
+      "v": 0.25,
+      "location": [
+        640,
+        -412.5,
+        675
+      ],
+      "color": [
+        101,
+        139,
+        213
+      ],
+      "intensity": 241,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 10,
+      "u": 0.938,
+      "v": 0.25,
+      "location": [
+        640,
+        962.5,
+        675
+      ],
+      "color": [
+        101,
+        140,
+        208
+      ],
+      "intensity": 242,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 11,
+      "u": 0.313,
+      "v": 0.083,
+      "location": [
+        640,
+        -412.5,
+        798.3
+      ],
+      "color": [
+        72,
+        115,
+        196
+      ],
+      "intensity": 209,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    }
+  ],
+  "plume": {
+    "location": [
+      420,
+      -463.5,
+      40
+    ],
+    "color": [
+      135,
+      106,
+      154
+    ],
+    "height": 680,
+    "rate": 1.5
+  }
+}

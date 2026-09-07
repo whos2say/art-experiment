@@ -1,0 +1,276 @@
+{
+  "name": "photo_041",
+  "file": "photos/photo_041.jpg",
+  "width": 1200,
+  "height": 675,
+  "energy": 0.758,
+  "smearAngleDeg": -88,
+  "flowCoh": 0.569,
+  "palette": [
+    "#251009",
+    "#706255",
+    "#695b50",
+    "#615548",
+    "#6f6962"
+  ],
+  "duotone": [
+    [
+      12,
+      34,
+      41
+    ],
+    [
+      255,
+      110,
+      62
+    ]
+  ],
+  "beamColor": [
+    246,
+    241,
+    237
+  ],
+  "plumeColor": [
+    5,
+    1,
+    2
+  ],
+  "warm": {
+    "u": 0.542,
+    "v": 0.515
+  },
+  "fog": {
+    "density": 0.05,
+    "albedo": [
+      176,
+      169,
+      163
+    ],
+    "scatteringDistribution": 0.7,
+    "extinctionScale": 1.1
+  },
+  "beams": [
+    {
+      "id": 0,
+      "u": 0.454,
+      "v": 0.028,
+      "location": [
+        620,
+        -101.3,
+        839.1
+      ],
+      "direction": [
+        -0.41,
+        0.059,
+        0.91
+      ],
+      "color": [
+        246,
+        241,
+        237
+      ],
+      "intensityCd": 12385,
+      "outerConeDeg": 12.9,
+      "innerConeDeg": 7.1,
+      "attenuationRadius": 2800,
+      "volumetricScattering": 2.2,
+      "ignite": 0.2
+    },
+    {
+      "id": 1,
+      "u": 0.206,
+      "v": 0.026,
+      "location": [
+        620,
+        -647.1,
+        840.4
+      ],
+      "direction": [
+        -0.41,
+        0.016,
+        0.912
+      ],
+      "color": [
+        201,
+        182,
+        157
+      ],
+      "intensityCd": 11630,
+      "outerConeDeg": 10.1,
+      "innerConeDeg": 5.5,
+      "attenuationRadius": 2800,
+      "volumetricScattering": 2.2,
+      "ignite": 0.3
+    }
+  ],
+  "washes": [
+    {
+      "id": 0,
+      "u": 0.188,
+      "v": 0.083,
+      "location": [
+        640,
+        -687.5,
+        798.3
+      ],
+      "color": [
+        112,
+        99,
+        85
+      ],
+      "intensity": 194,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 1,
+      "u": 0.438,
+      "v": 0.083,
+      "location": [
+        640,
+        -137.5,
+        798.3
+      ],
+      "color": [
+        112,
+        105,
+        98
+      ],
+      "intensity": 201,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 2,
+      "u": 0.063,
+      "v": 0.083,
+      "location": [
+        640,
+        -962.5,
+        798.3
+      ],
+      "color": [
+        106,
+        91,
+        80
+      ],
+      "intensity": 185,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 3,
+      "u": 0.313,
+      "v": 0.083,
+      "location": [
+        640,
+        -412.5,
+        798.3
+      ],
+      "color": [
+        97,
+        85,
+        73
+      ],
+      "intensity": 176,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 4,
+      "u": 0.563,
+      "v": 0.083,
+      "location": [
+        640,
+        137.5,
+        798.3
+      ],
+      "color": [
+        78,
+        73,
+        69
+      ],
+      "intensity": 159,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 5,
+      "u": 0.063,
+      "v": 0.583,
+      "location": [
+        640,
+        -962.5,
+        428.3
+      ],
+      "color": [
+        39,
+        10,
+        5
+      ],
+      "intensity": 81,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    },
+    {
+      "id": 6,
+      "u": 0.188,
+      "v": 0.583,
+      "location": [
+        640,
+        -687.5,
+        428.3
+      ],
+      "color": [
+        37,
+        16,
+        10
+      ],
+      "intensity": 87,
+      "size": [
+        300,
+        220
+      ],
+      "attenuationRadius": 900,
+      "sourceLength": 0
+    }
+  ],
+  "plume": {
+    "location": [
+      420,
+      93.3,
+      40
+    ],
+    "color": [
+      5,
+      1,
+      2
+    ],
+    "height": 607,
+    "rate": 1.3
+  }
+}

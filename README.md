@@ -45,7 +45,7 @@ any thumbnail in the filmstrip to jump to that photo.
 
 **Keyboard** — `[` `]` hue · `-` `=` intensity · `C` colour mode (Natural →
 Duotone → Mono → Negative) · `0` reset colour · `←` `→` photos · `space`
-pause · `R` release · `M` play/pause track · `F` fullscreen · `P` panel ·
+pause · `R` release · `Home` start over from photo 1 · `M` play/pause track · `F` fullscreen · `P` panel ·
 `S` save still · `?` help · `esc` close.
 
 Colour is a single global transform applied to the photo *and* to every wash,
