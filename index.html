@@ -7,162 +7,352 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:wght@500&display=swap" rel="stylesheet">
 <style>
-:root{--dark:#141413;--light:#faf9f5;--mid:#b0aea5;--lgray:#e8e6dc;--orange:#d97757;--blue:#6a9bcc;--green:#788c5d}
+:root{
+  --bg:#05060d; --ink:#f2f0ea; --ink2:#b6b3a9; --ink3:#7a786f;
+  --glass:rgba(12,13,22,.78); --glass2:rgba(255,255,255,.06); --line:rgba(255,255,255,.10);
+  --orange:#e0855f; --blue:#7aa9d6; --green:#8c9f6a;
+  --panelW:340px;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,var(--light),#f5f3ee);min-height:100vh;color:var(--dark)}
-.container{display:flex;min-height:100vh;padding:20px;gap:20px}
-.sidebar{width:320px;flex-shrink:0;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:24px;border-radius:12px;box-shadow:0 10px 30px rgba(20,20,19,.1);overflow-y:auto}
-.sidebar h1{font-family:'Lora',serif;font-size:23px;font-weight:500;margin-bottom:6px}
-.sidebar .subtitle{color:var(--mid);font-size:13.5px;margin-bottom:24px;line-height:1.45}
-.section{margin-bottom:26px}
-.section h3{font-size:15px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.section h3::before{content:'•';color:var(--orange);font-weight:bold}
-.nowshow{background:var(--light);border:1px solid var(--lgray);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--dark);margin-bottom:12px;line-height:1.5}
-.nowshow .nm{font-weight:600}
-.nowshow .swatches{display:flex;gap:4px;margin-top:8px}
-.nowshow .sw{width:18px;height:18px;border-radius:4px;border:1px solid rgba(0,0,0,.1)}
-.group{margin-bottom:16px}
-.group label{display:block;font-size:13.5px;font-weight:500;margin-bottom:7px}
-.slider{display:flex;align-items:center;gap:10px}
-.slider input[type=range]{flex:1;height:4px;background:var(--lgray);border-radius:2px;-webkit-appearance:none}
-.slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--orange);border-radius:50%;cursor:pointer}
-.val{font-family:'Courier New',monospace;font-size:12px;color:var(--mid);min-width:46px;text-align:right}
-.btn{background:var(--orange);color:#fff;border:none;padding:10px 14px;border-radius:6px;font-size:13.5px;font-weight:500;cursor:pointer;width:100%;transition:.15s}
-.btn:hover{background:#c86641;transform:translateY(-1px)}
-.btn.sec{background:var(--blue)}.btn.sec:hover{background:#5a8bb8}
-.btn.ter{background:var(--green)}.btn.ter:hover{background:#6b7b52}
-.btn.wide{margin-bottom:8px}
-.row{display:flex;gap:8px}.row .btn{flex:1}
-.toggle{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--light);border:1px solid var(--lgray);border-radius:8px;margin-bottom:8px;font-size:13.5px;cursor:pointer}
-.toggle .pill{width:38px;height:20px;border-radius:10px;background:var(--mid);position:relative;transition:.2s;flex-shrink:0}
-.toggle .pill::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;left:2px;transition:.2s}
-.toggle.on .pill{background:var(--orange)}.toggle.on .pill::after{left:20px}
-.hint{font-size:11.5px;color:var(--mid);line-height:1.5;margin-top:6px}
-.canvas-area{flex:1;display:flex;align-items:center;justify-content:center;min-width:0}
-#cc{width:100%;max-width:1000px;border-radius:12px;overflow:hidden;box-shadow:0 20px 40px rgba(20,20,19,.18);background:#05060d}
-#cc canvas{display:block;width:100%!important;height:auto!important}
-.loading{display:flex;align-items:center;justify-content:center;color:var(--mid);padding:80px 0}
-input[type=file]{font-size:12px;width:100%}
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-height:280px;overflow-y:auto;padding:2px;margin-top:4px}
-.gallery .thumb{position:relative;width:100%;aspect-ratio:3/4;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;background:#0b0c14;transition:.15s}
-.gallery .thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.78;transition:.15s}
-.gallery .thumb:hover img{opacity:1}
-.gallery .thumb:hover{transform:translateY(-1px)}
-.gallery .thumb.active{border-color:var(--orange)}
-.gallery .thumb.active img{opacity:1}
-.gallery .thumb .idx{position:absolute;left:3px;top:2px;font-size:9px;font-family:'Courier New',monospace;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.9);pointer-events:none}
-@media(max-width:600px){.container{flex-direction:column}.sidebar{width:100%}.gallery{grid-template-columns:repeat(6,1fr);max-height:160px}}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Poppins',sans-serif;overflow:hidden}
+body.idle{cursor:none}
+button{font-family:inherit}
+
+/* ── stage: the canvas owns the whole window ───────────────────────────── */
+#stage{position:fixed;inset:0;background:var(--bg)}
+#stage canvas{display:block;width:100%!important;height:100%!important;cursor:grab}
+#stage canvas.dragging{cursor:grabbing}
+.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:14px;letter-spacing:.04em}
+
+/* ── floating UI (hides on idle) ───────────────────────────────────────── */
+.ui{transition:opacity .35s ease, transform .35s ease}
+body.idle .ui.hideable{opacity:0;pointer-events:none}
+
+#hud{position:fixed;left:22px;top:18px;z-index:5;max-width:60vw}
+#hud .title{font-family:'Lora',serif;font-size:20px;font-weight:500;letter-spacing:.01em;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+#hud .now{margin-top:6px;font-size:12.5px;color:var(--ink2);text-shadow:0 1px 6px rgba(0,0,0,.9);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#hud .tag{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--line);border-radius:999px;background:rgba(0,0,0,.35);color:var(--ink2)}
+#hud .tag.hot{border-color:rgba(224,133,95,.6);color:#f0b49a}
+#hud .sw{display:inline-flex;gap:3px}
+#hud .sw i{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid rgba(255,255,255,.15)}
+
+#topbar{position:fixed;right:18px;top:16px;z-index:8;display:flex;gap:8px}
+.ibtn{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(10px);color:var(--ink);font-size:16px;cursor:pointer;display:grid;place-items:center;transition:.15s}
+.ibtn:hover{background:rgba(255,255,255,.12);transform:translateY(-1px)}
+.ibtn.on{border-color:var(--orange);color:var(--orange)}
+.ibtn[data-tip]{position:relative}
+.ibtn[data-tip]:hover::after{content:attr(data-tip);position:absolute;top:46px;right:0;white-space:nowrap;font-size:11px;padding:5px 8px;border-radius:6px;background:rgba(0,0,0,.85);color:var(--ink);border:1px solid var(--line);pointer-events:none}
+
+/* ── filmstrip ─────────────────────────────────────────────────────────── */
+#strip{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:10px 18px 12px;display:flex;gap:6px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent;
+  background:linear-gradient(to top,rgba(5,6,13,.9),rgba(5,6,13,0));mask-image:linear-gradient(to right,transparent,black 18px,black calc(100% - 18px),transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 18px,black calc(100% - 18px),transparent)}
+body.panel-open #strip{right:var(--panelW)}
+#strip::-webkit-scrollbar{height:5px}#strip::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:3px}
+#strip .th{flex:0 0 auto;height:58px;width:58px;border-radius:7px;overflow:hidden;position:relative;cursor:pointer;border:2px solid transparent;opacity:.62;transition:.18s;background:#0b0c14}
+#strip .th img{width:100%;height:100%;object-fit:cover;display:block}
+#strip .th:hover{opacity:1;transform:translateY(-3px)}
+#strip .th.active{opacity:1;border-color:var(--orange);box-shadow:0 0 0 2px rgba(224,133,95,.25),0 6px 18px rgba(0,0,0,.6)}
+#strip .th .n{position:absolute;left:4px;bottom:2px;font-size:9px;font-family:'Courier New',monospace;color:#fff;text-shadow:0 1px 3px #000;pointer-events:none}
+
+/* ── control panel (drawer) ────────────────────────────────────────────── */
+#panel{position:fixed;top:0;right:0;bottom:0;width:var(--panelW);z-index:9;background:var(--glass);backdrop-filter:blur(18px);border-left:1px solid var(--line);
+  transform:translateX(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);overflow-y:auto;overscroll-behavior:contain;padding:18px 18px 28px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+body.panel-open #panel{transform:none}
+body.panel-open #topbar{right:calc(var(--panelW) + 18px)}
+#panel::-webkit-scrollbar{width:6px}#panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:3px}
+#panel h2{font-family:'Lora',serif;font-size:17px;font-weight:500;margin-bottom:2px}
+#panel .sub{font-size:11.5px;color:var(--ink3);line-height:1.45;margin-bottom:16px}
+.sec{padding:14px 0;border-top:1px solid var(--line)}
+.sec h3{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.sec h3 kbd{font-size:10px}
+kbd{font-family:'Courier New',monospace;font-size:11px;padding:1px 6px;border-radius:5px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink2)}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:rgba(255,255,255,.05);padding:4px;border-radius:9px}
+.seg button{background:transparent;border:0;color:var(--ink2);font-size:12px;padding:8px 4px;border-radius:6px;cursor:pointer;transition:.15s;line-height:1.1}
+.seg button small{display:block;font-size:9.5px;color:var(--ink3);margin-top:2px;letter-spacing:.06em}
+.seg button:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+.seg button.on{background:var(--orange);color:#fff}.seg button.on small{color:rgba(255,255,255,.8)}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.btn{background:rgba(255,255,255,.08);color:var(--ink);border:1px solid var(--line);padding:9px 12px;border-radius:8px;font-size:12.5px;font-weight:500;cursor:pointer;width:100%;transition:.15s}
+.btn:hover{background:rgba(255,255,255,.14)}
+.btn.pri{background:var(--orange);border-color:transparent;color:#fff}.btn.pri:hover{background:#c96d47}
+.btn:disabled{opacity:.4;cursor:default}
+.g{margin:10px 0}
+.g label{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2);margin-bottom:5px}
+.g label .v{font-family:'Courier New',monospace;font-size:11px;color:var(--ink3)}
+input[type=range]{width:100%;height:4px;background:rgba(255,255,255,.14);border-radius:2px;-webkit-appearance:none;appearance:none;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;background:var(--orange);border-radius:50%;cursor:pointer;border:2px solid #1a1a22}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;background:var(--orange);border-radius:50%;cursor:pointer;border:2px solid #1a1a22}
+.tog{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:8px;margin-top:8px;font-size:12.5px;cursor:pointer}
+.tog .pill{width:34px;height:18px;border-radius:9px;background:rgba(255,255,255,.2);position:relative;transition:.2s;flex-shrink:0}
+.tog .pill::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:2px;left:2px;transition:.2s}
+.tog.on .pill{background:var(--orange)}.tog.on .pill::after{left:18px}
+.hint{font-size:11px;color:var(--ink3);line-height:1.5;margin-top:6px}
+.now{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:12px;line-height:1.5;margin-bottom:8px}
+.now .nm{font-weight:600;color:var(--ink)}
+.now .sw{display:flex;gap:4px;margin-top:6px}.now .sw i{width:16px;height:16px;border-radius:4px;border:1px solid rgba(255,255,255,.12)}
+#q{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:12.5px;background:rgba(0,0,0,.35);color:var(--ink);outline:none}
+#q:focus{border-color:var(--blue)}
+#results{margin-top:8px;max-height:170px;overflow:auto;font-size:12px}
+#results div{padding:7px 6px;border-bottom:1px solid var(--line);cursor:pointer;color:var(--ink2)}
+#results div:hover{color:var(--ink);background:rgba(255,255,255,.04)}
+input[type=file]{font-size:11px;width:100%;color:var(--ink3)}
+details.sec summary{list-style:none;cursor:pointer;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);display:flex;justify-content:space-between}
+details.sec summary::after{content:'+';font-size:14px}
+details.sec[open] summary::after{content:'–'}
+details.sec summary::-webkit-details-marker{display:none}
+
+/* ── help overlay ──────────────────────────────────────────────────────── */
+#help{position:fixed;inset:0;z-index:20;background:rgba(3,4,10,.86);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:24px}
+#help.open{display:flex}
+#help .card{width:min(860px,100%);max-height:100%;overflow:auto;background:rgba(14,15,24,.9);border:1px solid var(--line);border-radius:16px;padding:26px 28px 22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+#help h2{font-family:'Lora',serif;font-size:22px;font-weight:500}
+#help .lead{color:var(--ink2);font-size:13px;margin:6px 0 18px;line-height:1.5}
+#help .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px 34px}
+#help h4{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:8px 0 8px}
+#help .k{display:grid;grid-template-columns:118px 1fr;gap:6px 12px;align-items:center;font-size:12.5px;color:var(--ink2);margin-bottom:6px}
+#help .k b{color:var(--ink);font-weight:500}
+#help .k .keys{display:flex;gap:4px;flex-wrap:wrap}
+#help .mouse{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:rgba(255,255,255,.03)}
+#help .mouse .ic{font-size:20px;width:28px;text-align:center}
+#help .mouse b{display:block;color:var(--ink);font-weight:500;font-size:12.5px}
+#help .mouse span{font-size:12px;color:var(--ink2);line-height:1.45}
+#help .close{margin-top:18px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ink3)}
+@media(max-width:700px){#help .cols{grid-template-columns:1fr}}
+
+/* ── toast + readout ───────────────────────────────────────────────────── */
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(10px);z-index:7;background:rgba(10,11,20,.86);border:1px solid var(--line);color:var(--ink);padding:10px 16px;border-radius:999px;font-size:12.5px;opacity:0;transition:.4s;pointer-events:none;white-space:nowrap;backdrop-filter:blur(8px)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#readout{position:fixed;z-index:7;pointer-events:none;background:rgba(10,11,20,.86);border:1px solid var(--line);padding:6px 10px;border-radius:8px;font-family:'Courier New',monospace;font-size:12px;color:var(--ink);display:none;transform:translate(14px,14px);white-space:nowrap}
+#readout.show{display:block}
+
+@media(max-width:760px){
+  :root{--panelW:min(340px,92vw)}
+  #hud .title{font-size:16px}
+  #strip .th{height:46px;width:46px}
+}
 </style>
 </head>
-<body>
-<div class="container">
-  <div class="sidebar">
-    <h1>Resonant Spectra</h1>
-    <div class="subtitle">Each photograph is analyzed — its colors, its brightest lights, the direction of its blur — and the light show is grown from what's actually in the frame. Photos cycle as short movements.</div>
+<body class="panel-open">
 
-    <div class="section">
-      <h3>Now showing</h3>
-      <div class="nowshow" id="nowshow"><span class="nm">loading…</span></div>
-      <div class="row">
-        <button class="btn sec" onclick="prevPhoto()">← Prev</button>
-        <button class="btn sec" onclick="nextPhoto()">Next →</button>
-      </div>
-    </div>
+<div id="stage"><div class="loading">Analyzing photographs…</div></div>
 
-    <div class="section">
-      <h3>Gallery</h3>
-      <div class="gallery" id="gallery"></div>
-      <div class="hint" id="galleryCount">Loading photos…</div>
-      <div class="hint">Click a photo to jump to its movement.</div>
-      <div class="hint" id="gallerySource">Gallery source: photos load from the album manifest at <code>/photos/manifest.json</code>. To add or remove photos, update <code>photos/</code> and rebuild the manifest (see README) — the gallery reads only from the album. If the manifest can't be reached, the page falls back to a single built-in photo.</div>
-    </div>
+<!-- on-canvas heads-up: what's showing, how it's being shown -->
+<div id="hud" class="ui hideable">
+  <div class="title">Resonant Spectra</div>
+  <div class="now" id="hudNow"><span>loading…</span></div>
+</div>
 
-    <div class="section">
-      <h3>Playback</h3>
-      <button class="btn wide" id="playBtn" onclick="togglePlay()">⏸ Pause</button>
-      <div class="toggle on" id="cycleTog" onclick="toggleCycle()"><span>Cycle through photos</span><span class="pill"></span></div>
-      <div class="toggle" id="srcTog" onclick="toggleSource()"><span>Show source photo (faint)</span><span class="pill"></span></div>
-      <div class="group" style="margin-top:14px">
-        <label>Movement length (per photo)</label>
-        <div class="slider"><input type="range" id="photoDur" min="8" max="30" step="1" value="24" oninput="setP('photoDur',this.value)"><span class="val" id="photoDur-v">24s</span></div>
-        <div class="hint">Each photo loops as a movement no longer than 30 seconds.</div>
-      </div>
-    </div>
+<div id="topbar" class="ui hideable">
+  <button class="ibtn" id="helpBtn" data-tip="Controls (?)" onclick="toggleHelp()">?</button>
+  <button class="ibtn" id="fsBtn" data-tip="Fullscreen (F)" onclick="toggleFullscreen()">⛶</button>
+  <button class="ibtn on" id="panelBtn" data-tip="Panel (P)" onclick="togglePanel()">☰</button>
+</div>
 
-    <div class="section">
-      <h3>Music — phish.in</h3>
-      <div class="row" style="gap:6px">
-        <input id="q" type="text" placeholder="search a song, e.g. Tweezer" style="flex:1;padding:9px;border:1px solid var(--lgray);border-radius:8px;font-size:13px" onkeydown="if(event.key==='Enter')searchSong()">
-        <button class="btn" style="width:auto;padding:9px 12px" onclick="searchSong()">Go</button>
-      </div>
-      <div id="results" style="margin-top:8px;max-height:180px;overflow:auto;font-size:12.5px"></div>
-      <div class="row" style="margin-top:8px"><button class="btn sec" id="aPlay" onclick="toggleAudio()" disabled>▶ Play</button></div>
-      <div id="np" class="hint"></div>
-      <div class="hint" style="margin-top:8px">…or load a local track:</div>
-      <input type="file" id="audioFile" accept="audio/*" onchange="loadLocal(this)">
-      <div class="hint">When audio plays, the visuals react to it (bass→plumes, mids→washes, highs→beams).</div>
-    </div>
+<div id="strip" class="ui hideable"></div>
+<div id="toast"></div>
+<div id="readout"></div>
 
-    <div class="section">
-      <h3>Look</h3>
-      <div class="group"><label>Intensity</label><div class="slider"><input type="range" id="intensity" min="0.3" max="2" step="0.05" value="1" oninput="setP('intensity',this.value)"><span class="val" id="intensity-v">1.00</span></div></div>
-      <div class="group"><label>Liquid flow</label><div class="slider"><input type="range" id="flow" min="0.2" max="3" step="0.1" value="1" oninput="setP('flow',this.value)"><span class="val" id="flow-v">1.0</span></div></div>
-      <div class="group"><label>Plumes</label><div class="slider"><input type="range" id="plumes" min="0" max="2" step="0.05" value="1" oninput="setP('plumes',this.value)"><span class="val" id="plumes-v">1.00</span></div></div>
-      <div class="group"><label>Beams</label><div class="slider"><input type="range" id="beams" min="0" max="2" step="0.05" value="1" oninput="setP('beams',this.value)"><span class="val" id="beams-v">1.00</span></div></div>
-      <div class="group"><label>Smear (motion blur)</label><div class="slider"><input type="range" id="smear" min="0" max="2" step="0.05" value="1" oninput="setP('smear',this.value)"><span class="val" id="smear-v">1.00</span></div></div>
-      <div class="group"><label>Beam motion (concert sweep)</label><div class="slider"><input type="range" id="sweep" min="0" max="2" step="0.05" value="1" oninput="setP('sweep',this.value)"><span class="val" id="sweep-v">1.00</span></div><div class="hint">How much the beams sweep & fan like moving-head fixtures.</div></div>
-      <div class="group"><label>Trail persistence</label><div class="slider"><input type="range" id="trail" min="0.2" max="0.9" step="0.01" value="0.55" oninput="setP('trail',this.value)"><span class="val" id="trail-v">0.55</span></div></div>
-    </div>
+<!-- ── control panel ─────────────────────────────────────────────────── -->
+<aside id="panel" class="ui">
+  <h2>Resonant Spectra</h2>
+  <div class="sub">Each photograph is analysed — its colours, its brightest lights, the direction of its blur — and the light show is grown from what's in the frame. <b style="color:var(--ink2)">Drag on the picture</b> to shift its colours. Press <kbd>?</kbd> for every control.</div>
 
-    <div class="section">
-      <h3>Actions</h3>
-      <button class="btn wide" onclick="dl()">⬇ Download still (PNG)</button>
-      <button class="btn ter wide" onclick="restart()">⏮ Restart movement</button>
-      <button class="btn sec" id="rescanBtn" onclick="rescanAlbum()">⟳ Rescan album</button>
-      <div class="hint" id="rescanMsg">Re-scrapes the PHishy Art album and commits any new photos. Takes a few minutes and redeploys the site — reload once it finishes.</div>
-    </div>
+  <div class="sec" style="border-top:0;padding-top:0">
+    <h3>Now showing <span><kbd>←</kbd> <kbd>→</kbd></span></h3>
+    <div class="now" id="nowshow"><span class="nm">loading…</span></div>
+    <div class="row"><button class="btn" onclick="prevPhoto()">← Prev</button><button class="btn" onclick="nextPhoto()">Next →</button></div>
   </div>
-  <div class="canvas-area"><div id="cc"><div class="loading">Analyzing photographs…</div></div></div>
+
+  <div class="sec">
+    <h3>Look <span><kbd>1</kbd>–<kbd>4</kbd> · <kbd>L</kbd></span></h3>
+    <div class="seg" id="lookSeg">
+      <button data-look="reveal" onclick="setLook('reveal')">Reveal<small>light finds it</small></button>
+      <button data-look="bloom" onclick="setLook('bloom')">Bloom<small>photo + light</small></button>
+      <button data-look="prism" onclick="setLook('prism')">Prism<small>split spectrum</small></button>
+      <button data-look="spectra" onclick="setLook('spectra')">Spectra<small>pure light</small></button>
+    </div>
+    <div class="hint" id="lookHint"></div>
+  </div>
+
+  <div class="sec">
+    <h3>Colour <span><kbd>[</kbd> <kbd>]</kbd> · <kbd>C</kbd> · <kbd>0</kbd></span></h3>
+    <div class="seg" id="cmodeSeg">
+      <button data-cmode="natural" onclick="setCmode('natural')">Natural</button>
+      <button data-cmode="duotone" onclick="setCmode('duotone')">Duotone</button>
+      <button data-cmode="mono" onclick="setCmode('mono')">Mono</button>
+      <button data-cmode="negative" onclick="setCmode('negative')">Negative</button>
+    </div>
+    <div class="g"><label>Hue shift <span class="v" id="hue-v">0°</span></label><input type="range" id="hue" min="-180" max="180" step="1" value="0" oninput="setHue(+this.value)"></div>
+    <div class="g"><label>Saturation <span class="v" id="sat-v">1.00</span></label><input type="range" id="sat" min="0" max="2" step="0.02" value="1" oninput="setSat(+this.value)"></div>
+    <div class="row"><button class="btn" onclick="resetColor()">Reset colour</button></div>
+    <div class="hint">Or drag on the picture: left/right shifts hue, up/down changes intensity. Colour applies to the photo <i>and</i> the light grown from it.</div>
+  </div>
+
+  <div class="sec">
+    <h3>Photo motion <span><kbd>scroll</kbd> zoom</span></h3>
+    <div class="g"><label>Zoom <span class="v" id="zoom-v">1.12×</span></label><input type="range" id="zoom" min="1" max="1.9" step="0.01" value="1.12" oninput="setP('zoom',this.value)"></div>
+    <div class="g"><label>Drift <span class="v" id="drift-v">1.00</span></label><input type="range" id="drift" min="0" max="2" step="0.05" value="1" oninput="setP('drift',this.value)"></div>
+    <div class="g"><label>Photo presence <span class="v" id="presence-v">1.00</span></label><input type="range" id="presence" min="0.2" max="1.5" step="0.05" value="1" oninput="setP('presence',this.value)"></div>
+    <div class="hint">The photo drifts along its own light direction and breathes with the music. Drift also sets how far Prism splits the spectrum.</div>
+  </div>
+
+  <div class="sec">
+    <h3>Playback <span><kbd>space</kbd> · <kbd>R</kbd></span></h3>
+    <div class="row"><button class="btn pri" id="playBtn" onclick="togglePlay()">⏸ Pause</button><button class="btn" onclick="triggerRelease()">Release ⚡</button></div>
+    <div class="tog on" id="cycleTog" onclick="toggleCycle()"><span>Cycle through photos</span><span class="pill"></span></div>
+    <div class="g"><label>Movement length <span class="v" id="photoDur-v">24s</span></label><input type="range" id="photoDur" min="8" max="30" step="1" value="24" oninput="setP('photoDur',this.value)"></div>
+    <div class="hint">With music playing, the music decides when to move on: a build that peaks and drops triggers a release and the next photo.</div>
+  </div>
+
+  <div class="sec">
+    <h3>Music — phish.in <span><kbd>M</kbd> play/pause</span></h3>
+    <div class="row" style="gap:6px"><input id="q" type="text" placeholder="search a song, e.g. Tweezer" onkeydown="if(event.key==='Enter')searchSong()"><button class="btn" style="flex:0 0 auto;width:auto" onclick="searchSong()">Go</button></div>
+    <div id="results"></div>
+    <div class="row" style="margin-top:8px"><button class="btn" id="aPlay" onclick="toggleAudio()" disabled>▶ Play</button></div>
+    <div id="np" class="hint"></div>
+    <div class="hint" style="margin-top:8px">…or load a local track:</div>
+    <input type="file" id="audioFile" accept="audio/*" onchange="loadLocal(this)">
+    <div class="hint">Bass drives the plumes, mids the washes, highs the beams.</div>
+  </div>
+
+  <details class="sec">
+    <summary>Fine tune</summary>
+    <div class="g" style="margin-top:12px"><label>Intensity <span class="v" id="intensity-v">1.00</span></label><input type="range" id="intensity" min="0.3" max="2" step="0.05" value="1" oninput="setP('intensity',this.value)"></div>
+    <div class="g"><label>Liquid flow <span class="v" id="flow-v">1.0</span></label><input type="range" id="flow" min="0.2" max="3" step="0.1" value="1" oninput="setP('flow',this.value)"></div>
+    <div class="g"><label>Plumes <span class="v" id="plumes-v">1.00</span></label><input type="range" id="plumes" min="0" max="2" step="0.05" value="1" oninput="setP('plumes',this.value)"></div>
+    <div class="g"><label>Beams <span class="v" id="beams-v">1.00</span></label><input type="range" id="beams" min="0" max="2" step="0.05" value="1" oninput="setP('beams',this.value)"></div>
+    <div class="g"><label>Smear <span class="v" id="smear-v">1.00</span></label><input type="range" id="smear" min="0" max="2" step="0.05" value="1" oninput="setP('smear',this.value)"></div>
+    <div class="g"><label>Beam sweep <span class="v" id="sweep-v">1.00</span></label><input type="range" id="sweep" min="0" max="2" step="0.05" value="1" oninput="setP('sweep',this.value)"></div>
+    <div class="g"><label>Trail persistence <span class="v" id="trail-v">0.55</span></label><input type="range" id="trail" min="0.2" max="0.9" step="0.01" value="0.55" oninput="setP('trail',this.value)"></div>
+  </details>
+
+  <div class="sec">
+    <h3>Actions <span><kbd>S</kbd> save</span></h3>
+    <div class="row"><button class="btn" onclick="dl()">⬇ Save still</button><button class="btn" onclick="restart()">⏮ Restart</button></div>
+    <button class="btn" id="rescanBtn" style="margin-top:8px" onclick="rescanAlbum()">⟳ Rescan album</button>
+    <div class="hint" id="rescanMsg">Re-scrapes the PHishy Art album and commits any new photos. Takes a few minutes and redeploys — reload once it finishes.</div>
+    <div class="hint" id="galleryCount" style="margin-top:10px"></div>
+  </div>
+</aside>
+
+<!-- ── help overlay ──────────────────────────────────────────────────── -->
+<div id="help" onclick="if(event.target===this)toggleHelp(false)">
+  <div class="card">
+    <h2>How to play it</h2>
+    <div class="lead">Resonant Spectra is an instrument, not a slideshow. The photographs are the score; the light is grown from them. Everything below changes the performance live.</div>
+    <div class="cols">
+      <div>
+        <h4>Mouse</h4>
+        <div class="mouse"><div class="ic">↔</div><div><b>Drag left / right on the picture</b><span>Shifts the hue of the whole scene — the photo and every wash, plume and beam grown from it.</span></div></div>
+        <div class="mouse"><div class="ic">↕</div><div><b>Drag up / down on the picture</b><span>Raises or lowers the intensity of the light.</span></div></div>
+        <div class="mouse"><div class="ic">⟳</div><div><b>Scroll wheel</b><span>Zooms the photograph in and out of the frame.</span></div></div>
+        <div class="mouse"><div class="ic">⧉</div><div><b>Double-click</b><span>Toggles fullscreen. Controls and cursor fade out after a moment; move the mouse to bring them back.</span></div></div>
+        <div class="mouse"><div class="ic">▦</div><div><b>Filmstrip</b><span>Click any photo along the bottom to jump to its movement.</span></div></div>
+        <h4 style="margin-top:14px">Looks</h4>
+        <div class="k"><div class="keys"><kbd>1</kbd></div><div><b>Reveal</b> — the photo is only visible where the light falls on it</div></div>
+        <div class="k"><div class="keys"><kbd>2</kbd></div><div><b>Bloom</b> — the photo full-frame, light blooming over it</div></div>
+        <div class="k"><div class="keys"><kbd>3</kbd></div><div><b>Prism</b> — the photo's spectrum split apart by the bass</div></div>
+        <div class="k"><div class="keys"><kbd>4</kbd></div><div><b>Spectra</b> — pure light, the original abstract mode</div></div>
+        <div class="k"><div class="keys"><kbd>L</kbd></div><div>Cycle through the looks</div></div>
+      </div>
+      <div>
+        <h4>Colour</h4>
+        <div class="k"><div class="keys"><kbd>[</kbd><kbd>]</kbd></div><div>Hue shift −/+ 15°</div></div>
+        <div class="k"><div class="keys"><kbd>−</kbd><kbd>=</kbd></div><div>Intensity down / up</div></div>
+        <div class="k"><div class="keys"><kbd>C</kbd></div><div>Cycle colour mode: Natural → Duotone → Mono → Negative</div></div>
+        <div class="k"><div class="keys"><kbd>0</kbd></div><div>Reset colour to natural</div></div>
+        <h4 style="margin-top:14px">Photos &amp; playback</h4>
+        <div class="k"><div class="keys"><kbd>←</kbd><kbd>→</kbd></div><div>Previous / next photograph</div></div>
+        <div class="k"><div class="keys"><kbd>space</kbd></div><div>Pause / resume the movement</div></div>
+        <div class="k"><div class="keys"><kbd>R</kbd></div><div>Release — flash and move on, as the music would</div></div>
+        <div class="k"><div class="keys"><kbd>M</kbd></div><div>Play / pause the loaded track</div></div>
+        <h4 style="margin-top:14px">View</h4>
+        <div class="k"><div class="keys"><kbd>F</kbd></div><div>Fullscreen</div></div>
+        <div class="k"><div class="keys"><kbd>P</kbd></div><div>Show / hide the control panel</div></div>
+        <div class="k"><div class="keys"><kbd>S</kbd></div><div>Save a still (PNG)</div></div>
+        <div class="k"><div class="keys"><kbd>?</kbd><kbd>H</kbd></div><div>This screen</div></div>
+        <div class="k"><div class="keys"><kbd>esc</kbd></div><div>Close this, leave fullscreen, or hide the panel</div></div>
+        <div class="k"><div class="keys"><kbd>D</kbd></div><div>Debug readout on the canvas</div></div>
+      </div>
+    </div>
+    <div class="close"><span>Keys are ignored while you're typing in the song search.</span><button class="btn" style="width:auto" onclick="toggleHelp(false)">Close</button></div>
+  </div>
 </div>
 
 <script>
-// Built-in fallback photo (the original concert shot) so analysis works before the album build runs.
+// ═══════════════════════════════════════════════════════════════════════════
+//  Resonant Spectra v3 — the photograph as a first-class layer
+//
+//  Pipeline per frame:
+//    computeConductor()      audio → tension (unchanged from v2)
+//    renderLightLayer()      washes + plumes + beams, additive, → lightG
+//    renderPhotoLayer()      stylised photo w/ drift + transitions → photoG
+//    composite()             blend the two by the current Look
+//
+//  Colour is one global transform (hue rotation × saturation as a 3×3 matrix)
+//  applied both to the light colours and to a cached, stylised copy of the
+//  photo, so the picture and the light grown from it always agree.
+// ═══════════════════════════════════════════════════════════════════════════
+
 const FALLBACK_IMAGE = "data:image/jpeg;base64,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";
 
-const CW=1200, CH=900, AW=96, AH=72, GX=8, GY=6, TRANS=1.4;
+const AW=96, AH=72, GX=8, GY=6;          // analysis grid (unchanged)
+const TRANS=1.6;                          // seconds for a photo transition
+const LOOKS=['reveal','bloom','prism','spectra'];
+const CMODES=['natural','duotone','mono','negative'];
+const LOOK_HINT={
+  reveal:'Darkness, until the light lands on the photograph. Trails leave the image smeared into the dark.',
+  bloom:'The photograph full-frame, drifting along its own light direction, with the show blooming over it.',
+  prism:'Red, green and blue pulled apart along the photo\'s smear angle and pulsing with the bass.',
+  spectra:'The original mode — pure light grown from the photo, the photo itself only a ghost.'};
 
-let params={intensity:1,flow:1,plumes:1,beams:1,smear:1,sweep:1,trail:.55,photoDur:24};
-let studies=[], curIdx=0, studyStart=0, pausedAt=0, prevStudy=null, prevSwitch=-9999;
-let playing=true, cycle=true, showSource=false;
-let plumes=[], glow, vignette;
+let params={intensity:1,flow:1,plumes:1,beams:1,smear:1,sweep:1,trail:.55,photoDur:24, zoom:1.12, drift:1, presence:1};
+let look='bloom', cmode='natural', hueShift=0, satMul=1;
+let studies=[], curIdx=0, studyStart=0, pausedAt=0, prevStudy=null, prevSwitch=-9999, transKind='dissolve';
+let playing=true, cycle=true;
+let plumes=[], glow, vignette, lightG, photoG, maskG, tmpG;
+let W=1200, H=900;
 
+// ── p5 lifecycle ─────────────────────────────────────────────────────────────
 function setup(){
-  let c=createCanvas(CW,CH); c.parent('cc'); pixelDensity(1);
-  glow=makeGlow(360); vignette=makeVignette();
+  const c=createCanvas(64,48); c.parent('stage'); pixelDensity(1);
+  glow=makeGlow(360);
+  fitCanvas();
   const l=document.querySelector('.loading'); if(l) l.remove();
-  loadSources();
+  loadSources(); bindInput(); syncUI();
+  toast('Drag on the picture to shift colour · scroll to zoom · press <kbd>?</kbd> for all controls', 7000);
 }
+function windowResized(){ fitCanvas(); }
 
+// The canvas always fills the window; the internal resolution is capped so
+// fullscreen on a 4K display doesn't quadruple the per-frame cost.
+function fitCanvas(){
+  const r=document.getElementById('stage').getBoundingClientRect();
+  const w=Math.max(320,Math.floor(r.width)), h=Math.max(240,Math.floor(r.height));
+  const MAXPX=1.6e6, s=Math.min(1,Math.sqrt(MAXPX/(w*h)));
+  W=Math.round(w*s); H=Math.round(h*s);
+  resizeCanvas(W,H);
+  for(const g of [lightG,photoG,maskG,tmpG]) if(g) g.remove();
+  lightG=createGraphics(W,H); photoG=createGraphics(W,H); maskG=createGraphics(W,H); tmpG=createGraphics(W,H);
+  vignette=makeVignette(W,H);
+}
 function makeGlow(s){let g=createGraphics(s,s);g.clear();let x=g.drawingContext,r=s/2,gr=x.createRadialGradient(r,r,0,r,r,r);
   gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.18,'rgba(255,255,255,.82)');gr.addColorStop(.45,'rgba(255,255,255,.28)');gr.addColorStop(.75,'rgba(255,255,255,.05)');gr.addColorStop(1,'rgba(255,255,255,0)');
   x.fillStyle=gr;x.fillRect(0,0,s,s);return g;}
-function makeVignette(){let g=createGraphics(CW,CH);g.clear();let x=g.drawingContext,gr=x.createRadialGradient(CW*.5,CH*.55,CH*.25,CW*.5,CH*.55,CH*.95);
-  gr.addColorStop(0,'rgba(3,4,12,0)');gr.addColorStop(.7,'rgba(3,4,12,.25)');gr.addColorStop(1,'rgba(2,3,9,.8)');x.fillStyle=gr;x.fillRect(0,0,CW,CH);return g;}
+function makeVignette(w,h){let g=createGraphics(w,h);g.clear();let x=g.drawingContext,gr=x.createRadialGradient(w*.5,h*.55,h*.25,w*.5,h*.55,h*.95);
+  gr.addColorStop(0,'rgba(3,4,12,0)');gr.addColorStop(.7,'rgba(3,4,12,.25)');gr.addColorStop(1,'rgba(2,3,9,.8)');x.fillStyle=gr;x.fillRect(0,0,w,h);return g;}
 
-// ── Load image sources: manifest first, fallback otherwise ───────────────
-// ASSET_BASE is ABSOLUTE on purpose: a relative './photos/…' resolves
-// differently depending on whether the page was routed with a trailing
-// slash — which 404s and silently drops the whole album. The app now lives
-// at the domain root, so the base is simply '/'. Absolute paths load the
-// album no matter how the page was routed.
+// ── Load image sources: manifest first, fallback otherwise ───────────────────
+// ASSET_BASE is ABSOLUTE on purpose: the app lives at the domain root, so
+// '/photos/…' loads the album no matter how the page was routed.
 const ASSET_BASE='/';
-let sourceMode='fallback';   // 'album' once the manifest loads
+let sourceMode='fallback';
 async function loadSources(){
   let sources=[];
   try{
     const r=await fetch(ASSET_BASE+'photos/manifest.json',{cache:'no-store'});
     if(r.ok){const m=await r.json(); if(m.photos&&m.photos.length){
-      sources=m.photos.map(p=>{ let file=p.file||('photos/'+(p.filename||'')); 
+      sources=m.photos.map(p=>{ let file=p.file||('photos/'+(p.filename||''));
         return {url:ASSET_BASE+file, name:(p.filename||p.file||file).split('/').pop(), entry:p}; });
       sourceMode='album';
     }}
@@ -170,20 +360,17 @@ async function loadSources(){
   if(!sources.length) sources=[{url:FALLBACK_IMAGE, name:'Source photo (built-in)', entry:null}];
   let slots=new Array(sources.length).fill(undefined);
   sources.forEach((s,i)=>{
-    loadImage(s.url, img=>{ slots[i]=buildStudy(img,s); commit(slots); },
-                      ()=>{ slots[i]=null; commit(slots); });
+    loadImage(s.url, img=>{ slots[i]=buildStudy(img,s); commit(slots); }, ()=>{ slots[i]=null; commit(slots); });
   });
 }
-function commit(slots){ studies=slots.filter(v=>v); buildGallery(); updateGalleryCount(slots); if(studies.length && studyStart===0){ curIdx=0; studyStart=millis(); updateHUD(); } else { updateHUD(); } }
+function commit(slots){ studies=slots.filter(v=>v); buildStrip(); updateGalleryCount(slots);
+  if(studies.length && studyStart===0){ curIdx=0; studyStart=millis(); } updateHUD(); }
 function updateGalleryCount(slots){ let el=document.getElementById('galleryCount'); if(!el) return;
   if(sourceMode!=='album'){ el.textContent='Built-in fallback photo — album manifest not found.'; return; }
   let done=slots.filter(v=>v!==undefined).length, ok=slots.filter(v=>v).length;
-  el.textContent= done<slots.length
-    ? (ok+' of '+slots.length+' photos loaded from the album…')
-    : (ok+' of '+slots.length+' photos loaded from the album.');
-}
+  el.textContent=(done<slots.length?ok+' of '+slots.length+' photos loaded from the album…':ok+' of '+slots.length+' photos loaded from the album.')+' Photos come from the PHishy Art album manifest.'; }
 
-// ── Per-photo ANALYSIS: this is where the image becomes a score ───────────
+// ── Per-photo ANALYSIS: the image becomes a score (unchanged from v2) ────────
 function buildStudy(img, src){
   let g=createGraphics(AW,AH); g.image(img,0,0,AW,AH); g.loadPixels();
   let px=g.pixels;
@@ -205,8 +392,6 @@ function buildStudy(img, src){
     if(near){near.x=(near.x*near.n+x)/(near.n+1);near.y=(near.y*near.n+y)/(near.n+1);near.n++;near.l=Math.max(near.l,lum[p]);}
     else spots.push({x,y,l:lum[p],n:1});
   }
-  // For each light, sample the LOCAL streak direction (windowed structure tensor) so every
-  // beam knows which way its light points, and how directional ("aniso") that light is.
   const localOrient=(cx,cy,rad)=>{ let xx=0,yy=0,xy=0;
     let x0=Math.max(1,Math.floor(cx*AW)-rad),x1=Math.min(AW-1,Math.floor(cx*AW)+rad);
     let y0=Math.max(1,Math.floor(cy*AH)-rad),y1=Math.min(AH-1,Math.floor(cy*AH)+rad);
@@ -229,115 +414,235 @@ function buildStudy(img, src){
     Jxx+=lx*lx;Jyy+=ly*ly;Jxy+=lx*ly;
   }
   let smearAngle=0.5*Math.atan2(2*Jxy,(Jxx-Jyy));
-  let flowCoh=(Jxx+Jyy)>1e-6?Math.hypot(Jxx-Jyy,2*Jxy)/(Jxx+Jyy):0;   // how strongly directional the whole frame is
+  let flowCoh=(Jxx+Jyy)>1e-6?Math.hypot(Jxx-Jyy,2*Jxy)/(Jxx+Jyy):0;
   let mean=lum.reduce((a,b)=>a+b,0)/lum.length, varr=lum.reduce((a,b)=>a+(b-mean)*(b-mean),0)/lum.length;
   let energy=Math.min(1, Math.sqrt(varr)/70 + spots.length*0.12);
-  let pal=[...regions].filter(c=>c.l>20).sort((a,b)=>satv(b)-satv(a)).slice(0,5).map(c=>hex(c.r,c.g,c.b));
-  return {img,name:src.name,url:src.url,regions,spots,beamCol,plumeCol,warm,smearAngle,flowCoh,energy,palette:pal};
+  let pal=[...regions].filter(c=>c.l>20).sort((a,b)=>satv(b)-satv(a)).slice(0,5).map(c=>toHex(c.r,c.g,c.b));
+  // duotone endpoints: highlight = the photo's most saturated colour pushed to full brightness,
+  // shadow = its complement, deep and dim. Always striking, even for near-black frames.
+  let duo; { const src0=pal[0]?hexToRgb(pal[0]):[regions[0].r,regions[0].g,regions[0].b]; const hs=rgb2hsv(src0[0],src0[1],src0[2]);
+    const top=hsv2rgb(hs[0],Math.max(.55,hs[1]),1), deep=hsv2rgb((hs[0]+180)%360,.7,.16); duo=[deep,top]; }
+  g.remove();
+  return {img,name:src.name,url:src.url,regions,spots,beamCol,plumeCol,warm,smearAngle,flowCoh,energy,palette:pal,duo,seed:Math.random()*100};
 }
 function satv(c){let h=rgb2hsv(c.r,c.g,c.b);return h[1]*h[2];}
 function rgb2hsv(r,g,b){r/=255;g/=255;b/=255;let mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,h=0;
   if(d){if(mx===r)h=((g-b)/d)%6;else if(mx===g)h=(b-r)/d+2;else h=(r-g)/d+4;h*=60;if(h<0)h+=360;}
   return[h,mx?d/mx:0,mx];}
-function hex(r,g,b){return'#'+[r,g,b].map(v=>Math.max(0,Math.min(255,v|0)).toString(16).padStart(2,'0')).join('');}
+function toHex(r,g,b){return'#'+[r,g,b].map(v=>Math.max(0,Math.min(255,v|0)).toString(16).padStart(2,'0')).join('');}
+function hsv2rgb(h,s,v){const c=v*s,x=c*(1-Math.abs((h/60)%2-1)),m=v-c;let r,g,b;if(h<60){r=c;g=x;b=0}else if(h<120){r=x;g=c;b=0}else if(h<180){r=0;g=c;b=x}else if(h<240){r=0;g=x;b=c}else if(h<300){r=x;g=0;b=c}else{r=c;g=0;b=x}return[(r+m)*255,(g+m)*255,(b+m)*255];}
+function hexToRgb(h){h=h.replace('#','');return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function sameCol(a,b){return Math.abs(a[0]-b[0])+Math.abs(a[1]-b[1])+Math.abs(a[2]-b[2])<30;}
 const ss=(a,b,x)=>{x=Math.max(0,Math.min(1,(x-a)/(b-a)));return x*x*(3-2*x);};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
-// ── Render one study at progress p∈[0,1] and overall alpha ────────────────
-function renderStudy(st, alpha, entrance){
-  let t=millis()/1000;
-  let master=entrance*params.intensity*alpha;
-  let build=tension;                         // 0..1 musical build
-  let ang=st.smearAngle, el=1+1.1*params.smear*(0.55+0.7*build);
-  let flow=params.flow*(1+1.6*build);
-  // washes — anchored to the photo, breathing & wandering harder as the jam builds
-  push(); blendMode(ADD); imageMode(CENTER); noStroke();
+// ── Colour: one global transform for light AND photo ────────────────────────
+// Hue rotation and saturation as a single 3×3 matrix (the SVG feColorMatrix
+// formulation), so applying it per pixel is nine multiplies — cheap enough
+// to restyle a 1024px photo in a few ms while you drag.
+let M=[1,0,0,0,1,0,0,0,1];
+function hueMat(deg,sat){
+  const a=deg*Math.PI/180, c=Math.cos(a), s=Math.sin(a);
+  const h=[.213+c*.787-s*.213, .715-c*.715-s*.715, .072-c*.072+s*.928,
+           .213-c*.213+s*.143, .715+c*.285+s*.140, .072-c*.072-s*.283,
+           .213-c*.213-s*.787, .715-c*.715+s*.715, .072+c*.928+s*.072];
+  const S=[.213+.787*sat,.715-.715*sat,.072-.072*sat, .213-.213*sat,.715+.285*sat,.072-.072*sat, .213-.213*sat,.715-.715*sat,.072+.928*sat];
+  const m=new Array(9); for(let r=0;r<3;r++)for(let k=0;k<3;k++) m[r*3+k]=S[r*3]*h[k]+S[r*3+1]*h[3+k]+S[r*3+2]*h[6+k];
+  return m;
+}
+function C(r,g,b){ if(hueShift===0&&satMul===1) return [r,g,b];
+  return [clamp(M[0]*r+M[1]*g+M[2]*b,0,255), clamp(M[3]*r+M[4]*g+M[5]*b,0,255), clamp(M[6]*r+M[7]*g+M[8]*b,0,255)]; }
+
+// Stylised photo cache. Restyling is a per-pixel pass, so it runs only when the
+// style key changes (throttled while dragging, at half resolution), and only
+// the handful of photos on screen keep a styled copy.
+const STYLE_W_FULL=1024, STYLE_W_DRAG=512;
+let workW=STYLE_W_FULL, styleKey='', styleDirty=true, lastStyleAt=0, styledList=[];
+function refreshStyleKey(){ styleKey=cmode+'|'+Math.round(hueShift)+'|'+satMul.toFixed(2)+'|'+workW; }
+function markStyle(){ styleDirty=true; }
+function getStyled(st){
+  if(st._styled && st._sk===styleKey) return st._styled;
+  const img=st.img, w=Math.min(workW,img.width), h=Math.max(1,Math.round(w*img.height/img.width));
+  if(!st._styled || st._styled.width!==w || st._styled.height!==h){ if(st._styled) st._styled.remove(); st._styled=createGraphics(w,h); }
+  const g=st._styled; g.clear(); g.image(img,0,0,w,h);
+  const needPx = cmode!=='natural' || hueShift!==0 || satMul!==1;
+  if(needPx){
+    g.loadPixels(); const p=g.pixels, m=M, doMat=(hueShift!==0||satMul!==1);
+    const d0=st.duo[0], d1=st.duo[1];
+    for(let i=0;i<p.length;i+=4){ let r=p[i],gg=p[i+1],b=p[i+2];
+      if(cmode==='mono'){ const l=.2126*r+.7152*gg+.0722*b; r=gg=b=l; }
+      else if(cmode==='negative'){ r=255-r; gg=255-gg; b=255-b; }
+      else if(cmode==='duotone'){ const l=(.2126*r+.7152*gg+.0722*b)/255, l2=l*l*(3-2*l);
+        r=d0[0]+(d1[0]-d0[0])*l2; gg=d0[1]+(d1[1]-d0[1])*l2; b=d0[2]+(d1[2]-d0[2])*l2; }
+      if(doMat){ const nr=m[0]*r+m[1]*gg+m[2]*b, ng=m[3]*r+m[4]*gg+m[5]*b, nb=m[6]*r+m[7]*gg+m[8]*b; r=nr;gg=ng;b=nb; }
+      p[i]=r<0?0:r>255?255:r; p[i+1]=gg<0?0:gg>255?255:gg; p[i+2]=b<0?0:b>255?255:b;
+    }
+    g.updatePixels();
+  }
+  st._sk=styleKey;
+  const k=styledList.indexOf(st); if(k>=0) styledList.splice(k,1); styledList.push(st);
+  while(styledList.length>5){ const old=styledList.shift(); if(old._styled){ old._styled.remove(); old._styled=null; old._sk=''; } }
+  return g;
+}
+
+// ── Light layer: washes, plumes, beams → lightG (additive on black) ─────────
+function renderLight(g, st, alpha, entrance, t){
+  let master=entrance*params.intensity*alpha, build=tension;
+  let ang=st.smearAngle, el=1+1.1*params.smear*(0.55+0.7*build), flow=params.flow*(1+1.6*build);
+  const S=Math.min(W,H);
+  g.push(); g.blendMode(g.ADD); g.imageMode(g.CENTER); g.noStroke();
   for(let c of st.regions){ if(c.l<12)continue;
     let nx=noise(c.x*3+1,c.y*3, t*0.05*flow), ny=noise(c.x*3+9,c.y*3+4,t*0.045*flow);
-    let wander=0.28+0.27*build;              // composition holds the photo, drifts more at peak
-    // slide along the photo's dominant light direction so motion reads as coherent flow, not random jitter
+    let wander=0.28+0.27*build;
     let drift=(0.05+0.16*build)*st.flowCoh*Math.sin(t*(0.35+0.5*build)*flow + c.x*4 + c.y*2);
-    let x=(c.x*(1-wander)+nx*wander + Math.cos(ang)*drift)*width,
-        y=(c.y*(1-wander)+ny*wander + Math.sin(ang)*drift)*height;
+    let x=(c.x*(1-wander)+nx*wander + Math.cos(ang)*drift)*W, y=(c.y*(1-wander)+ny*wander + Math.sin(ang)*drift)*H;
     let breath=0.7+0.3*Math.sin(t*(0.7+build*1.3)+c.x*5+c.y*3);
     let a=master*mid*(c.l/255)*breath*(0.8+0.4*build);
     if(a<=0.01)continue;
-    let base=Math.min(width,height)*0.30*(0.8+c.l/255*0.5)*(1+0.15*build);
-    tint(c.r,c.g,c.b,255*Math.min(1,a));
-    push();translate(x,y);rotate(ang);image(glow,0,0,base*el,base/el*0.9);pop();
+    let base=S*0.30*(0.8+c.l/255*0.5)*(1+0.15*build);
+    const cc=C(c.r,c.g,c.b); g.tint(cc[0],cc[1],cc[2],255*Math.min(1,a));
+    g.push();g.translate(x,y);g.rotate(ang);g.image(glow,0,0,base*el,base/el*0.9);g.pop();
   }
-  pop();
-  // plumes — rise from the warm mass, surge with bass + build
+  g.pop();
+  // plumes rise from the warm mass, surging with bass + build
   if(build>0.04 && Math.random()<0.5*build*params.plumes*st.energy*bass){
-    plumes.push({x:(st.warm.x+(Math.random()-.5)*.3)*width, y:height*(0.9+Math.random()*.12),
-      vy:-(70+Math.random()*120)*(0.7+bass*0.6+build*0.6), r:60+Math.random()*100, life:1,
+    plumes.push({x:(st.warm.x+(Math.random()-.5)*.3)*W, y:H*(0.9+Math.random()*.12),
+      vy:-(70+Math.random()*120)*(0.7+bass*0.6+build*0.6)*(H/900), r:(60+Math.random()*100)*(S/900), life:1,
       decay:0.55+Math.random()*0.4, col:st.plumeCol, sway:Math.random()*100});
   }
-  push(); blendMode(ADD); imageMode(CENTER); noStroke();
+  g.push(); g.blendMode(g.ADD); g.imageMode(g.CENTER); g.noStroke();
   let dt=Math.min(deltaTime/1000,.05);
   for(let i=plumes.length-1;i>=0;i--){let pl=plumes[i];
     pl.y+=pl.vy*dt; pl.vy*=.992; pl.x+=Math.sin(t*1.5+pl.sway)*16*dt; pl.life-=dt*pl.decay;
     if(pl.life<=0){plumes.splice(i,1);continue;}
     let a=Math.sin(pl.life*Math.PI)*params.plumes*alpha*0.9;
-    tint(pl.col[0],pl.col[1],pl.col[2],255*Math.min(1,a));
-    let rr=pl.r*(1.3-.3*pl.life); image(glow,pl.x,pl.y,rr*1.4,rr*2.5);
+    const cc=C(pl.col[0],pl.col[1],pl.col[2]); g.tint(cc[0],cc[1],cc[2],255*Math.min(1,a));
+    let rr=pl.r*(1.3-.3*pl.life); g.image(glow,pl.x,pl.y,rr*1.4,rr*2.5);
   }
-  pop();
-  // beams — moving-head shafts: each ignites in sequence as the jam climbs, points along the
-  // light direction sampled from the photo, then sweeps & fans like concert fixtures at the peak.
-  push(); blendMode(ADD); imageMode(CENTER); noStroke();
+  g.pop();
+  // beams: moving-head shafts that ignite in sequence as the jam climbs
+  g.push(); g.blendMode(g.ADD); g.imageMode(g.CENTER); g.noStroke();
   let N=st.spots.length||1, swp=params.sweep||1, midI=(N-1)/2;
+  const bc=C(st.beamCol[0],st.beamCol[1],st.beamCol[2]);
   st.spots.forEach((s,i)=>{
     let thr=0.20+i*0.14, gate=ss(thr,thr+0.18,build);
     let a=gate*params.beams*treb*(0.85+0.15*noise(i*7,t*3))*master*(0.5+s.intensity);
     if(a<0.02)return;
-    let x=s.x*width,y=s.y*height;
-    let bAng=(typeof s.ang==='number'?s.ang:ang);                       // direction the photo's light points
-    let sweep=swp*(0.12+0.55*build)*Math.sin(t*(0.5+0.9*build)+i*1.7);   // moving-head oscillation
-    let fan=(i-midI)*(0.10+0.55*build)*swp;                             // beams fan apart as the jam peaks
+    let x=s.x*W,y=s.y*H;
+    let bAng=(typeof s.ang==='number'?s.ang:ang);
+    let sweep=swp*(0.12+0.55*build)*Math.sin(t*(0.5+0.9*build)+i*1.7);
+    let fan=(i-midI)*(0.10+0.55*build)*swp;
     let angle=bAng+sweep+fan;
-    let tight=0.45+0.55*(s.aniso||0.3);                                 // sharper light → longer, tighter shaft
-    let len=Math.min(width,height)*(0.34+0.5*build)*tight*el;
-    let thick=Math.max(16,len*0.16/(0.6+0.8*tight));
-    tint(st.beamCol[0],st.beamCol[1],st.beamCol[2],255*Math.min(1,a));
-    push(); translate(x,y); rotate(angle);
-    image(glow,len*0.5,0,len,thick);                                   // shaft projects outward from the fixture
-    image(glow,0,0,90,90);                                             // bright source at the emitter
-    pop();
+    let tight=0.45+0.55*(s.aniso||0.3);
+    let len=S*(0.34+0.5*build)*tight*el, thick=Math.max(16,len*0.16/(0.6+0.8*tight));
+    g.tint(bc[0],bc[1],bc[2],255*Math.min(1,a));
+    g.push(); g.translate(x,y); g.rotate(angle);
+    g.image(glow,len*0.5,0,len,thick); g.image(glow,0,0,90*(S/900),90*(S/900));
+    g.pop();
   });
-  pop();
-  if(showSource){push();tint(255,40*alpha);imageMode(CENTER);
-    let iw=width,ih=width*st.img.height/st.img.width; if(ih<height){ih=height;iw=height*st.img.width/st.img.height;}
-    image(st.img,width/2,height/2,iw,ih);pop();}
+  g.pop();
 }
-function avg(a,lo,hi){lo|=0;hi|=0;let s=0,n=0;for(let i=lo;i<hi;i++){s+=a[i];n++;}return n?s/n:0;}
+function renderLightLayer(st, prev, fade, emerge, t){
+  lightG.background(0);
+  if(fade>0 && prev && prev!==st) renderLight(lightG, prev, fade, 1, t);
+  renderLight(lightG, st, 1, emerge, t);
+}
+
+// ── Photo layer: the picture itself, moving, transitioning → photoG ────────
+// Ken Burns drift along the photo's own smear angle, breathing with the
+// music. Timed switches dissolve with a colour cast handed from the outgoing
+// photo; musical releases wipe along the outgoing photo's light direction.
+function drawPhotoTo(g, st, alpha, cast, castAmt, t){
+  const img=getStyled(st); if(!img) return;
+  const z=params.zoom*(1+0.025*Math.sin(t*0.11+st.seed))*(1+0.07*tension*params.drift);
+  const ang=st.smearAngle, amp=Math.min(W,H)*0.045*params.drift*(0.35+0.65*tension);
+  const ph=Math.sin(t*0.13+st.seed*0.3);
+  const px=Math.cos(ang)*ph*amp, py=Math.sin(ang)*ph*amp;
+  let iw=W, ih=W*img.height/img.width; if(ih<H){ih=H;iw=H*img.width/img.height;}
+  g.push(); g.imageMode(g.CENTER); g.translate(W/2+px,H/2+py); g.scale(z);
+  if(cast&&castAmt>0){ const cc=C(cast[0],cast[1],cast[2]);
+    g.tint(255+(cc[0]-255)*castAmt, 255+(cc[1]-255)*castAmt, 255+(cc[2]-255)*castAmt, 255*alpha); }
+  else g.tint(255,255*alpha);
+  g.image(img,0,0,iw,ih); g.pop();
+}
+function renderPhotoLayer(st, prev, fade, emerge, t){
+  const g=photoG; g.clear();
+  if(fade>0 && prev && prev!==st){
+    if(transKind==='wipe'){
+      drawPhotoTo(g, prev, 1, null, 0, t);
+      // soft-edged wipe along the outgoing photo's smear angle
+      const a=prev.smearAngle, L=Math.hypot(W,H), p=ss(0,1,1-fade), dx=Math.cos(a), dy=Math.sin(a);
+      const pos=(p*2-1)*L*0.62, soft=L*0.16, cx=W/2, cy=H/2;
+      const mc=maskG.drawingContext; maskG.clear();
+      const gr=mc.createLinearGradient(cx+dx*(pos-soft),cy+dy*(pos-soft),cx+dx*(pos+soft),cy+dy*(pos+soft));
+      gr.addColorStop(0,'rgba(255,255,255,1)'); gr.addColorStop(1,'rgba(255,255,255,0)');
+      mc.fillStyle=gr; mc.fillRect(0,0,W,H);
+      tmpG.clear(); drawPhotoTo(tmpG, st, 1, prev.beamCol, 0.35*fade, t);
+      const tc=tmpG.drawingContext; tc.globalCompositeOperation='destination-in'; tmpG.image(maskG,0,0); tc.globalCompositeOperation='source-over';
+      g.image(tmpG,0,0);
+    } else {
+      drawPhotoTo(g, prev, fade, null, 0, t);
+      drawPhotoTo(g, st, 1-fade*0.35, prev.plumeCol, 0.5*fade, t);
+    }
+  } else drawPhotoTo(g, st, emerge, null, 0, t);
+}
+
+// ── Composite by Look ────────────────────────────────────────────────────────
+function composite(st){
+  const fadeA=map(params.trail,.2,.9,16,95)*(1-0.55*tension);
+  push(); blendMode(BLEND); noStroke(); fill(4,5,13,Math.max(6,fadeA)); rect(0,0,W,H); pop();
+  const pres=params.presence;
+  if(look==='reveal'){
+    // canvas = (trails + light + ambient) × photo, then a little light on top as bloom
+    push(); blendMode(ADD); noTint(); image(lightG,0,0); noStroke(); fill(255,255,255,38*pres); rect(0,0,W,H); pop();
+    push(); blendMode(MULTIPLY); tint(255,255*Math.min(1,pres)); image(photoG,0,0); pop();
+    push(); blendMode(ADD); tint(255,255*0.30); image(lightG,0,0); pop();
+  } else if(look==='bloom'){
+    push(); blendMode(BLEND); tint(255,255*Math.min(1,0.9*pres)); image(photoG,0,0); pop();
+    push(); blendMode(ADD); tint(255,255*0.85); image(lightG,0,0); pop();
+  } else if(look==='prism'){
+    // green sits in place and REPLACES the frame (so nothing accumulates), red and blue
+    // are pulled apart along the smear angle and added back — white where all three agree
+    const split=Math.min(W,H)*(0.004+0.03*Math.max(0,bass-0.55))*params.drift*(0.6+0.8*tension)+1;
+    const a=st.smearAngle, dx=Math.cos(a)*split, dy=Math.sin(a)*split, al=255*Math.min(1,pres);
+    push(); blendMode(BLEND); tint(0,255,0,al*0.92); image(photoG,0,0); pop();
+    push(); blendMode(ADD);
+    tint(255,0,0,al); image(photoG,-dx,-dy);
+    tint(0,0,255,al); image(photoG,dx,dy);
+    tint(255,255*0.5); image(lightG,0,0); pop();
+  } else {
+    push(); blendMode(ADD); noTint(); image(lightG,0,0); pop();
+    if(pres>0.25){ push(); blendMode(BLEND); tint(255,255*0.14*(pres-0.25)); image(photoG,0,0); pop(); }
+  }
+}
 
 function draw(){
-  if(!studies.length){return;}
-  let now=millis(), dt=Math.min(deltaTime/1000,.05);
-  let audioOn = !!(analyser && audioPlaying);
+  if(!studies.length) return;
+  const now=millis(), dt=Math.min(deltaTime/1000,.05), t=now/1000;
+  const audioOn=!!(analyser && audioPlaying);
   computeConductor(dt, now, audioOn);
-  // music drives transitions when audio plays; otherwise the ≤photoDur timer does
   if(playing && !audioOn){
     let p=(now-studyStart)/(params.photoDur*1000);
-    if(p>=1){ if(cycle && studies.length>1){ prevStudy=studies[curIdx]; prevSwitch=now; curIdx=(curIdx+1)%studies.length; } studyStart=now; updateHUD(); }
+    if(p>=1){ if(cycle && studies.length>1){ switchTo((curIdx+1)%studies.length,'dissolve',now); } else { studyStart=now; } updateHUD(); }
   }
-  // trails lengthen (less fade) as tension rises
-  let fadeA=map(params.trail,.2,.9,16,95)*(1-0.55*tension);
-  push();blendMode(BLEND);noStroke();fill(4,5,13,Math.max(6,fadeA));rect(0,0,width,height);pop();
-  let st=studies[curIdx]; if(!st){return;}
-  let age=(now-studyStart)/1000, emerge=ss(0,1.4,age);
-  let fade=Math.max(0,1-(now-prevSwitch)/(TRANS*1000));
-  if(fade>0 && prevStudy && prevStudy!==st) renderStudy(prevStudy, fade, 1);
-  renderStudy(st, 1, emerge);
-  // release explosion
+  // throttled restyle while dragging; full-res pass once the hand is still
+  if(styleDirty && now-lastStyleAt>(dragging?70:0)){ workW=dragging?STYLE_W_DRAG:STYLE_W_FULL; refreshStyleKey(); styleDirty=false; lastStyleAt=now; }
+  M=hueMat(hueShift,satMul);
+  const st=studies[curIdx]; if(!st) return;
+  const age=(now-studyStart)/1000, emerge=ss(0,1.4,age);
+  const fade=Math.max(0,1-(now-prevSwitch)/(TRANS*1000));
+  renderLightLayer(st, prevStudy, fade, emerge, t);
+  renderPhotoLayer(st, prevStudy, fade, emerge, t);
+  composite(st);
   if(flash>0.01){ push(); blendMode(ADD); noStroke();
-    fill(255,255,255,210*flash); rect(0,0,width,height);
-    let c=st.beamCol; fill(c[0],c[1],c[2],110*flash); rect(0,0,width,height); pop(); }
-  push();blendMode(BLEND);imageMode(CORNER);image(vignette,0,0,width,height);pop();
+    fill(255,255,255,210*flash); rect(0,0,W,H);
+    const c=C(st.beamCol[0],st.beamCol[1],st.beamCol[2]); fill(c[0],c[1],c[2],110*flash); rect(0,0,W,H); pop(); }
+  push(); blendMode(BLEND); noTint(); imageMode(CORNER); image(vignette,0,0,W,H); pop();
   drawHUD(audioOn);
 }
+function switchTo(i, kind, now){ if(!studies[i]) return; prevStudy=studies[curIdx]; prevSwitch=now||millis(); transKind=kind||'dissolve'; curIdx=i; studyStart=prevSwitch; }
 
-// The conductor: turn audio into a single normalized "tension" and detect release.
+// ── The conductor: audio → one normalised "tension", and release detection ─
 function computeConductor(dt, now, audioOn){
   if(audioOn && !wasAudioOn){ studyStart=now; tHist=[]; releaseCD=Math.max(releaseCD,1.0); }
   wasAudioOn=audioOn;
@@ -348,12 +653,11 @@ function computeConductor(dt, now, audioOn){
     for(let i=0;i<n;i++){ let v=freq[i]; e+=v; num+=i*v; den+=v; if(fluxPrev){ let d=v-fluxPrev[i]; if(d>0) fl+=d; } }
     e/=(n*255); let cent=den?(num/den)/n:0; fl/=(n*255);
     if(!fluxPrev) fluxPrev=new Uint8Array(n); fluxPrev.set(freq);
-    // auto-gain: track a decaying peak so tension is relative to the track's own dynamics
     gMax.e=Math.max(e,gMax.e-gMax.e*0.06*dt); gMax.c=Math.max(cent,gMax.c-gMax.c*0.06*dt); gMax.f=Math.max(fl,gMax.f-gMax.f*0.06*dt);
     let nE=gMax.e>1e-4?Math.min(1,e/gMax.e):0, nC=gMax.c>1e-4?Math.min(1,cent/gMax.c):0, nF=gMax.f>1e-4?Math.min(1,fl/gMax.f):0;
-    let target=0.5*nE+0.2*nC+0.3*nF;          // energy + brightness + onset density
-    if(jamStartSec>0 && audioEl && audioEl.currentTime<jamStartSec) target=Math.min(target,0.22); // composed head stays calm
-    let k=target>tension?(1-Math.exp(-dt/0.28)):(1-Math.exp(-dt/0.9)); // rise faster than fall
+    let target=0.5*nE+0.2*nC+0.3*nF;
+    if(jamStartSec>0 && audioEl && audioEl.currentTime<jamStartSec) target=Math.min(target,0.22);
+    let k=target>tension?(1-Math.exp(-dt/0.28)):(1-Math.exp(-dt/0.9));
     tension+=(target-tension)*k;
   } else {
     let p=Math.min(1,(playing?(now-studyStart):pausedAt)/(params.photoDur*1000));
@@ -364,99 +668,164 @@ function computeConductor(dt, now, audioOn){
   if(audioOn && releaseCD<=0){
     let vAgo=tHist.length?tHist[0].v:tension, recentMax=tHist.reduce((m,h)=>Math.max(m,h.v),0);
     let slope=tension-vAgo, held=(now-studyStart)/1000, fired=false;
-    if(recentMax>0.8 && slope<-0.22) fired=true;     // peak → drop = tension release
-    else if(held>MAXHOLD) fired=true;                // safety cap
-    else if(audioEl && audioEl.ended) fired=true;    // track ended
+    if(recentMax>0.8 && slope<-0.22) fired=true;
+    else if(held>MAXHOLD) fired=true;
+    else if(audioEl && audioEl.ended) fired=true;
     if(fired){ flash=1; releaseCD=4.5; tHist=[];
-      if(cycle && studies.length>1){ prevStudy=studies[curIdx]; prevSwitch=now; curIdx=(curIdx+1)%studies.length; }
-      studyStart=now; updateHUD(); }
+      if(cycle && studies.length>1) switchTo((curIdx+1)%studies.length,'wipe',now); else studyStart=now;
+      updateHUD(); }
   }
 }
+function avg(a,lo,hi){lo|=0;hi|=0;let s=0,n=0;for(let i=lo;i<hi;i++){s+=a[i];n++;}return n?s/n:0;}
 
 function drawHUD(audioOn){
   push();
-  let pad=28,w=width-pad*2,y=height-26;
-  let val=audioOn?tension:Math.min(1,(playing?(millis()-studyStart):pausedAt)/(params.photoDur*1000));
-  noStroke();fill(255,255,255,40);rect(pad,y,w,4,2);fill(255,255,255,200);rect(pad,y,w*val,4,2);
-  if(studies.length>1){let n=studies.length,gap=Math.min(16,w/n);
-    for(let i=0;i<n;i++){fill(255,255,255,i===curIdx?230:50);circle(pad+i*gap+4,y-14,i===curIdx?7:4);}}
-  if(showDbg){ noStroke(); fill(255,255,255,190); textSize(12); textAlign(LEFT,BOTTOM);
-    text((audioOn?'TENSION ':'TIMELINE ')+val.toFixed(2)+(audioOn?('   bass '+bass.toFixed(2)+'  mid '+mid.toFixed(2)+'  treb '+treb.toFixed(2)+'   jam@'+jamStartSec+'s'):''), pad, y-26); }
+  const pad=Math.round(W*0.02), w=W-pad*2, y=H-Math.round(H*0.075)-10;
+  const val=audioOn?tension:Math.min(1,(playing?(millis()-studyStart):pausedAt)/(params.photoDur*1000));
+  noStroke(); fill(255,255,255,34); rect(pad,y,w,3,2); fill(255,255,255,190); rect(pad,y,w*val,3,2);
+  if(showDbg){ fill(255,255,255,190); textSize(12); textAlign(LEFT,BOTTOM);
+    text((audioOn?'TENSION ':'TIMELINE ')+val.toFixed(2)+'   look '+look+'   cmode '+cmode+'   hue '+hueShift.toFixed(0)+'°'+(audioOn?('   bass '+bass.toFixed(2)+'  mid '+mid.toFixed(2)+'  treb '+treb.toFixed(2)):'')+'   '+W+'×'+H+' @'+Math.round(frameRate())+'fps', pad, y-10); }
   pop();
 }
 
-// ── HUD / controls ────────────────────────────────────────────────────────
-function updateHUD(){let st=studies[curIdx];if(!st){return;}
-  let el=document.getElementById('nowshow');
-  el.innerHTML='<span class="nm">'+st.name+'</span><br>'+(curIdx+1)+' / '+studies.length+
-    ' · energy '+st.energy.toFixed(2)+' · smear '+(st.smearAngle*180/Math.PI).toFixed(0)+'°'+
-    '<div class="swatches">'+st.palette.map(h=>'<span class="sw" style="background:'+h+'"></span>').join('')+'</div>';
-  highlightGallery();
+// ── HUD / panel / filmstrip ──────────────────────────────────────────────────
+function swatches(st){ return st.palette.map(h=>{const c=C(...hexToRgb(h));return '<i style="background:'+toHex(c[0],c[1],c[2])+'"></i>';}).join(''); }
+function updateHUD(){
+  const st=studies[curIdx]; if(!st) return;
+  const el=document.getElementById('nowshow');
+  el.innerHTML='<span class="nm">'+st.name+'</span> · '+(curIdx+1)+' / '+studies.length+
+    '<div style="color:var(--ink3);font-size:11px">energy '+st.energy.toFixed(2)+' · smear '+(st.smearAngle*180/Math.PI).toFixed(0)+'°</div>'+
+    '<div class="sw">'+swatches(st)+'</div>';
+  const hs=hueShift?((hueShift>0?'+':'')+Math.round(hueShift)+'°'):'';
+  document.getElementById('hudNow').innerHTML=
+    '<span>'+st.name.replace(/\.[a-z]+$/i,'')+' <span style="color:var(--ink3)">'+(curIdx+1)+'/'+studies.length+'</span></span>'+
+    '<span class="tag hot">'+look+'</span><span class="tag">'+cmode+(hs?' '+hs:'')+'</span><span class="sw">'+swatches(st)+'</span>';
+  highlightStrip();
 }
-// ── Gallery strip: clickable thumbnails of every source photo ──
-let galleryN=-1;
-function buildGallery(){
-  let g=document.getElementById('gallery'); if(!g) return;
-  if(galleryN===studies.length){ highlightGallery(); return; }   // already built for this set
-  galleryN=studies.length; g.innerHTML='';
+let stripN=-1;
+function buildStrip(){
+  const g=document.getElementById('strip'); if(!g) return;
+  if(stripN===studies.length){ highlightStrip(); return; }
+  stripN=studies.length; g.innerHTML='';
   studies.forEach((st,i)=>{
-    let d=document.createElement('div'); d.className='thumb'+(i===curIdx?' active':''); d.title=st.name||('Photo '+(i+1));
-    let im=document.createElement('img'); im.loading='lazy'; im.src=st.url||''; im.alt=st.name||('Photo '+(i+1));
-    let n=document.createElement('span'); n.className='idx'; n.textContent=i+1;
+    const d=document.createElement('div'); d.className='th'+(i===curIdx?' active':''); d.title=st.name||('Photo '+(i+1));
+    const im=document.createElement('img'); im.loading='lazy'; im.src=st.url||''; im.alt=st.name||('Photo '+(i+1));
+    const n=document.createElement('span'); n.className='n'; n.textContent=i+1;
     d.appendChild(im); d.appendChild(n); d.onclick=()=>selectPhoto(i); g.appendChild(d);
   });
 }
-function highlightGallery(){ let g=document.getElementById('gallery'); if(!g) return;
-  [...g.children].forEach((c,i)=>c.classList.toggle('active', i===curIdx)); }
-function selectPhoto(i){ if(!studies.length||i===curIdx||!studies[i]) return;
-  prevStudy=studies[curIdx]; prevSwitch=millis(); curIdx=i; studyStart=millis(); updateHUD(); }
-function setP(k,v){params[k]=parseFloat(v);let d=document.getElementById(k+'-v');
-  if(d)d.textContent=(k==='photoDur')?params[k]+'s':(k==='flow')?params[k].toFixed(1):(k==='trail')?params[k].toFixed(2):params[k].toFixed(2);}
+function highlightStrip(){ const g=document.getElementById('strip'); if(!g) return;
+  [...g.children].forEach((c,i)=>{ const on=i===curIdx; c.classList.toggle('active',on);
+    if(on) c.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }); }
+function selectPhoto(i){ if(!studies.length||i===curIdx||!studies[i]) return; switchTo(i,'dissolve'); updateHUD(); }
+function nextPhoto(){ if(studies.length<2)return; switchTo((curIdx+1)%studies.length,'wipe'); updateHUD(); }
+function prevPhoto(){ if(studies.length<2)return; switchTo((curIdx-1+studies.length)%studies.length,'wipe'); updateHUD(); }
+
+function setP(k,v){ params[k]=parseFloat(v); const d=document.getElementById(k+'-v'), s=document.getElementById(k);
+  if(s && parseFloat(s.value)!==params[k]) s.value=params[k];
+  if(d) d.textContent=(k==='photoDur')?params[k]+'s':(k==='flow')?params[k].toFixed(1):(k==='zoom')?params[k].toFixed(2)+'×':params[k].toFixed(2); }
+function setLook(l){ if(!LOOKS.includes(l)) return; look=l;
+  document.querySelectorAll('#lookSeg button').forEach(b=>b.classList.toggle('on',b.dataset.look===l));
+  document.getElementById('lookHint').textContent=LOOK_HINT[l]; updateHUD(); }
+function cycleLook(){ setLook(LOOKS[(LOOKS.indexOf(look)+1)%LOOKS.length]); toast('Look: '+look,1400); }
+function setCmode(m){ if(!CMODES.includes(m)) return; cmode=m;
+  document.querySelectorAll('#cmodeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.cmode===m)); markStyle(); updateHUD(); }
+function cycleCmode(){ setCmode(CMODES[(CMODES.indexOf(cmode)+1)%CMODES.length]); toast('Colour: '+cmode,1400); }
+function setHue(v){ hueShift=((v+180)%360+360)%360-180; document.getElementById('hue').value=hueShift; document.getElementById('hue-v').textContent=(hueShift>0?'+':'')+Math.round(hueShift)+'°'; markStyle(); updateHUD(); }
+function setSat(v){ satMul=clamp(v,0,2); document.getElementById('sat').value=satMul; document.getElementById('sat-v').textContent=satMul.toFixed(2); markStyle(); updateHUD(); }
+function nudgeHue(d){ setHue(hueShift+d); toast('Hue '+(hueShift>0?'+':'')+Math.round(hueShift)+'°',900); }
+function nudgeIntensity(d){ setP('intensity',clamp(params.intensity+d,0.3,2)); toast('Intensity '+params.intensity.toFixed(2),900); }
+function resetColor(){ setHue(0); setSat(1); setCmode('natural'); toast('Colour reset',1200); }
 function togglePlay(){
-  if(playing){ pausedAt=millis()-studyStart; playing=false; }
-  else { studyStart=millis()-pausedAt; playing=true; }
+  if(playing){ pausedAt=millis()-studyStart; playing=false; } else { studyStart=millis()-pausedAt; playing=true; }
   document.getElementById('playBtn').textContent=playing?'⏸ Pause':'▶ Play';
 }
 function toggleCycle(){cycle=!cycle;document.getElementById('cycleTog').classList.toggle('on',cycle);}
-function toggleSource(){showSource=!showSource;document.getElementById('srcTog').classList.toggle('on',showSource);}
-function nextPhoto(){if(studies.length<2)return;prevStudy=studies[curIdx];prevSwitch=millis();curIdx=(curIdx+1)%studies.length;studyStart=millis();updateHUD();}
-function prevPhoto(){if(studies.length<2)return;prevStudy=studies[curIdx];prevSwitch=millis();curIdx=(curIdx-1+studies.length)%studies.length;studyStart=millis();updateHUD();}
 function restart(){studyStart=millis();pausedAt=0;plumes=[];}
 function dl(){saveCanvas('resonant_spectra','png');}
+function syncUI(){ setLook(look); setCmode(cmode); setHue(hueShift); setSat(satMul);
+  for(const k of ['zoom','drift','presence','photoDur','intensity','flow','plumes','beams','smear','sweep','trail']) setP(k,params[k]); }
 
-// ── Rescan: ask the API to fire the GitHub Action that re-scrapes the album ──
-// Fire-and-forget by design: the Action takes minutes and commits into the
-// repo, which triggers its own redeploy. We only report whether the request
-// was accepted (202), never whether the scrape itself succeeded.
+// ── Panel / help / fullscreen / toast ────────────────────────────────────────
+function togglePanel(force){ const on=(typeof force==='boolean')?force:!document.body.classList.contains('panel-open');
+  document.body.classList.toggle('panel-open',on); document.getElementById('panelBtn').classList.toggle('on',on); }
+let helpOpen=false;
+function toggleHelp(force){ helpOpen=(typeof force==='boolean')?force:!helpOpen; document.getElementById('help').classList.toggle('open',helpOpen); }
+function toggleFullscreen(){
+  if(document.fullscreenElement){ document.exitFullscreen&&document.exitFullscreen(); }
+  else { const el=document.documentElement; (el.requestFullscreen||el.webkitRequestFullscreen).call(el).catch?.(()=>{}); }
+}
+document.addEventListener('fullscreenchange',()=>{ const fs=!!document.fullscreenElement;
+  document.getElementById('fsBtn').classList.toggle('on',fs); if(fs) togglePanel(false); setTimeout(fitCanvas,80); });
+let toastT=null;
+function toast(html,ms){ const el=document.getElementById('toast'); el.innerHTML=html; el.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),ms||2000); }
+
+// ── Input: drag for colour, wheel for zoom, keys for everything ─────────────
+let dragging=false, dragStart=null, lastMove=Date.now();
+function bindInput(){
+  const cv=document.querySelector('#stage canvas'); if(!cv) return;
+  const ro=document.getElementById('readout');
+  const showRO=(e,txt)=>{ ro.textContent=txt; ro.style.left=e.clientX+'px'; ro.style.top=e.clientY+'px'; ro.classList.add('show'); };
+  cv.addEventListener('pointerdown',e=>{ if(e.button!==0) return;
+    dragStart={x:e.clientX,y:e.clientY,h:hueShift,i:params.intensity,moved:false}; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove',e=>{
+    if(!dragStart) return;
+    const dx=e.clientX-dragStart.x, dy=e.clientY-dragStart.y;
+    if(!dragStart.moved && Math.hypot(dx,dy)<4) return;
+    dragStart.moved=true; dragging=true; cv.classList.add('dragging');
+    setHue(dragStart.h+dx*0.55); setP('intensity',clamp(dragStart.i-dy*0.006,0.3,2));
+    showRO(e,'hue '+(hueShift>0?'+':'')+Math.round(hueShift)+'°  ·  intensity '+params.intensity.toFixed(2));
+  });
+  const endDrag=e=>{ if(!dragStart) return; dragStart=null; dragging=false; cv.classList.remove('dragging'); ro.classList.remove('show'); markStyle(); };
+  cv.addEventListener('pointerup',endDrag); cv.addEventListener('pointercancel',endDrag);
+  cv.addEventListener('wheel',e=>{ e.preventDefault(); setP('zoom',clamp(params.zoom-e.deltaY*0.0009,1,1.9)); showRO(e,'zoom '+params.zoom.toFixed(2)+'×');
+    clearTimeout(cv._roT); cv._roT=setTimeout(()=>ro.classList.remove('show'),900); },{passive:false});
+  cv.addEventListener('dblclick',e=>{ e.preventDefault(); toggleFullscreen(); });
+  // idle: hide chrome + cursor (quickly in fullscreen, lazily otherwise)
+  const wake=()=>{ lastMove=Date.now(); document.body.classList.remove('idle'); };
+  window.addEventListener('pointermove',wake,{passive:true}); window.addEventListener('keydown',wake);
+  setInterval(()=>{ const lim=document.fullscreenElement?2800:14000;
+    if(Date.now()-lastMove>lim && !helpOpen && !dragStart && !document.body.classList.contains('panel-open')) document.body.classList.add('idle'); },400);
+}
+window.addEventListener('keydown',e=>{
+  if(e.target&&/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  if(e.ctrlKey||e.metaKey||e.altKey) return;
+  const k=e.key;
+  if(k==='?'||k==='h'||k==='H') toggleHelp();
+  else if(k==='Escape'){ if(helpOpen) toggleHelp(false); else if(document.fullscreenElement) document.exitFullscreen(); else togglePanel(false); }
+  else if(k===' '){ e.preventDefault(); togglePlay(); }
+  else if(k==='ArrowRight') nextPhoto(); else if(k==='ArrowLeft') prevPhoto();
+  else if(k==='['){ nudgeHue(-15); } else if(k===']'){ nudgeHue(15); }
+  else if(k==='-'||k==='_') nudgeIntensity(-0.1); else if(k==='='||k==='+') nudgeIntensity(0.1);
+  else if(k==='0') resetColor();
+  else if(k==='c'||k==='C') cycleCmode(); else if(k==='l'||k==='L') cycleLook();
+  else if(k>='1'&&k<='4'){ setLook(LOOKS[+k-1]); toast('Look: '+look,1400); }
+  else if(k==='f'||k==='F') toggleFullscreen(); else if(k==='p'||k==='P') togglePanel();
+  else if(k==='s'||k==='S') dl(); else if(k==='r'||k==='R') triggerRelease(); else if(k==='d'||k==='D') showDbg=!showDbg;
+  else if(k==='m'||k==='M') toggleAudio();
+  else return;
+  e.preventDefault();
+});
+
+// ── Rescan: fire the GitHub Action that re-scrapes the album ────────────────
 async function rescanAlbum(){
   const btn=document.getElementById('rescanBtn'), msg=document.getElementById('rescanMsg');
   if(!btn||btn.disabled) return;
-  const label=btn.textContent;
-  btn.disabled=true; btn.textContent='⟳ Requesting…';
+  const label=btn.textContent; btn.disabled=true; btn.textContent='⟳ Requesting…';
   try{
     const r=await fetch('/api/refresh-photos',{method:'POST',headers:{'Content-Type':'application/json'}});
     let d={}; try{ d=await r.json(); }catch(e){}
-    if(r.status===202){
-      msg.textContent='Scan started. The Action is running on GitHub; new photos appear after it commits and the site redeploys (a few minutes).';
-      btn.textContent='✓ Scan started';
-    }else{
-      msg.textContent='Could not start the scan ('+r.status+(d.error?': '+d.error:'')+'). The album still loads from the last successful scan.';
-      btn.textContent=label; btn.disabled=false;
-    }
-  }catch(e){
-    msg.textContent='Could not reach the refresh endpoint. The album still loads from the last successful scan.';
-    btn.textContent=label; btn.disabled=false;
-  }
+    if(r.status===202){ msg.textContent='Scan started. The Action is running on GitHub; new photos appear after it commits and the site redeploys (a few minutes).'; btn.textContent='✓ Scan started'; }
+    else { msg.textContent='Could not start the scan ('+r.status+(d.error?': '+d.error:'')+'). The album still loads from the last successful scan.'; btn.textContent=label; btn.disabled=false; }
+  }catch(e){ msg.textContent='Could not reach the refresh endpoint. The album still loads from the last successful scan.'; btn.textContent=label; btn.disabled=false; }
 }
 
-// ── Audio: phish.in via same-origin proxy, or a local file. ────────────────
-const PROXY='/api/phishin';            // → phish.in/api/v2 (Vercel function)
-const MAXHOLD=60;                      // safety cap (s): force a release if a jam never resolves
+// ── Audio: phish.in via same-origin proxy, or a local file (unchanged) ──────
+const PROXY='/api/phishin';
+const MAXHOLD=60;
 let audioEl=null, actx=null, analyser=null, freq=null, audioPlaying=false;
-// ── conductor (music drives the visual) ──
 let jamStartSec=0, tension=0, fluxPrev=null, gMax={e:1e-4,c:1e-4,f:1e-4}, tHist=[], releaseCD=0, flash=0, showDbg=false, wasAudioOn=false;
 let bass=1, mid=1, treb=1;
-
 function ensureCtx(){ actx=actx||new (window.AudioContext||window.webkitAudioContext)(); }
 function setupAudio(url, jamSec){
   if(audioEl){ try{audioEl.pause();}catch(e){} }
@@ -477,9 +846,6 @@ function loadLocal(inp){let f=inp.files[0];if(!f)return; setupAudio(URL.createOb
 function toggleAudio(){ if(!audioEl)return; ensureCtx(); actx.resume();
   if(audioPlaying) audioEl.pause(); else audioEl.play().catch(()=>{});
   audioPlaying=!audioPlaying; document.getElementById('aPlay').textContent=audioPlaying?'⏸ Pause':'▶ Play'; }
-
-// phish.in search through the proxy. Confirm endpoint shapes at
-// https://phish.in/api/v2/swagger_doc — parsing below is intentionally defensive.
 async function api(path){ const r=await fetch(PROXY+'/'+path,{headers:{accept:'application/json'}});
   if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
 async function searchSong(){
@@ -490,24 +856,20 @@ async function searchSong(){
     try{ data=await api('search/'+encodeURIComponent(term)); }
     catch(e){ data=await api('songs?title='+encodeURIComponent(term)); }
     let perf=collectTracks(data);
-    if(!perf.length){ box.innerHTML='<span style="color:var(--mid)">No playable tracks parsed. Confirm phish.in endpoint names in docs/ALGORITHM.md.</span>'; return; }
+    if(!perf.length){ box.innerHTML='<span style="color:var(--ink3)">No playable tracks found.</span>'; return; }
     box.innerHTML='';
     perf.slice(0,40).forEach(t=>{
       let d=document.createElement('div');
-      d.style.cssText='padding:7px 6px;border-bottom:1px solid var(--lgray);cursor:pointer';
       d.textContent=[t.title,t.date,t.venue,t.dur].filter(Boolean).join(' · ');
       d.onclick=()=>{ setupAudio(t.url, t.jam); ensureCtx(); actx.resume();
         audioEl.play().catch(()=>{}); audioPlaying=true;
         document.getElementById('aPlay').disabled=false; document.getElementById('aPlay').textContent='⏸ Pause';
         let np=document.getElementById('np'); np.textContent='♪ '+d.textContent;
-        if(t.note){ let cap=document.createElement('div');
-          cap.style.cssText='margin-top:5px;font-style:italic;color:var(--mid);font-size:11px;line-height:1.4';
-          cap.textContent=t.note; np.appendChild(cap); } };
+        if(t.note){ let cap=document.createElement('div'); cap.style.cssText='margin-top:5px;font-style:italic;font-size:11px;line-height:1.4'; cap.textContent=t.note; np.appendChild(cap); } };
       box.appendChild(d);
     });
-  }catch(e){ box.innerHTML='<span style="color:var(--mid)">Couldn\'t reach phish.in — the Vercel proxy must be live. ('+e.message+')</span>'; }
+  }catch(e){ box.innerHTML='<span style="color:var(--ink3)">Couldn\'t reach phish.in — the Vercel proxy must be live. ('+e.message+')</span>'; }
 }
-// Recursively pull {title,date,venue,dur,url} from arbitrary phish.in JSON.
 function collectTracks(data){
   let out=[], seen=new Set();
   const mp3=o=>o&&(o.mp3_url||o.mp3||o.audio||o.url);
@@ -516,16 +878,13 @@ function collectTracks(data){
     if(node&&typeof node==='object'){
       let nc=Object.assign({},ctx);
       if(node.date||node.show_date) nc.date=node.date||node.show_date;
-      if(node.venue_name) nc.venue=node.venue_name;
-      else if(node.venue&&node.venue.name) nc.venue=node.venue.name;
-      else if(typeof node.venue==='string') nc.venue=node.venue;
+      if(node.venue_name) nc.venue=node.venue_name; else if(node.venue&&node.venue.name) nc.venue=node.venue.name; else if(typeof node.venue==='string') nc.venue=node.venue;
       if(node.title && !node.songs && !node.tracks) nc.title=node.title;
       let u=mp3(node);
       if(u && typeof u==='string' && /\.mp3|\/audio|stream/i.test(u) && !seen.has(u)){ seen.add(u);
         let jn=node.jamchart_description||node.jam_notes||node.jamchart_notes;
         out.push({url:u, title:node.title||nc.title, date:node.date||nc.date, venue:nc.venue,
-          dur:node.duration?fmt(node.duration):'', jam:(typeof node.jam_starts_at_second==='number'?node.jam_starts_at_second:0),
-          note:(typeof jn==='string'?jn:'')}); }
+          dur:node.duration?fmt(node.duration):'', jam:(typeof node.jam_starts_at_second==='number'?node.jam_starts_at_second:0), note:(typeof jn==='string'?jn:'')}); }
       Object.keys(node).forEach(k=>{ if(node[k]&&typeof node[k]==='object') walk(node[k],nc); });
     }
   };
@@ -533,13 +892,8 @@ function collectTracks(data){
 }
 function fmt(v){let s=Math.round(v>10000?v/1000:v);let m=Math.floor(s/60);return m+':'+String(s%60).padStart(2,'0');}
 function triggerRelease(){ flash=1; releaseCD=4.5; tHist=[];
-  if(cycle && studies.length>1){ prevStudy=studies[curIdx]; prevSwitch=millis(); curIdx=(curIdx+1)%studies.length; }
-  studyStart=millis(); updateHUD(); }
-window.addEventListener('keydown',e=>{
-  if(e.target&&/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
-  if(e.key==='d'||e.key==='D') showDbg=!showDbg;
-  else if(e.key==='r'||e.key==='R') triggerRelease();
-});
+  if(cycle && studies.length>1) switchTo((curIdx+1)%studies.length,'wipe'); else studyStart=millis();
+  updateHUD(); }
 </script>
 </body>
 </html>

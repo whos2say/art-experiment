@@ -14,15 +14,45 @@ Three things happen on load:
 1. **`photos/manifest.json`** is fetched. Each entry carries a pre-computed
    palette (extracted at build time by `build/palette.mjs`), so the page never
    has to do colour clustering in the browser.
-2. **Each photo becomes a "study"** — `buildStudy()` turns the image and its
-   palette into the parameters for one movement, and `computeConductor()`
-   derives the overall motion from the image's structure.
-3. **Audio, if any, modulates the performance.** Tracks stream from
-   [phish.in](https://phish.in) through a same-origin proxy so the Web Audio
-   FFT isn't tainted by CORS. You can also load a local file.
+2. **Each photo becomes a "study"** — `buildStudy()` turns the image into a
+   score: 48 colour regions, its five brightest lights with their streak
+   direction, a warm centre, and the frame's overall smear angle.
+   `computeConductor()` turns the music into a single normalised *tension*.
+3. **Two layers are grown and composited every frame.** The *light* layer is
+   the show — washes, plumes and beams — and the *photo* layer is the picture
+   itself, drifting along its own light direction. A **Look** decides how they
+   combine.
 
 If the manifest can't be reached, the page falls back to a single built-in
 photo so the engine still runs.
+
+## Looks
+
+| Key | Look | What you see |
+| --- | --- | --- |
+| `2` | **Bloom** (default) | The photograph full-frame, with the light show blooming over it. |
+| `1` | **Reveal** | Darkness until the light lands on the photo — the picture exists only where it's lit. Trails smear it into the dark. |
+| `3` | **Prism** | Red, green and blue pulled apart along the photo's smear angle, pulsing with the bass. |
+| `4` | **Spectra** | Pure light grown from the photo — the original abstract mode. |
+
+`L` cycles them.
+
+## Controls
+
+**Mouse** — drag on the picture: left/right shifts hue, up/down changes
+intensity. Scroll to zoom the photograph. Double-click for fullscreen. Click
+any thumbnail in the filmstrip to jump to that photo.
+
+**Keyboard** — `[` `]` hue · `-` `=` intensity · `C` colour mode (Natural →
+Duotone → Mono → Negative) · `0` reset colour · `←` `→` photos · `space`
+pause · `R` release · `M` play/pause track · `F` fullscreen · `P` panel ·
+`S` save still · `?` help · `esc` close.
+
+Colour is a single global transform applied to the photo *and* to every wash,
+plume and beam grown from it, so the two never disagree.
+
+In fullscreen the controls and cursor fade after a few seconds idle; move the
+mouse to bring them back.
 
 ## Layout
 
