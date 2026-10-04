@@ -20,7 +20,7 @@ button{font-family:inherit}
 
 /* ── stage: the canvas owns the whole window ───────────────────────────── */
 #stage{position:fixed;inset:0;background:var(--bg)}
-#stage canvas{display:block;width:100%!important;height:100%!important;cursor:grab}
+#stage canvas{display:block;width:100%!important;height:100%!important;cursor:grab;touch-action:none}
 #stage canvas.dragging{cursor:grabbing}
 .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:14px;letter-spacing:.04em}
 
@@ -103,6 +103,11 @@ details.sec summary::-webkit-details-marker{display:none}
 
 /* ── help overlay ──────────────────────────────────────────────────────── */
 #help{position:fixed;inset:0;z-index:20;background:rgba(3,4,10,.86);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:24px}
+#lightbox{position:fixed;inset:0;z-index:30;background:rgba(2,3,8,.94);display:none;align-items:center;justify-content:center;padding:24px;flex-direction:column;gap:12px}
+#lightbox.open{display:flex}
+#lightbox img{max-width:100%;max-height:82vh;object-fit:contain;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#lightbox .lb-cap{color:var(--ink2);font-size:12.5px;text-align:center}
+#lightbox button.lb-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border-radius:50%;background:var(--glass2);border:1px solid var(--line);color:var(--ink);font-size:18px;cursor:pointer}
 #help.open{display:flex}
 #help .card{width:min(860px,100%);max-height:100%;overflow:auto;background:rgba(14,15,24,.9);border:1px solid var(--line);border-radius:16px;padding:26px 28px 22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
 #help h2{font-family:'Lora',serif;font-size:22px;font-weight:500}
@@ -211,16 +216,20 @@ if(window.innerWidth<=760) document.body.classList.remove('panel-open');
 </div>
 <div id="toast"></div>
 <div id="readout"></div>
+<div id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lb-close" aria-label="Close" onclick="closeLightbox()">✕</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-cap" id="lbCap"></div>
+</div>
 
 <!-- ── mobile: a real gallery in normal page flow, right below the stage.
      Hidden on desktop (the immersive canvas is the whole experience there);
-     on phones it's the next thing you scroll to — tap a piece to view it
-     in the stage above, or buy a print straight away. ── -->
+     on phones it's the next thing you scroll to — tap a piece for the
+     full-quality view. No buy buttons: the storefront isn't live yet. ── -->
 <section id="shopGallery" class="ui">
   <h2>Gallery</h2>
-  <div class="lead">A few pieces from this show, ready as archival prints. Tap a photo to play it above, or buy straight away.</div>
+  <div class="lead">20 pieces from this show, hand-picked. Tap a photo for the full-quality view.</div>
   <div id="galleryGrid"></div>
-  <a class="more" href="/shop" onclick="return goToShop(event)">View the full shop →</a>
 </section>
 
 <!-- ── control panel ─────────────────────────────────────────────────── -->
@@ -350,6 +359,7 @@ if(window.innerWidth<=760) document.body.classList.remove('panel-open');
         <div class="k"><div class="keys"><kbd>?</kbd><kbd>H</kbd></div><div>This screen</div></div>
         <div class="k"><div class="keys"><kbd>esc</kbd></div><div>Close this, leave fullscreen, or hide the panel</div></div>
         <div class="k"><div class="keys"><kbd>D</kbd></div><div>Debug readout on the canvas</div></div>
+        <div class="k"><div class="keys">👆</div><div>Touch (mobile): tap a corner to pick a Look · pinch to zoom · two-finger swipe l/r for prev/next photo · two-finger tap to cycle colour mode · three-finger tap to release — play it with your fingers</div></div>
       </div>
     </div>
     <div class="close"><span>Keys are ignored while you're typing in the song search.</span><button class="btn" style="width:auto" onclick="toggleHelp(false)">Close</button></div>
@@ -406,7 +416,9 @@ const TUNE_DEFAULTS={
   releaseCooldownSec:4.5,    // minimum gap between releases
   maxHoldSec:60,             // force a release if none has fired in this long
   beamIgniteBase:0.20,       // build level at which the first beam ignites
-  beamIgniteStep:0.14        // additional build needed for each subsequent beam
+  beamIgniteStep:0.14,       // additional build needed for each subsequent beam
+  assumedBPM:100             // no beat-tracking here — a plain estimate used only to turn
+                             // "N bars" into seconds for the forced photo-change ceiling below
 };
 let TUNE={...TUNE_DEFAULTS};
 let params={intensity:1,flow:1,plumes:1,beams:1,smear:1,sweep:1,trail:.55,photoDur:24, zoom:1.12, drift:1, presence:1};
@@ -424,8 +436,30 @@ function setup(){
   if(window.innerWidth<=760) document.body.classList.remove('panel-open'); // mobile: panel starts as a closed drawer, gallery is what you see first
   fitCanvas();
   const l=document.querySelector('.loading'); if(l) l.remove();
-  loadSources(); bindInput(); syncUI(); initTunePanel();
+  loadSources(); bindInput(); syncUI(); initTunePanel(); autoPickSong();
   toast('Drag on the picture to shift colour · scroll to zoom · press <kbd>?</kbd> for all controls', 7000);
+}
+
+// Auto-pick a song to start with, so the stage isn't silent/photo-only on load.
+// Tries the most recent known show first, falls back to a reliably-played song,
+// and — respecting the browser's autoplay policy — only loads+arms the track
+// (so the conductor/analyser are ready); it does NOT call .play() itself, since
+// that would be blocked without a user gesture anyway. The existing Play button
+// picks it up from there (same path as clicking a search result).
+const AUTO_SHOW_DATE='2026-10-02'; // update once the 10/3 show is archived on phish.in
+async function autoPickSong(){
+  if(audioEl) return; // don't clobber if audio was already set up some other way
+  let perf=[];
+  try{ perf=collectTracks(await api('shows/'+AUTO_SHOW_DATE)); }catch(e){}
+  if(!perf.length){ try{ perf=collectTracks(await api('search/Tweezer')); }catch(e){} }
+  if(!perf.length) return;
+  const t=perf.find(x=>x.note) || perf[Math.floor(perf.length/2)];
+  setupAudio(t.url, t.jam);
+  const np=document.getElementById('np');
+  if(np){ np.textContent='♪ Ready: '+[t.title,t.date,t.venue].filter(Boolean).join(' · ');
+    if(t.note){ const cap=document.createElement('div'); cap.style.cssText='margin-top:5px;font-style:italic;font-size:11px;line-height:1.4'; cap.textContent=t.note; np.appendChild(cap); } }
+  const btn=document.getElementById('aPlay'); if(btn){ btn.disabled=false; btn.textContent='▶ Play'; }
+  audioPlaying=false;
 }
 
 // ── ?tune panel: untuned feel constants, exposed live + a "copy JSON" button ──
@@ -438,7 +472,8 @@ const TUNE_SPEC=[
   {k:'releaseCooldownSec',label:'Release cooldown (s)',min:1,max:12,step:0.1},
   {k:'maxHoldSec',label:'Max hold before forced release (s)',min:15,max:120,step:1},
   {k:'beamIgniteBase',label:'First beam ignites at',min:0.05,max:0.6,step:0.01},
-  {k:'beamIgniteStep',label:'Ignition step per beam',min:0.02,max:0.3,step:0.01}
+  {k:'beamIgniteStep',label:'Ignition step per beam',min:0.02,max:0.3,step:0.01},
+  {k:'assumedBPM',label:'Assumed tempo (bars→sec, no beat-tracking)',min:60,max:180,step:1}
 ];
 function initTunePanel(){
   if(!new URLSearchParams(location.search).has('tune')) return;
@@ -506,12 +541,21 @@ async function loadSources(){
 function commit(slots){ studies=slots.filter(v=>v); buildStrip(); updateGalleryCount(slots);
   if(studies.length && studyStart===0){ curIdx=0; studyStart=millis(); } updateHUD(); renderGalleryCards(); }
 
-// ── mobile shop gallery: curated pieces, one tap to view, one tap to buy ──
+// ── mobile shop gallery: curated pieces, tap a photo for the full-quality view ──
 // This reads /pieces.json when it exists (the gallery/storefront build writes
-// it — see REPORT.md, section 5) and otherwise falls back to the first dozen
-// photos from the live source so the layout is never empty. Fallback cards
-// are clearly NOT for sale yet: their buy button says so rather than faking
-// a checkout.
+// it — see REPORT.md, section 5) and otherwise falls back to a curated set of
+// 20 photos picked by hand from across both photo batches (not just "first
+// 12") — see CURATED_FILES below. No buy buttons: the storefront/checkout
+// isn't live yet, so a photo tap opens the full picture instead of a sales
+// flow that doesn't exist. "Highest quality available" is the same ~1600px
+// web asset the stage itself uses everywhere — there's no separate, higher-
+// resolution file published publicly (the camera originals live only on the
+// photographer's own machine) — just shown uncropped/unstyled, not the
+// generative-art treatment.
+const CURATED_FILES=['photo_001.jpg','photo_013.jpg','photo_016.jpg','photo_021.jpg','photo_022.jpg',
+  'photo_027.jpg','photo_031.jpg','photo_056.jpg','photo_057.jpg','photo_062.jpg','photo_065.jpg',
+  'photo_069.jpg','photo_080.jpg','photo_083.jpg','photo_084.jpg','photo_090.jpg','photo_105.jpg',
+  'photo_119.jpg','photo_125.jpg','photo_135.jpg'];
 let piecesData=null, galleryBuilt=false;
 async function loadPieces(){
   try{ const r=await fetch(ASSET_BASE+'pieces.json',{cache:'no-store'}); if(r.ok){ const j=await r.json(); if(j.pieces&&j.pieces.length) piecesData=j.pieces; } }
@@ -524,30 +568,36 @@ function renderGalleryCards(){
   if(galleryBuilt && !piecesData) return; // avoid re-render churn once studies are in, unless real pieces just arrived
   grid.innerHTML='';
   if(piecesData){
-    piecesData.slice(0,12).forEach(p=>{
+    piecesData.slice(0,20).forEach(p=>{
       const el=document.createElement('div'); el.className='gcard';
-      el.innerHTML=`<div class="thumb"><img src="${p.thumb||p.image}" alt="${p.title||''}" loading="lazy"><button class="view" aria-label="View" onclick="goToShop(event,'${p.slug||''}')"></button></div>
-        <div class="meta"><div class="nm">${p.title||p.song||'Untitled'}</div><div class="cap">${p.caption||[p.venue,p.date].filter(Boolean).join(' · ')}</div>
-        <button class="buy" onclick="buyPrint('${p.slug||''}')">${p.price?('Buy print — from '+p.price):'Buy print'}</button></div>`;
+      el.innerHTML=`<div class="thumb"><img src="${p.thumb||p.image}" alt="${p.title||''}" loading="lazy"><button class="view" aria-label="View full quality" onclick="openLightbox('${p.image||p.thumb||''}','${(p.title||p.song||'').replace(/'/g,"\\'")}')"></button></div>
+        <div class="meta"><div class="nm">${p.title||p.song||'Untitled'}</div><div class="cap">${p.caption||[p.venue,p.date].filter(Boolean).join(' · ')}</div></div>`;
       grid.appendChild(el);
     });
     galleryBuilt=true; return;
   }
   if(!studies.length) return;
-  studies.slice(0,12).forEach((s,i)=>{
+  // Curated 20 in CURATED_FILES order when their filenames are present in the
+  // loaded album; otherwise (e.g. a different/smaller album) fall back to the
+  // first 20 so the gallery still has something to show.
+  let picks=CURATED_FILES.map(f=>studies.find(s=>(s.name||'')===f)).filter(Boolean);
+  if(!picks.length) picks=studies.slice(0,20);
+  picks.forEach((s)=>{
+    const i=studies.indexOf(s);
     const el=document.createElement('div'); el.className='gcard';
-    el.innerHTML=`<div class="thumb"><img src="${s.url||''}" alt="" loading="lazy"><button class="view" aria-label="View" onclick="goToPhoto(${i})"></button></div>
-      <div class="meta"><div class="nm">${(s.name||('Photo '+(i+1))).replace(/\.[a-zA-Z0-9]+$/,'')}</div><div class="cap">PHishy Art album</div>
-      <button class="buy" onclick="buyPrint(${i})">Buy print</button></div>`;
+    el.innerHTML=`<div class="thumb"><img src="${s.url||''}" alt="" loading="lazy"><button class="view" aria-label="View full quality" onclick="openLightbox('${s.url||''}','${(s.name||'Photo').replace(/'/g,"\\'")}')"></button></div>
+      <div class="meta"><div class="nm">${(s.name||('Photo '+(i+1))).replace(/\.[a-zA-Z0-9]+$/,'')}</div><div class="cap">PHishy Art album</div></div>`;
     grid.appendChild(el);
   });
 }
 function goToPhoto(i){ curIdx=i; studyStart=millis(); updateHUD();
   document.getElementById('stageArea').scrollIntoView({behavior:'smooth',block:'start'}); }
-function goToShop(ev,slug){ if(ev) ev.preventDefault();
-  toast('The full shop (checkout, editions, print sizes) ships with the Stripe integration — see REPORT.md for status.', 5000);
-  return false; }
-function buyPrint(ref){ toast('Checkout isn\'t wired up yet in this preview — Stripe test-mode checkout is tracked in REPORT.md.', 5000); }
+function openLightbox(url,caption){ if(!url) return;
+  document.getElementById('lbImg').src=url;
+  document.getElementById('lbCap').textContent=(caption||'').replace(/\.[a-zA-Z0-9]+$/,'');
+  document.getElementById('lightbox').classList.add('open'); }
+function closeLightbox(){ document.getElementById('lightbox').classList.remove('open'); document.getElementById('lbImg').src=''; }
+window.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
 function updateGalleryCount(slots){ let el=document.getElementById('galleryCount'); if(!el) return;
   if(sourceMode!=='album'){ el.textContent='Built-in fallback photo — album manifest not found.'; return; }
   let done=slots.filter(v=>v!==undefined).length, ok=slots.filter(v=>v).length;
@@ -881,8 +931,14 @@ function computeConductor(dt, now, audioOn){
   if(audioOn && releaseCD<=0){
     let vAgo=tHist.length?tHist[0].v:tension, recentMax=tHist.reduce((m,h)=>Math.max(m,h.v),0);
     let slope=tension-vAgo, held=(now-studyStart)/1000, fired=false;
+    // "major break" in the song: a real peak (recentMax) collapsing (slope dropping
+    // past the gate) — this IS the song-analysis-driven photo change Joe asked for.
     if(recentMax>TUNE.releaseGateRecentMax && slope<TUNE.releaseGateSlope) fired=true;
-    else if(held>TUNE.maxHoldSec) fired=true;
+    // Backstop so it never rides one photo through an entire long, driftless passage:
+    // never more than ~32 bars auto-playing, tightened to ~16 bars once things are
+    // already running hot (sustained high tension) — bars→seconds via the assumed
+    // tempo above, since there's no beat-tracking to get a real bar count from audio.
+    else if(held>Math.min(TUNE.maxHoldSec, barsToSec(recentMax>TUNE.releaseGateRecentMax*0.75||tension>0.5?16:32))) fired=true;
     else if(audioEl && audioEl.ended) fired=true;
     if(fired){ flash=1; releaseCD=TUNE.releaseCooldownSec; tHist=[];
       if(showReplay) advanceReplay(now);
@@ -891,6 +947,7 @@ function computeConductor(dt, now, audioOn){
   }
 }
 function avg(a,lo,hi){lo|=0;hi|=0;let s=0,n=0;for(let i=lo;i<hi;i++){s+=a[i];n++;}return n?s/n:0;}
+function barsToSec(bars){ return bars*4*60/TUNE.assumedBPM; } // 4/4 assumed
 
 function drawHUD(audioOn){
   push();
@@ -1047,8 +1104,13 @@ function togglePanel(force){ const on=(typeof force==='boolean')?force:!document
 let helpOpen=false;
 function toggleHelp(force){ helpOpen=(typeof force==='boolean')?force:!helpOpen; document.getElementById('help').classList.toggle('open',helpOpen); }
 function toggleFullscreen(){
+  // Fullscreen the #stage element alone (just the canvas), not the whole
+  // document — so fullscreen is the image/light-art experience only, with
+  // no HUD, topbar, filmstrip or panel chrome. #stage already fills the
+  // viewport on its own (position:fixed;inset:0), so this is a no-op for
+  // layout, just for what the Fullscreen API shows.
   if(document.fullscreenElement){ document.exitFullscreen&&document.exitFullscreen(); }
-  else { const el=document.documentElement; (el.requestFullscreen||el.webkitRequestFullscreen).call(el).catch?.(()=>{}); }
+  else { const el=document.getElementById('stage'); (el.requestFullscreen||el.webkitRequestFullscreen).call(el).catch?.(()=>{}); }
 }
 document.addEventListener('fullscreenchange',()=>{ const fs=!!document.fullscreenElement;
   document.getElementById('fsBtn').classList.toggle('on',fs); if(fs) togglePanel(false); setTimeout(fitCanvas,80); });
@@ -1081,6 +1143,57 @@ function bindInput(){
   window.addEventListener('pointermove',wake,{passive:true}); window.addEventListener('keydown',wake);
   setInterval(()=>{ const lim=document.fullscreenElement?2800:14000;
     if(Date.now()-lastMove>lim && !helpOpen && !dragStart && !document.body.classList.contains('panel-open')) document.body.classList.add('idle'); },400);
+  bindTouchGestures(cv);
+}
+
+// ── Mobile touch gestures: "play it with your fingers" ──────────────────────
+// Corner taps (one finger) pick a Look, like the 1-4 keys. Pinch zooms live.
+// Two-finger swipe l/r changes photo. A quick two-finger tap cycles colour
+// mode; a quick three-finger tap forces a release (same as the R key). Native
+// touch events (not Pointer Events) because classifying a gesture needs to see
+// every simultaneous contact point at once (e.touches), which Pointer Events
+// — one event stream per contact — makes awkward.
+function bindTouchGestures(cv){
+  let g=null; // {t0,maxN,x0,y0,dist0,zoom0,cx0,cy0,moved,pinched}
+  const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+  const mid=(a,b)=>({x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2});
+  const corner=(x,y)=>{ const r=cv.getBoundingClientRect(), fx=(x-r.left)/r.width, fy=(y-r.top)/r.height, z=0.22;
+    if(fx<z&&fy<z) return 0; if(fx>1-z&&fy<z) return 1; if(fx<z&&fy>1-z) return 2; if(fx>1-z&&fy>1-z) return 3; return -1; };
+  cv.addEventListener('touchstart',e=>{
+    if(!g || e.touches.length>g.maxN){
+      const t=e.touches[0];
+      g={t0:Date.now(), maxN:e.touches.length, x0:t.clientX, y0:t.clientY, moved:false, pinched:false, zoom0:params.zoom};
+      if(e.touches.length===2){ g.dist0=dist(e.touches[0],e.touches[1]); const m=mid(e.touches[0],e.touches[1]); g.cx0=m.x; g.cy0=m.y; }
+    }
+  },{passive:true});
+  cv.addEventListener('touchmove',e=>{
+    if(!g) return;
+    if(e.touches.length>=2 && g.dist0){
+      e.preventDefault();
+      const d=dist(e.touches[0],e.touches[1]);
+      if(Math.abs(d-g.dist0)>8){ g.pinched=true; setP('zoom',clamp(g.zoom0*(d/g.dist0),1,1.9)); }
+      const m=mid(e.touches[0],e.touches[1]), dx=m.x-g.cx0;
+      if(!g.pinched && Math.abs(dx)>10) g.moved=true, g.swipeDx=dx;
+    } else if(e.touches.length===1){
+      const t=e.touches[0];
+      if(Math.hypot(t.clientX-g.x0,t.clientY-g.y0)>10) g.moved=true;
+    }
+  },{passive:false});
+  cv.addEventListener('touchend',e=>{
+    if(!g) return;
+    if(e.touches.length===0){
+      const held=Date.now()-g.t0, n=g.maxN;
+      if(n===1 && !g.moved && held<400){
+        const ci=corner(g.x0,g.y0);
+        if(ci>=0){ setLook(LOOKS[ci]); toast('Look: '+LOOKS[ci],1400); }
+      } else if(n===2 && g.pinched){ markStyle(); }
+      else if(n===2 && g.moved && typeof g.swipeDx==='number'){ if(g.swipeDx<0) nextPhoto(); else prevPhoto(); }
+      else if(n===2 && !g.moved && !g.pinched && held<350){ cycleCmode(); }
+      else if(n===3 && !g.moved && held<350){ triggerRelease(); }
+      g=null;
+    }
+  },{passive:true});
+  cv.addEventListener('touchcancel',()=>{ g=null; },{passive:true});
 }
 window.addEventListener('keydown',e=>{
   if(e.target&&/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
