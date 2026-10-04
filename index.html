@@ -301,6 +301,7 @@ if(window.innerWidth<=760) document.body.classList.remove('panel-open');
     <h3>Actions <span><kbd>S</kbd> save</span></h3>
     <div class="row"><button class="btn" onclick="dl()">⬇ Save still</button><button class="btn" onclick="restart()">⏮ Restart</button></div>
     <button class="btn" style="margin-top:8px" onclick="startOver()">⟲ Start over from photo 1 <kbd style="margin-left:6px">Home</kbd></button>
+    <button class="btn" style="margin-top:8px" onclick="toggleShowReplay()">▶ Show replay (real pacing) <kbd style="margin-left:6px">G</kbd></button>
     <button class="btn" id="rescanBtn" style="margin-top:8px" onclick="rescanAlbum()">⟳ Rescan album</button>
     <div class="hint" id="rescanMsg">Re-scrapes the PHishy Art album and commits any new photos. Takes a few minutes and redeploys — reload once it finishes.</div>
     <div class="hint" id="galleryCount" style="margin-top:10px"></div>
@@ -338,6 +339,7 @@ if(window.innerWidth<=760) document.body.classList.remove('panel-open');
         <div class="k"><div class="keys"><kbd>space</kbd></div><div>Pause / resume the movement</div></div>
         <div class="k"><div class="keys"><kbd>R</kbd></div><div>Release — flash and move on, as the music would</div></div>
         <div class="k"><div class="keys"><kbd>Home</kbd></div><div>Start over — back to the first photograph, shown untouched for a second, colour reset, then the show begins again</div></div>
+        <div class="k"><div class="keys"><kbd>G</kbd></div><div>Show replay — plays a dated show's photos back-to-back at the real gaps between shots (compressed), instead of one fixed duration each. Toggle off to return to the regular cycle.</div></div>
         <div class="k"><div class="keys"><kbd>M</kbd></div><div>Play / pause the loaded track</div></div>
         <h4 style="margin-top:14px">View</h4>
         <div class="k"><div class="keys"><kbd>F</kbd></div><div>Fullscreen</div></div>
@@ -409,6 +411,7 @@ let params={intensity:1,flow:1,plumes:1,beams:1,smear:1,sweep:1,trail:.55,photoD
 let look='bloom', cmode='natural', hueShift=0, satMul=1;
 let studies=[], curIdx=0, studyStart=0, pausedAt=0, prevStudy=null, prevSwitch=-9999, transKind='dissolve';
 let playing=true, cycle=true, revealUntil=-1;   // >now while the clean 'start over' reveal is holding
+let showReplay=null;  // {showId, queue:[studyIdx...], durations:[sec...], pos} — see "Show replay" below
 let plumes=[], glow, vignette, lightG, photoG, maskG, tmpG;
 let W=1200, H=900;
 
@@ -601,7 +604,8 @@ function buildStudy(img, src){
   let duo; { const src0=pal[0]?hexToRgb(pal[0]):[regions[0].r,regions[0].g,regions[0].b]; const hs=rgb2hsv(src0[0],src0[1],src0[2]);
     const top=hsv2rgb(hs[0],Math.max(.55,hs[1]),1), deep=hsv2rgb((hs[0]+180)%360,.7,.16); duo=[deep,top]; }
   g.remove();
-  return {img,name:src.name,url:src.url,regions,spots,beamCol,plumeCol,warm,smearAngle,flowCoh,energy,palette:pal,duo,seed:Math.random()*100};
+  return {img,name:src.name,url:src.url,regions,spots,beamCol,plumeCol,warm,smearAngle,flowCoh,energy,palette:pal,duo,seed:Math.random()*100,
+    capturedAt:src.entry&&src.entry.capturedAt||null, sourceShow:src.entry&&src.entry.sourceShow||null};
 }
 function satv(c){let h=rgb2hsv(c.r,c.g,c.b);return h[1]*h[2];}
 function rgb2hsv(r,g,b){r/=255;g/=255;b/=255;let mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,h=0;
@@ -800,8 +804,12 @@ function draw(){
   const audioOn=!!(analyser && audioPlaying);
   computeConductor(dt, now, audioOn);
   if(playing && !audioOn){
-    let p=(now-studyStart)/(params.photoDur*1000);
-    if(p>=1){ if(cycle && studies.length>1){ switchTo((curIdx+1)%studies.length,'dissolve',now); } else { studyStart=now; } updateHUD(); }
+    let p=(now-studyStart)/(curPhotoDur()*1000);
+    if(p>=1){
+      if(showReplay){ advanceReplay(now); updateHUD(); }
+      else if(cycle && studies.length>1){ switchTo((curIdx+1)%studies.length,'dissolve',now); updateHUD(); }
+      else { studyStart=now; updateHUD(); }
+    }
   }
   // throttled restyle while dragging; full-res pass once the hand is still
   if(styleDirty && now-lastStyleAt>(dragging?70:0)){ workW=dragging?STYLE_W_DRAG:STYLE_W_FULL; refreshStyleKey(); styleDirty=false; lastStyleAt=now; }
@@ -841,7 +849,7 @@ function computeConductor(dt, now, audioOn){
     let k=target>tension?(1-Math.exp(-dt/TUNE.attackTau)):(1-Math.exp(-dt/TUNE.decayTau));
     tension+=(target-tension)*k;
   } else {
-    let p=Math.min(1,(playing?(now-studyStart):pausedAt)/(params.photoDur*1000));
+    let p=Math.min(1,(playing?(now-studyStart):pausedAt)/(curPhotoDur()*1000));
     tension=ss(.12,.55,p)*(1-ss(.8,1,p)); bass=mid=treb=0.9+0.1*Math.sin(now/1000*3);
   }
   tHist.push({t:now,v:tension}); while(tHist.length && now-tHist[0].t>TUNE.releaseWindowMs) tHist.shift();
@@ -853,7 +861,8 @@ function computeConductor(dt, now, audioOn){
     else if(held>TUNE.maxHoldSec) fired=true;
     else if(audioEl && audioEl.ended) fired=true;
     if(fired){ flash=1; releaseCD=TUNE.releaseCooldownSec; tHist=[];
-      if(cycle && studies.length>1) switchTo((curIdx+1)%studies.length,'wipe',now); else studyStart=now;
+      if(showReplay) advanceReplay(now);
+      else if(cycle && studies.length>1) switchTo((curIdx+1)%studies.length,'wipe',now); else studyStart=now;
       updateHUD(); }
   }
 }
@@ -862,7 +871,7 @@ function avg(a,lo,hi){lo|=0;hi|=0;let s=0,n=0;for(let i=lo;i<hi;i++){s+=a[i];n++
 function drawHUD(audioOn){
   push();
   const pad=Math.round(W*0.02), w=W-pad*2, y=H-Math.round(H*0.075)-10;
-  const val=audioOn?tension:Math.min(1,(playing?(millis()-studyStart):pausedAt)/(params.photoDur*1000));
+  const val=audioOn?tension:Math.min(1,(playing?(millis()-studyStart):pausedAt)/(curPhotoDur()*1000));
   noStroke(); fill(255,255,255,34); rect(pad,y,w,3,2); fill(255,255,255,190); rect(pad,y,w*val,3,2);
   if(showDbg){ fill(255,255,255,190); textSize(12); textAlign(LEFT,BOTTOM);
     text((audioOn?'TENSION ':'TIMELINE ')+val.toFixed(2)+'   look '+look+'   cmode '+cmode+'   hue '+hueShift.toFixed(0)+'°'+(audioOn?('   bass '+bass.toFixed(2)+'  mid '+mid.toFixed(2)+'  treb '+treb.toFixed(2)):'')+'   '+W+'×'+H+' @'+Math.round(frameRate())+'fps', pad, y-10); }
@@ -871,15 +880,23 @@ function drawHUD(audioOn){
 
 // ── HUD / panel / filmstrip ──────────────────────────────────────────────────
 function swatches(st){ return st.palette.map(h=>{const c=C(...hexToRgb(h));return '<i style="background:'+toHex(c[0],c[1],c[2])+'"></i>';}).join(''); }
+function replayClockLabel(st){
+  if(!showReplay || !st || !st.capturedAt) return '';
+  const d=new Date(st.capturedAt);
+  const hh=d.getHours(), mm=String(d.getMinutes()).padStart(2,'0'), ap=hh>=12?'pm':'am', h12=((hh%12)||12);
+  return ' · '+h12+':'+mm+ap+' · '+(showReplay.pos+1)+'/'+showReplay.queue.length+' in replay';
+}
 function updateHUD(){
   const st=studies[curIdx]; if(!st) return;
+  const rc=replayClockLabel(st);
   const el=document.getElementById('nowshow');
   el.innerHTML='<span class="nm">'+st.name+'</span> · '+(curIdx+1)+' / '+studies.length+
-    '<div style="color:var(--ink3);font-size:11px">energy '+st.energy.toFixed(2)+' · smear '+(st.smearAngle*180/Math.PI).toFixed(0)+'°</div>'+
+    '<div style="color:var(--ink3);font-size:11px">energy '+st.energy.toFixed(2)+' · smear '+(st.smearAngle*180/Math.PI).toFixed(0)+'°'+rc+'</div>'+
     '<div class="sw">'+swatches(st)+'</div>';
   const hs=hueShift?((hueShift>0?'+':'')+Math.round(hueShift)+'°'):'';
   document.getElementById('hudNow').innerHTML=
     '<span>'+st.name.replace(/\.[a-z]+$/i,'')+' <span style="color:var(--ink3)">'+(curIdx+1)+'/'+studies.length+'</span></span>'+
+    (showReplay?'<span class="tag hot">show replay</span>':'')+
     '<span class="tag hot">'+look+'</span><span class="tag">'+cmode+(hs?' '+hs:'')+'</span><span class="sw">'+swatches(st)+'</span>';
   highlightStrip();
 }
@@ -923,6 +940,52 @@ function togglePlay(){
 }
 function toggleCycle(){cycle=!cycle;document.getElementById('cycleTog').classList.toggle('on',cycle);}
 function restart(){studyStart=millis();pausedAt=0;plumes=[];}
+
+// ── Show replay: photo-to-photo pacing drawn from a real show's own capture
+// gaps (manifest.capturedAt), not the uniform photoDur used everywhere else.
+// Each photo's manifest entry carries capturedAt (ISO, from camera EXIF) and
+// sourceShow (an id grouping photos from one night) once they've been through
+// the real pipeline — see photos/2026-10-03-source-map.json. No audio is
+// wired to this yet (the 10/3 vs 10/2 date needs confirming first — see
+// REPORT.md — so this plays the photos' own timeline, not a synced track).
+const REPLAY_COMPRESSION=20;   // real seconds per replay second
+const REPLAY_MIN_DUR=4, REPLAY_MAX_DUR=40; // clamp per-photo dwell, seconds
+function curPhotoDur(){ return showReplay ? showReplay.durations[showReplay.pos] : params.photoDur; }
+function availableShows(){
+  const ids=new Set();
+  for(const st of studies) if(st.sourceShow && st.capturedAt) ids.add(st.sourceShow);
+  return [...ids];
+}
+function buildShowReplayQueue(showId){
+  const idx=studies.map((st,i)=>({i,st})).filter(x=>x.st.sourceShow===showId && x.st.capturedAt);
+  if(idx.length<2) return null;
+  idx.sort((a,b)=>a.st.capturedAt<b.st.capturedAt?-1:a.st.capturedAt>b.st.capturedAt?1:0);
+  const queue=idx.map(x=>x.i);
+  const times=idx.map(x=>new Date(x.st.capturedAt).getTime());
+  const durations=[];
+  for(let k=0;k<times.length;k++){
+    const gapSec=k<times.length-1 ? (times[k+1]-times[k])/1000 : (REPLAY_MIN_DUR*REPLAY_COMPRESSION);
+    durations.push(clamp(gapSec/REPLAY_COMPRESSION, REPLAY_MIN_DUR, REPLAY_MAX_DUR));
+  }
+  return {showId, queue, durations, times, pos:0};
+}
+function toggleShowReplay(){
+  if(showReplay){ showReplay=null; studyStart=millis(); updateHUD(); toast('Show replay off — back to the regular cycle',1600); return; }
+  const shows=availableShows();
+  if(!shows.length){ toast('No dated show footage in the album yet',1800); return; }
+  const q=buildShowReplayQueue(shows[0]);
+  if(!q){ toast('Not enough timestamped photos to replay that show',1800); return; }
+  showReplay=q; plumes=[]; prevStudy=null; prevSwitch=-9999;
+  switchTo(showReplay.queue[0],'dissolve'); studyStart=millis(); playing=true;
+  document.getElementById('playBtn').textContent='⏸ Pause';
+  updateHUD();
+  toast('Show replay: '+shows[0]+' — paced from the photos’ own timestamps ('+REPLAY_COMPRESSION+'× real time)',3200);
+}
+function advanceReplay(now){
+  showReplay.pos++;
+  if(showReplay.pos>=showReplay.queue.length){ showReplay.pos=0; toast('Show replay: back to the top',1400); }
+  switchTo(showReplay.queue[showReplay.pos],'dissolve',now);
+}
 // Home: back to the first photograph, shown untouched for one second, then the performance starts over.
 function startOver(){
   if(!studies.length) return;
@@ -995,6 +1058,7 @@ window.addEventListener('keydown',e=>{
   else if(k==='s'||k==='S') dl(); else if(k==='r'||k==='R') triggerRelease(); else if(k==='d'||k==='D') showDbg=!showDbg;
   else if(k==='Home') startOver();
   else if(k==='m'||k==='M') toggleAudio();
+  else if(k==='g'||k==='G') toggleShowReplay();
   else return;
   e.preventDefault();
 });
@@ -1083,7 +1147,8 @@ function collectTracks(data){
 }
 function fmt(v){let s=Math.round(v>10000?v/1000:v);let m=Math.floor(s/60);return m+':'+String(s%60).padStart(2,'0');}
 function triggerRelease(){ flash=1; releaseCD=TUNE.releaseCooldownSec; tHist=[];
-  if(cycle && studies.length>1) switchTo((curIdx+1)%studies.length,'wipe'); else studyStart=millis();
+  if(showReplay) advanceReplay(millis());
+  else if(cycle && studies.length>1) switchTo((curIdx+1)%studies.length,'wipe'); else studyStart=millis();
   updateHUD(); }
 </script>
 </body>
