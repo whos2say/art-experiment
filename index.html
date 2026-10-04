@@ -129,28 +129,89 @@ details.sec summary::-webkit-details-marker{display:none}
   :root{--panelW:min(340px,92vw)}
   #hud .title{font-size:16px}
   #strip .th{height:46px;width:46px}
+
+  /* ── mobile layout: stage keeps ~60% of the viewport, a real gallery
+     lives below it in normal page flow, and the panel/filmstrip become
+     drawers scoped to the stage instead of floating over the whole page ── */
+  html,body{overflow:visible;height:auto;min-height:100%}
+  body{overflow-x:hidden}
+  #stageArea{position:relative;width:100%;height:60vh;min-height:320px;overflow:hidden;background:var(--bg)}
+  #stageArea #stage{position:absolute;inset:0}
+  #stageArea #hud,#stageArea #topbar,#stageArea #strip{position:absolute}
+  #stageArea #hud{left:14px;top:10px;max-width:70vw}
+  #stageArea #hud .title{font-size:14px}
+  #stageArea #topbar{right:10px;top:10px;gap:6px}
+  #stageArea .ibtn{width:34px;height:34px;font-size:14px}
+  body.panel-open #stageArea #strip{right:0}
+  body.panel-open #stageArea #topbar{right:10px}
+  #panel{width:min(320px,86vw)}
+
+  /* panel + filmstrip stay fixed (they're meant to float above everything,
+     including the gallery, when opened), but default CLOSED on mobile so
+     the gallery is reachable immediately without hunting for a toggle */
+  body:not(.panel-open) #panel{transform:translateX(100%)}
 }
+
+/* ── mobile gallery: curated pieces right below the stage, one tap to buy.
+   Hidden by default (desktop stays the pure immersive canvas); the
+   max-width:760px query below is what turns it on for phones. Written as
+   its own query, after the one above, so it always wins at mobile widths
+   regardless of source order elsewhere in the sheet. ── */
+#shopGallery{display:none;background:var(--bg);padding:22px 16px 48px;border-top:1px solid var(--line)}
+@media(max-width:760px){ #shopGallery{display:block} }
+#shopGallery h2{font-family:'Lora',serif;font-size:19px;font-weight:500;margin-bottom:4px}
+#shopGallery .lead{font-size:12.5px;color:var(--ink3);line-height:1.5;margin-bottom:16px}
+#galleryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.gcard{background:var(--glass2);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.gcard .thumb{position:relative;aspect-ratio:1/1;background:#0b0c14;overflow:hidden}
+.gcard .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.gcard .thumb button.view{position:absolute;inset:0;background:transparent;border:0;cursor:pointer}
+.gcard .meta{padding:9px 10px 11px;display:flex;flex-direction:column;gap:7px;flex:1}
+.gcard .meta .nm{font-size:12px;color:var(--ink);line-height:1.3}
+.gcard .meta .cap{font-size:10.5px;color:var(--ink3)}
+.gcard .buy{margin-top:auto;background:var(--orange);color:#fff;border:0;border-radius:7px;padding:8px 10px;font-size:11.5px;font-weight:600;cursor:pointer;letter-spacing:.02em}
+.gcard .buy:hover{background:#c96d47}
+#shopGallery .more{display:block;text-align:center;margin-top:16px;font-size:12px;color:var(--ink2);text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body class="panel-open">
+<script>
+// Runs immediately, independent of p5/CDN: on a phone the panel should start
+// as a closed drawer so the gallery below the stage is visible right away,
+// even if the canvas engine is still loading (or fails to load at all).
+if(window.innerWidth<=760) document.body.classList.remove('panel-open');
+</script>
 
-<div id="stage"><div class="loading">Analyzing photographs…</div></div>
+<div id="stageArea">
+  <div id="stage"><div class="loading">Analyzing photographs…</div></div>
 
-<!-- on-canvas heads-up: what's showing, how it's being shown -->
-<div id="hud" class="ui hideable">
-  <div class="title">Resonant Spectra</div>
-  <div class="now" id="hudNow"><span>loading…</span></div>
+  <!-- on-canvas heads-up: what's showing, how it's being shown -->
+  <div id="hud" class="ui hideable">
+    <div class="title">Resonant Spectra</div>
+    <div class="now" id="hudNow"><span>loading…</span></div>
+  </div>
+
+  <div id="topbar" class="ui hideable">
+    <button class="ibtn" id="helpBtn" data-tip="Controls (?)" onclick="toggleHelp()">?</button>
+    <button class="ibtn" id="fsBtn" data-tip="Fullscreen (F)" onclick="toggleFullscreen()">⛶</button>
+    <button class="ibtn on" id="panelBtn" data-tip="Panel (P)" onclick="togglePanel()">☰</button>
+  </div>
+
+  <div id="strip" class="ui hideable"></div>
 </div>
-
-<div id="topbar" class="ui hideable">
-  <button class="ibtn" id="helpBtn" data-tip="Controls (?)" onclick="toggleHelp()">?</button>
-  <button class="ibtn" id="fsBtn" data-tip="Fullscreen (F)" onclick="toggleFullscreen()">⛶</button>
-  <button class="ibtn on" id="panelBtn" data-tip="Panel (P)" onclick="togglePanel()">☰</button>
-</div>
-
-<div id="strip" class="ui hideable"></div>
 <div id="toast"></div>
 <div id="readout"></div>
+
+<!-- ── mobile: a real gallery in normal page flow, right below the stage.
+     Hidden on desktop (the immersive canvas is the whole experience there);
+     on phones it's the next thing you scroll to — tap a piece to view it
+     in the stage above, or buy a print straight away. ── -->
+<section id="shopGallery" class="ui">
+  <h2>Gallery</h2>
+  <div class="lead">A few pieces from this show, ready as archival prints. Tap a photo to play it above, or buy straight away.</div>
+  <div id="galleryGrid"></div>
+  <a class="more" href="/shop" onclick="return goToShop(event)">View the full shop →</a>
+</section>
 
 <!-- ── control panel ─────────────────────────────────────────────────── -->
 <aside id="panel" class="ui">
@@ -319,6 +380,7 @@ let W=1200, H=900;
 function setup(){
   const c=createCanvas(64,48); c.parent('stage'); pixelDensity(1);
   glow=makeGlow(360);
+  if(window.innerWidth<=760) document.body.classList.remove('panel-open'); // mobile: panel starts as a closed drawer, gallery is what you see first
   fitCanvas();
   const l=document.querySelector('.loading'); if(l) l.remove();
   loadSources(); bindInput(); syncUI();
@@ -366,7 +428,50 @@ async function loadSources(){
   });
 }
 function commit(slots){ studies=slots.filter(v=>v); buildStrip(); updateGalleryCount(slots);
-  if(studies.length && studyStart===0){ curIdx=0; studyStart=millis(); } updateHUD(); }
+  if(studies.length && studyStart===0){ curIdx=0; studyStart=millis(); } updateHUD(); renderGalleryCards(); }
+
+// ── mobile shop gallery: curated pieces, one tap to view, one tap to buy ──
+// This reads /pieces.json when it exists (the gallery/storefront build writes
+// it — see REPORT.md, section 5) and otherwise falls back to the first dozen
+// photos from the live source so the layout is never empty. Fallback cards
+// are clearly NOT for sale yet: their buy button says so rather than faking
+// a checkout.
+let piecesData=null, galleryBuilt=false;
+async function loadPieces(){
+  try{ const r=await fetch(ASSET_BASE+'pieces.json',{cache:'no-store'}); if(r.ok){ const j=await r.json(); if(j.pieces&&j.pieces.length) piecesData=j.pieces; } }
+  catch(e){}
+  renderGalleryCards();
+}
+loadPieces();
+function renderGalleryCards(){
+  const grid=document.getElementById('galleryGrid'); if(!grid) return;
+  if(galleryBuilt && !piecesData) return; // avoid re-render churn once studies are in, unless real pieces just arrived
+  grid.innerHTML='';
+  if(piecesData){
+    piecesData.slice(0,12).forEach(p=>{
+      const el=document.createElement('div'); el.className='gcard';
+      el.innerHTML=`<div class="thumb"><img src="${p.thumb||p.image}" alt="${p.title||''}" loading="lazy"><button class="view" aria-label="View" onclick="goToShop(event,'${p.slug||''}')"></button></div>
+        <div class="meta"><div class="nm">${p.title||p.song||'Untitled'}</div><div class="cap">${p.caption||[p.venue,p.date].filter(Boolean).join(' · ')}</div>
+        <button class="buy" onclick="buyPrint('${p.slug||''}')">${p.price?('Buy print — from '+p.price):'Buy print'}</button></div>`;
+      grid.appendChild(el);
+    });
+    galleryBuilt=true; return;
+  }
+  if(!studies.length) return;
+  studies.slice(0,12).forEach((s,i)=>{
+    const el=document.createElement('div'); el.className='gcard';
+    el.innerHTML=`<div class="thumb"><img src="${s.url||''}" alt="" loading="lazy"><button class="view" aria-label="View" onclick="goToPhoto(${i})"></button></div>
+      <div class="meta"><div class="nm">${(s.name||('Photo '+(i+1))).replace(/\.[a-zA-Z0-9]+$/,'')}</div><div class="cap">PHishy Art album</div>
+      <button class="buy" onclick="buyPrint(${i})">Buy print</button></div>`;
+    grid.appendChild(el);
+  });
+}
+function goToPhoto(i){ curIdx=i; studyStart=millis(); updateHUD();
+  document.getElementById('stageArea').scrollIntoView({behavior:'smooth',block:'start'}); }
+function goToShop(ev,slug){ if(ev) ev.preventDefault();
+  toast('The full shop (checkout, editions, print sizes) ships with the Stripe integration — see REPORT.md for status.', 5000);
+  return false; }
+function buyPrint(ref){ toast('Checkout isn\'t wired up yet in this preview — Stripe test-mode checkout is tracked in REPORT.md.', 5000); }
 function updateGalleryCount(slots){ let el=document.getElementById('galleryCount'); if(!el) return;
   if(sourceMode!=='album'){ el.textContent='Built-in fallback photo — album manifest not found.'; return; }
   let done=slots.filter(v=>v!==undefined).length, ok=slots.filter(v=>v).length;
