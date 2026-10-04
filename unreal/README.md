@@ -13,10 +13,14 @@ Three layers, each usable without the next:
 | `build_stage.py` | Editor Python. Builds the hall, fog, camera, every rig, and a Level Sequence that performs the album on a timer. | UE 5.5+, Python Editor Script Plugin (on by default) |
 | `Plugins/ResonantSpectra/` | C++ plugin. Live conductor: analyses whatever the game is playing and drives the rigs from the music, exactly like the web app. | A C++ project + Visual Studio Build Tools |
 
-**What has and hasn't been verified.** The exporter has been run against all 56
-photos here. `build_stage.py` has been syntax-checked and executed end to end
-against the real rig data with a stand-in for the `unreal` module — so the
-logic is sound, but the actual engine calls run for the first time on your
+**What has and hasn't been verified.** The exporter has been run against all 137
+photos here (the original 56, plus 81 from the 2026-10-03 Boardwalk Hall show
+— see `photos/2026-10-03-source-map.json`). Re-running it after the photo add
+reproduced all 56 original rig files byte-for-byte (it's a pure function of
+each photo's pixels), so the new rigs sit alongside the old ones rather than
+replacing anything. `build_stage.py` has been syntax-checked and executed end
+to end against the real rig data with a stand-in for the `unreal` module — so
+the logic is sound, but the actual engine calls run for the first time on your
 machine. The C++ has been reviewed but not compiled (no engine here). If
 anything in step 2 or 3 fails, paste the Output Log — every line the script
 prints starts with `[rs]`.
@@ -88,8 +92,9 @@ Open your project in UE 5.5+. Then either:
 - or **Edit ▸ Execute Python Script…** and pick the file.
 
 It creates `/Game/ResonantSpectra/Maps/RS_Stage`, builds everything, saves,
-and logs a summary. Expect it to take a minute or two: 56 photos × ~20
-lights, plus a 1,000-track sequence. Then **Play**.
+and logs a summary. Expect it to take a few minutes now there are 137 photos
+× ~20 lights each, plus the sequence — set `MAX_RIGS` below while iterating
+if that's too slow on your machine. Then **Play**.
 
 Knobs at the top of the file:
 
