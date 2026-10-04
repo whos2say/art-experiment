@@ -74,7 +74,7 @@
       "innerConeDeg": 10.4,
       "attenuationRadius": 2800,
       "volumetricScattering": 2.2,
-      "ignite": 0.2
+      "ignite": 0.5
     },
     {
       "id": 1,
@@ -100,7 +100,7 @@
       "innerConeDeg": 10.6,
       "attenuationRadius": 2800,
       "volumetricScattering": 2.2,
-      "ignite": 0.3
+      "ignite": 0.6
     },
     {
       "id": 2,
@@ -126,7 +126,7 @@
       "innerConeDeg": 6.9,
       "attenuationRadius": 2800,
       "volumetricScattering": 2.2,
-      "ignite": 0.5
+      "ignite": 0.2
     },
     {
       "id": 3,
@@ -152,7 +152,7 @@
       "innerConeDeg": 7.3,
       "attenuationRadius": 2800,
       "volumetricScattering": 2.2,
-      "ignite": 0.6
+      "ignite": 0.4
     },
     {
       "id": 4,
@@ -179,6 +179,33 @@
       "attenuationRadius": 2800,
       "volumetricScattering": 2.2,
       "ignite": 0.8
+    },
+    {
+      "id": 5,
+      "u": 0.636,
+      "v": 0.152,
+      "accent": true,
+      "location": [
+        620,
+        322,
+        721.1
+      ],
+      "direction": [
+        -0.407,
+        0.646,
+        -0.646
+      ],
+      "color": [
+        114,
+        164,
+        240
+      ],
+      "intensityCd": 16150,
+      "outerConeDeg": 6,
+      "innerConeDeg": 3,
+      "attenuationRadius": 3000,
+      "volumetricScattering": 2.6,
+      "ignite": 0.8
     }
   ],
   "washes": [
@@ -198,8 +225,8 @@
       ],
       "intensity": 265,
       "size": [
-        300,
-        220
+        320,
+        246
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -220,8 +247,8 @@
       ],
       "intensity": 263,
       "size": [
-        300,
-        220
+        319,
+        245
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -242,8 +269,8 @@
       ],
       "intensity": 255,
       "size": [
-        300,
-        220
+        316,
+        242
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -264,8 +291,8 @@
       ],
       "intensity": 271,
       "size": [
-        300,
-        220
+        314,
+        241
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -286,8 +313,8 @@
       ],
       "intensity": 280,
       "size": [
-        300,
-        220
+        314,
+        241
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -308,8 +335,8 @@
       ],
       "intensity": 234,
       "size": [
-        300,
-        220
+        306,
+        234
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -330,8 +357,8 @@
       ],
       "intensity": 256,
       "size": [
-        300,
-        220
+        308,
+        236
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -352,8 +379,8 @@
       ],
       "intensity": 244,
       "size": [
-        300,
-        220
+        304,
+        233
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -374,8 +401,8 @@
       ],
       "intensity": 267,
       "size": [
-        300,
-        220
+        305,
+        234
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -396,8 +423,8 @@
       ],
       "intensity": 241,
       "size": [
-        300,
-        220
+        299,
+        229
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -418,8 +445,8 @@
       ],
       "intensity": 242,
       "size": [
-        300,
-        220
+        297,
+        228
       ],
       "attenuationRadius": 900,
       "sourceLength": 0
@@ -440,8 +467,8 @@
       ],
       "intensity": 209,
       "size": [
-        300,
-        220
+        289,
+        221
       ],
       "attenuationRadius": 900,
       "sourceLength": 0

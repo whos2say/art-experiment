@@ -15,15 +15,41 @@ Three layers, each usable without the next:
 
 **What has and hasn't been verified.** The exporter has been run against all 137
 photos here (the original 56, plus 81 from the 2026-10-03 Boardwalk Hall show
-— see `photos/2026-10-03-source-map.json`). Re-running it after the photo add
-reproduced all 56 original rig files byte-for-byte (it's a pure function of
-each photo's pixels), so the new rigs sit alongside the old ones rather than
-replacing anything. `build_stage.py` has been syntax-checked and executed end
-to end against the real rig data with a stand-in for the `unreal` module — so
-the logic is sound, but the actual engine calls run for the first time on your
-machine. The C++ has been reviewed but not compiled (no engine here). If
-anything in step 2 or 3 fails, paste the Output Log — every line the script
-prints starts with `[rs]`.
+— see `photos/2026-10-03-source-map.json`). `build_stage.py` has been
+syntax-checked and executed end to end against the real rig data with a
+stand-in for the `unreal` module — so the logic is sound, but the actual
+engine calls run for the first time on your machine. The C++ has been
+reviewed but not compiled (no engine here). If anything in step 2 or 3 fails,
+paste the Output Log — every line the script prints starts with `[rs]`.
+
+**Rig variety (new).** The first pass made every rig the same shape: exactly
+one beam per detected light cluster (capped at 5), evenly-spaced ignite times
+(`0.20, 0.34, 0.48…` — every photo lit up its beams in the same order, biggest
+cluster first), and every wash the same fixed size. That read as flat once
+several photos played in a row. The exporter now:
+- captures up to 8 light clusters per photo instead of 5, so busy/energetic
+  photos earn visibly more beams than calm ones (clusters are still found,
+  never invented — a plain photo still gets few);
+- shuffles and jitters each beam's ignite threshold per photo (seeded off the
+  filename, so re-running stays deterministic), so the album doesn't ignite
+  in lockstep — sometimes a small accent beam leads, sometimes the main one;
+- adds 1-2 extra tight, hot "flash" beams on photos at energy ≥ 0.55, off the
+  brightest cluster, that only ignite near the peak (`ignite ≈ 0.82-0.94`,
+  tagged `accent: true` in the JSON) — a punch the base rig didn't have;
+- sizes each wash to its own region's brightness/saturation instead of a
+  fixed 300×220, so the back wall reads as varied panels rather than a grid
+  of identical tiles.
+
+All of this is additive and schema-compatible — `build_stage.py` already
+loops over whatever's in `rig['beams']`/`rig['washes']` and reads `size`,
+`ignite`, etc. per entry, so more/varied entries just means more/varied
+fixtures in the Outliner with no code changes on that side. Re-running the
+exporter is **no longer guaranteed byte-identical** for the original 56
+photos — the new per-photo shuffle changes ignite order and wash sizing even
+though the underlying analysis (spots, warm centre, palette) is unchanged.
+The knobs are in `build/export-rigs.mjs` near the top (`SPOT_CAP`,
+`IGNITE_JITTER`, `ACCENT_ENERGY_THRESHOLD`, `ACCENT_MAX`, `WASH_SIZE_MIN/MAX`)
+if this is too much or too little once you see it on a wall.
 
 ---
 

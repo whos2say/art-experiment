@@ -25,6 +25,23 @@ const PHOTOS = join(ROOT, 'photos');
 const OUT = join(ROOT, 'unreal', 'rigs');
 const AW = 96, AH = 72, GX = 8, GY = 6;
 
+// ── variety knobs ─────────────────────────────────────────────────────────
+// Tune these to change how lively the rigs feel without touching the maths
+// below. Everything here is a pure function of each photo's own analysis, so
+// re-running the exporter stays idempotent — same photo in, same rig out.
+const SPOT_CAP = 8;              // was 5: busier photos now earn more beams (calm photos still get few, since fewer clusters exist)
+const IGNITE_BASE = 0.20, IGNITE_STEP = 0.14;   // same pacing as before…
+const IGNITE_JITTER = 0.07;      // …but shuffled and jittered per photo so the album doesn't ignite in lockstep
+const ACCENT_ENERGY_THRESHOLD = 0.55; // photos at/above this energy earn 1-2 extra "flash" beams
+const ACCENT_MAX = 2;
+const WASH_SIZE_MIN = [170, 130], WASH_SIZE_MAX = [430, 330]; // was a fixed [300,220] for every wash
+
+// deterministic per-photo PRNG (mulberry32), seeded from the filename so
+// re-exporting always reproduces byte-identical rigs for unchanged photos
+function seedFrom(name) { let h = 2166136261; for (let i = 0; i < name.length; i++) { h ^= name.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function mulberry32(seed) { return function () { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function shuffle(arr, rnd) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }
+
 // ── the stage, in centimetres ────────────────────────────────────────────────
 const STAGE = {
   hall: { width: 2400, depth: 1600, height: 900 },     // Y extent, X extent, Z extent
@@ -38,6 +55,7 @@ const STAGE = {
   trussZ: 870,
 };
 const lerp = (a, b, t) => a + (b - a) * t;
+const clamp01 = v => Math.max(0, Math.min(1, v));
 const uvToYZ = (u, v) => [lerp(STAGE.photoY[0], STAGE.photoY[1], u), lerp(STAGE.photoZ[0], STAGE.photoZ[1], v)];
 const r1 = v => Math.round(v * 10) / 10;
 const r3 = v => Math.round(v * 1000) / 1000;
@@ -75,7 +93,7 @@ function analyse(px, name) {
     const x0 = Math.max(1, Math.floor(cx * AW) - rad), x1 = Math.min(AW - 1, Math.floor(cx * AW) + rad), y0 = Math.max(1, Math.floor(cy * AH) - rad), y1 = Math.min(AH - 1, Math.floor(cy * AH) + rad);
     for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) { const lx = lum[y * AW + x + 1] - lum[y * AW + x - 1], ly = lum[(y + 1) * AW + x] - lum[(y - 1) * AW + x]; xx += lx * lx; yy += ly * ly; xy += lx * ly; }
     return { ang: 0.5 * Math.atan2(2 * xy, (xx - yy)), coh: (xx + yy) > 1e-6 ? Math.hypot(xx - yy, 2 * xy) / (xx + yy) : 0 }; };
-  spots = spots.sort((a, b) => b.n - a.n).slice(0, 5).map(s => { const o = localOrient(s.x, s.y, Math.round(AW / 8));
+  spots = spots.sort((a, b) => b.n - a.n).slice(0, SPOT_CAP).map(s => { const o = localOrient(s.x, s.y, Math.round(AW / 8));
     const c = at(Math.min(AW - 1, Math.floor(s.x * AW)), Math.min(AH - 1, Math.floor(s.y * AH)));
     return { x: s.x, y: s.y, intensity: Math.min(1, s.l / 255), ang: o.ang, aniso: o.coh, color: c }; });
   let beamCol = [255, 200, 120]; if (spots[0]) beamCol = spots[0].color;
@@ -100,8 +118,13 @@ function analyse(px, name) {
 // ── map a study onto the stage ───────────────────────────────────────────────
 function toRig(st, file, dims) {
   const c255 = c => c.map(v => Math.round(Math.max(0, Math.min(255, v))));
+  const rnd = mulberry32(seedFrom(st.name));                     // deterministic per-photo shuffle/jitter
   // beams: one moving-head per bright light, pointing along its streak in the photo plane and
-  // tilted toward the audience (-X) so the shaft is visible in the fog
+  // tilted toward the audience (-X) so the shaft is visible in the fog.
+  // Ignite order is shuffled per photo (plus a little jitter) instead of always
+  // lighting up biggest-cluster-first, so the album doesn't ignite in lockstep.
+  const igniteValues = shuffle(st.spots.map((_, i) => IGNITE_BASE + i * IGNITE_STEP), rnd)
+    .map(v => r1(clamp01(v + (rnd() - 0.5) * 2 * IGNITE_JITTER)));
   const beams = st.spots.map((s, i) => {
     const [Y, Z] = uvToYZ(s.x, s.y);
     const dy = Math.cos(s.ang), dz = -Math.sin(s.ang);            // image y grows downward → -Z
@@ -114,14 +137,33 @@ function toRig(st, file, dims) {
       direction: [r3(toward / len), r3(dy / len), r3(dz / len)],
       color: c255(s.color), intensityCd: Math.round(6000 * (0.5 + s.intensity) * (0.6 + tight)),
       outerConeDeg: r1(outer), innerConeDeg: r1(inner), attenuationRadius: 2800, volumetricScattering: 2.2,
-      ignite: r1(0.20 + i * 0.14) };                             // tension at which this beam comes on (from the web conductor)
+      ignite: igniteValues[i] };
   });
-  // washes: the brightest, most colourful regions become rect lights painting the back wall
+  // accent/flash beams: energetic photos earn 1-2 extra tight, hot beams off the
+  // brightest spot that only ignite near the peak — a punch the base rig doesn't have
+  if (st.energy >= ACCENT_ENERGY_THRESHOLD && st.spots.length) {
+    const n = Math.min(ACCENT_MAX, 1 + Math.round(rnd()));
+    for (let i = 0; i < n; i++) {
+      const base = st.spots[i % st.spots.length];
+      const [Y, Z] = uvToYZ(clamp01(base.x + (rnd() - 0.5) * 0.08), clamp01(base.y + (rnd() - 0.5) * 0.08));
+      const dy = Math.cos(base.ang + (rnd() - 0.5) * 0.6), dz = -Math.sin(base.ang + (rnd() - 0.5) * 0.6);
+      const toward = -0.5; const len = Math.hypot(toward, dy, dz);
+      beams.push({ id: beams.length, u: r3(base.x), v: r3(base.y), accent: true,
+        location: [STAGE.beamX, r1(Y), r1(Z)], direction: [r3(toward / len), r3(dy / len), r3(dz / len)],
+        color: c255(base.color), intensityCd: Math.round(9500 * (0.7 + st.energy)),
+        outerConeDeg: 6, innerConeDeg: 3, attenuationRadius: 3000, volumetricScattering: 2.6,
+        ignite: r1(0.82 + rnd() * 0.12) });
+    }
+  }
+  // washes: the brightest, most colourful regions become rect lights painting the back wall;
+  // size now tracks each region's own brightness so the wall reads as varied panels, not a grid of identical tiles
   const washes = [...st.regions].filter(c => c.l > 14).sort((a, b) => (b.l / 255 + satv(b)) - (a.l / 255 + satv(a))).slice(0, 12).map((c, i) => {
     const [Y, Z] = uvToYZ(c.x, c.y);
+    const sizeT = clamp01(c.l / 255 * 0.6 + satv(c) * 0.4);
     return { id: i, u: r3(c.x), v: r3(c.y), location: [STAGE.washX, r1(Y), r1(Z)],
-      color: c255([c.r, c.g, c.b]), intensity: Math.round(60 + 340 * (c.l / 255)), size: [300, 220], attenuationRadius: 900,
-      sourceLength: 0 };
+      color: c255([c.r, c.g, c.b]), intensity: Math.round(60 + 340 * (c.l / 255)),
+      size: [Math.round(lerp(WASH_SIZE_MIN[0], WASH_SIZE_MAX[0], sizeT)), Math.round(lerp(WASH_SIZE_MIN[1], WASH_SIZE_MAX[1], sizeT))],
+      attenuationRadius: 900, sourceLength: 0 };
   });
   const [pY] = uvToYZ(st.warm.x, 0);
   const plume = { location: [STAGE.plumeX, r1(pY), 40], color: c255(st.plumeCol), height: Math.round(380 + 300 * st.energy), rate: r1(0.5 + st.energy) };
