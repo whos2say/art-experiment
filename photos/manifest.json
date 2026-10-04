@@ -1867,6 +1867,2725 @@
           "y": 0.4749999999999999
         }
       ]
+    },
+    {
+      "filename": "photo_057.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:47:10",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0b0139",
+          "#080874",
+          "#0401c0",
+          "#041caf",
+          "#1c0356"
+        ],
+        "colTop": "#041caf",
+        "colBase": "#0401c0",
+        "colDeep": "#0b0139",
+        "colPlume": "#0401c0",
+        "colBeam": "#080874"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_058.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:47:36",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010103",
+          "#040109",
+          "#0c0418",
+          "#1a0a2a",
+          "#200a41"
+        ],
+        "colTop": "#200a41",
+        "colBase": "#1a0a2a",
+        "colDeep": "#010103",
+        "colPlume": "#0c0418",
+        "colBeam": "#040109"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_059.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:47:39",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#020105",
+          "#04020b",
+          "#0c061e",
+          "#190d2f",
+          "#200f44"
+        ],
+        "colTop": "#200f44",
+        "colBase": "#190d2f",
+        "colDeep": "#020105",
+        "colPlume": "#0c061e",
+        "colBeam": "#04020b"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_060.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:47:43",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#280a28",
+          "#4c1845",
+          "#5f245c",
+          "#723279",
+          "#8d3a84"
+        ],
+        "colTop": "#8d3a84",
+        "colBase": "#723279",
+        "colDeep": "#280a28",
+        "colPlume": "#5f245c",
+        "colBeam": "#4c1845"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_061.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:47:58",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#05010a",
+          "#0c0217",
+          "#120320",
+          "#1b0627",
+          "#220738"
+        ],
+        "colTop": "#220738",
+        "colBase": "#1b0627",
+        "colDeep": "#05010a",
+        "colPlume": "#120320",
+        "colBeam": "#0c0217"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_062.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:47:59",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#090314",
+          "#180533",
+          "#290740",
+          "#380c47",
+          "#320b54"
+        ],
+        "colTop": "#380c47",
+        "colBase": "#320b54",
+        "colDeep": "#090314",
+        "colPlume": "#290740",
+        "colBeam": "#180533"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_063.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:48:05",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#13050c",
+          "#310f18",
+          "#380f27",
+          "#3d0f3b",
+          "#4d192c"
+        ],
+        "colTop": "#4d192c",
+        "colBase": "#3d0f3b",
+        "colDeep": "#13050c",
+        "colPlume": "#380f27",
+        "colBeam": "#310f18"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_064.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:48:57",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0a0203",
+          "#180607",
+          "#320c0f",
+          "#3f1717",
+          "#501814"
+        ],
+        "colTop": "#501814",
+        "colBase": "#3f1717",
+        "colDeep": "#0a0203",
+        "colPlume": "#320c0f",
+        "colBeam": "#180607"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_065.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T19:49:10",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#08090f",
+          "#1a1a24",
+          "#2b2d3a",
+          "#383e51",
+          "#4e4958"
+        ],
+        "colTop": "#4e4958",
+        "colBase": "#383e51",
+        "colDeep": "#08090f",
+        "colPlume": "#2b2d3a",
+        "colBeam": "#1a1a24"
+      },
+      "hotspots": [
+        {
+          "x": 0.4051380368098159,
+          "y": 0.4036042944785274
+        },
+        {
+          "x": 0.2713495575221239,
+          "y": 0.41449115044247786
+        },
+        {
+          "x": 0.40931122448979596,
+          "y": 0.5433673469387759
+        },
+        {
+          "x": 0.29015957446808505,
+          "y": 0.5353723404255318
+        }
+      ]
+    },
+    {
+      "filename": "photo_066.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T19:49:55",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010613",
+          "#04122a",
+          "#0b1f44",
+          "#132772",
+          "#10557f"
+        ],
+        "colTop": "#10557f",
+        "colBase": "#132772",
+        "colDeep": "#010613",
+        "colPlume": "#0b1f44",
+        "colBeam": "#04122a"
+      },
+      "hotspots": [
+        {
+          "x": 0.440625,
+          "y": 0.834375
+        },
+        {
+          "x": 0.2833333333333334,
+          "y": 0.85
+        },
+        {
+          "x": 0.525,
+          "y": 0.825
+        }
+      ]
+    },
+    {
+      "filename": "photo_067.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T20:36:54",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#04152c",
+          "#0c2752",
+          "#143566",
+          "#183e83",
+          "#206882"
+        ],
+        "colTop": "#206882",
+        "colBase": "#183e83",
+        "colDeep": "#04152c",
+        "colPlume": "#143566",
+        "colBeam": "#0c2752"
+      },
+      "hotspots": [
+        {
+          "x": 0.6875,
+          "y": 0.15
+        }
+      ]
+    },
+    {
+      "filename": "photo_068.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T20:37:29",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0e094a",
+          "#161169",
+          "#1e1587",
+          "#1c2e9f",
+          "#311ba4"
+        ],
+        "colTop": "#1c2e9f",
+        "colBase": "#311ba4",
+        "colDeep": "#0e094a",
+        "colPlume": "#1e1587",
+        "colBeam": "#161169"
+      },
+      "hotspots": [
+        {
+          "x": 0.28620689655172415,
+          "y": 0.5715517241379309
+        },
+        {
+          "x": 0.35703124999999997,
+          "y": 0.57734375
+        }
+      ]
+    },
+    {
+      "filename": "photo_069.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T20:37:47",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#020913",
+          "#081631",
+          "#022844",
+          "#182a49",
+          "#13376b"
+        ],
+        "colTop": "#13376b",
+        "colBase": "#182a49",
+        "colDeep": "#020913",
+        "colPlume": "#022844",
+        "colBeam": "#081631"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_070.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T20:38:15",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#091b44",
+          "#1a397c",
+          "#21419f",
+          "#265faf",
+          "#3068d5"
+        ],
+        "colTop": "#3068d5",
+        "colBase": "#265faf",
+        "colDeep": "#091b44",
+        "colPlume": "#21419f",
+        "colBeam": "#1a397c"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_071.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T20:49:35",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#252624",
+          "#3e3d3b",
+          "#4e4c4c",
+          "#616164",
+          "#828080"
+        ],
+        "colTop": "#828080",
+        "colBase": "#616164",
+        "colDeep": "#252624",
+        "colPlume": "#4e4c4c",
+        "colBeam": "#3e3d3b"
+      },
+      "hotspots": [
+        {
+          "x": 0.08319597069597066,
+          "y": 0.11611721611721612
+        },
+        {
+          "x": 0.2497104247104247,
+          "y": 0.11920849420849419
+        },
+        {
+          "x": 0.4026729559748427,
+          "y": 0.1276729559748427
+        },
+        {
+          "x": 0.40398936170212774,
+          "y": 0.3187499999999999
+        }
+      ]
+    },
+    {
+      "filename": "photo_072.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:27:58",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#06061d",
+          "#0d0e3d",
+          "#12164f",
+          "#262185",
+          "#35519a"
+        ],
+        "colTop": "#35519a",
+        "colBase": "#262185",
+        "colDeep": "#06061d",
+        "colPlume": "#12164f",
+        "colBeam": "#0d0e3d"
+      },
+      "hotspots": [
+        {
+          "x": 0.5875,
+          "y": 0.5375
+        },
+        {
+          "x": 0.675,
+          "y": 0.525
+        }
+      ]
+    },
+    {
+      "filename": "photo_073.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:28:04",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#182691",
+          "#213bc3",
+          "#3829db",
+          "#2b53db",
+          "#3646ee"
+        ],
+        "colTop": "#2b53db",
+        "colBase": "#3646ee",
+        "colDeep": "#182691",
+        "colPlume": "#3829db",
+        "colBeam": "#213bc3"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_074.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:28:40",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#000101",
+          "#030405",
+          "#0c1315",
+          "#0f4748",
+          "#202629"
+        ],
+        "colTop": "#0f4748",
+        "colBase": "#202629",
+        "colDeep": "#000101",
+        "colPlume": "#0c1315",
+        "colBeam": "#030405"
+      },
+      "hotspots": [
+        {
+          "x": 0.4458333333333333,
+          "y": 0.46249999999999997
+        },
+        {
+          "x": 0.47500000000000003,
+          "y": 0.5
+        },
+        {
+          "x": 0.50625,
+          "y": 0.4875
+        }
+      ]
+    },
+    {
+      "filename": "photo_075.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:29:04",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010102",
+          "#030309",
+          "#0d0f1a",
+          "#1a202b",
+          "#212e3f"
+        ],
+        "colTop": "#212e3f",
+        "colBase": "#1a202b",
+        "colDeep": "#010102",
+        "colPlume": "#0d0f1a",
+        "colBeam": "#030309"
+      },
+      "hotspots": [
+        {
+          "x": 0.4661764705882353,
+          "y": 0.5161764705882355
+        },
+        {
+          "x": 0.5264705882352941,
+          "y": 0.5125000000000002
+        },
+        {
+          "x": 0.525,
+          "y": 0.4812499999999999
+        },
+        {
+          "x": 0.4652777777777778,
+          "y": 0.4819444444444444
+        }
+      ]
+    },
+    {
+      "filename": "photo_076.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:29:26",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#391891",
+          "#4e25bd",
+          "#7343eb",
+          "#9a83fa",
+          "#a39ffb"
+        ],
+        "colTop": "#a39ffb",
+        "colBase": "#9a83fa",
+        "colDeep": "#391891",
+        "colPlume": "#7343eb",
+        "colBeam": "#4e25bd"
+      },
+      "hotspots": [
+        {
+          "x": 0.40292207792207785,
+          "y": 0.39066558441558435
+        },
+        {
+          "x": 0.0828125,
+          "y": 0.41239583333333346
+        },
+        {
+          "x": 0.2531798245614035,
+          "y": 0.40800438596491234
+        },
+        {
+          "x": 0.5693820224719102,
+          "y": 0.3797752808988762
+        }
+      ]
+    },
+    {
+      "filename": "photo_077.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:29:55",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#02030c",
+          "#11132c",
+          "#23284f",
+          "#2a3276",
+          "#4a3e50"
+        ],
+        "colTop": "#4a3e50",
+        "colBase": "#2a3276",
+        "colDeep": "#02030c",
+        "colPlume": "#23284f",
+        "colBeam": "#11132c"
+      },
+      "hotspots": [
+        {
+          "x": 0.8833333333333334,
+          "y": 0.5993055555555556
+        },
+        {
+          "x": 0.8150000000000001,
+          "y": 0.5675000000000001
+        }
+      ]
+    },
+    {
+      "filename": "photo_078.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:30:35",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010534",
+          "#021271",
+          "#021796",
+          "#023cc3",
+          "#0a0c51"
+        ],
+        "colTop": "#023cc3",
+        "colBase": "#021796",
+        "colDeep": "#010534",
+        "colPlume": "#021796",
+        "colBeam": "#021271"
+      },
+      "hotspots": [
+        {
+          "x": 0.3644230769230769,
+          "y": 0.446153846153846
+        },
+        {
+          "x": 0.30999999999999994,
+          "y": 0.425
+        },
+        {
+          "x": 0.5,
+          "y": 0.45625000000000004
+        }
+      ]
+    },
+    {
+      "filename": "photo_079.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T21:36:59",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#08050b",
+          "#2b191c",
+          "#41353d",
+          "#644e5c",
+          "#865964"
+        ],
+        "colTop": "#865964",
+        "colBase": "#644e5c",
+        "colDeep": "#08050b",
+        "colPlume": "#41353d",
+        "colBeam": "#2b191c"
+      },
+      "hotspots": [
+        {
+          "x": 0.3865384615384616,
+          "y": 0.3997596153846154
+        },
+        {
+          "x": 0.27255434782608695,
+          "y": 0.3736413043478261
+        },
+        {
+          "x": 0.4125,
+          "y": 0.50625
+        }
+      ]
+    },
+    {
+      "filename": "photo_080.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:47:13",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0e144a",
+          "#1c229a",
+          "#2f1beb",
+          "#403ff5",
+          "#2e78bf"
+        ],
+        "colTop": "#2e78bf",
+        "colBase": "#403ff5",
+        "colDeep": "#0e144a",
+        "colPlume": "#2f1beb",
+        "colBeam": "#1c229a"
+      },
+      "hotspots": [
+        {
+          "x": 0.23046875,
+          "y": 0.5859375
+        },
+        {
+          "x": 0.5700000000000001,
+          "y": 0.525
+        },
+        {
+          "x": 0.4875,
+          "y": 0.54375
+        }
+      ]
+    },
+    {
+      "filename": "photo_081.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:47:32",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#01020b",
+          "#04071e",
+          "#090d4a",
+          "#202471",
+          "#261dc8"
+        ],
+        "colTop": "#261dc8",
+        "colBase": "#202471",
+        "colDeep": "#01020b",
+        "colPlume": "#090d4a",
+        "colBeam": "#04071e"
+      },
+      "hotspots": [
+        {
+          "x": 0.7666666666666667,
+          "y": 0.7177083333333333
+        },
+        {
+          "x": 0.8819444444444445,
+          "y": 0.7013888888888888
+        },
+        {
+          "x": 0.6354166666666666,
+          "y": 0.7145833333333332
+        },
+        {
+          "x": 0.8,
+          "y": 0.7687499999999999
+        }
+      ]
+    },
+    {
+      "filename": "photo_082.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:47:59",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0607a3",
+          "#0c03da",
+          "#0604f0",
+          "#2c0ff0",
+          "#0201f5"
+        ],
+        "colTop": "#2c0ff0",
+        "colBase": "#0604f0",
+        "colDeep": "#0607a3",
+        "colPlume": "#0604f0",
+        "colBeam": "#0c03da"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_083.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:48:17",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#63069c",
+          "#7301b8",
+          "#7c02c1",
+          "#8f05d0",
+          "#6a189c"
+        ],
+        "colTop": "#8f05d0",
+        "colBase": "#6a189c",
+        "colDeep": "#63069c",
+        "colPlume": "#7c02c1",
+        "colBeam": "#7301b8"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_084.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T21:49:15",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#ae54cd",
+          "#ba61ef",
+          "#ee5bcc",
+          "#d659f1",
+          "#c391f5"
+        ],
+        "colTop": "#c391f5",
+        "colBase": "#ee5bcc",
+        "colDeep": "#ae54cd",
+        "colPlume": "#ee5bcc",
+        "colBeam": "#ba61ef"
+      },
+      "hotspots": [
+        {
+          "x": 0.07807692307692306,
+          "y": 0.6380128205128197
+        },
+        {
+          "x": 0.23059210526315793,
+          "y": 0.6138157894736841
+        },
+        {
+          "x": 0.05098684210526314,
+          "y": 0.7881578947368421
+        },
+        {
+          "x": 0.3535714285714286,
+          "y": 0.6375000000000001
+        }
+      ]
+    },
+    {
+      "filename": "photo_085.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:49:36",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#23086a",
+          "#3a08ba",
+          "#3c03e1",
+          "#4809e4",
+          "#3926ab"
+        ],
+        "colTop": "#3926ab",
+        "colBase": "#4809e4",
+        "colDeep": "#23086a",
+        "colPlume": "#3c03e1",
+        "colBeam": "#3a08ba"
+      },
+      "hotspots": [
+        {
+          "x": 0.25416666666666665,
+          "y": 0.6729166666666666
+        },
+        {
+          "x": 0.4875,
+          "y": 0.69375
+        },
+        {
+          "x": 0.5,
+          "y": 0.7
+        }
+      ]
+    },
+    {
+      "filename": "photo_086.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:49:58",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010106",
+          "#04050f",
+          "#213857",
+          "#2f4d7b",
+          "#445384"
+        ],
+        "colTop": "#445384",
+        "colBase": "#2f4d7b",
+        "colDeep": "#010106",
+        "colPlume": "#213857",
+        "colBeam": "#04050f"
+      },
+      "hotspots": [
+        {
+          "x": 0.5773648648648649,
+          "y": 0.40675675675675677
+        }
+      ]
+    },
+    {
+      "filename": "photo_087.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:50:37",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#000106",
+          "#010207",
+          "#010d0f",
+          "#022b1e",
+          "#066c1a"
+        ],
+        "colTop": "#066c1a",
+        "colBase": "#022b1e",
+        "colDeep": "#000106",
+        "colPlume": "#010d0f",
+        "colBeam": "#010207"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_088.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:50:51",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010503",
+          "#010f12",
+          "#011717",
+          "#022b18",
+          "#115003"
+        ],
+        "colTop": "#115003",
+        "colBase": "#022b18",
+        "colDeep": "#010503",
+        "colPlume": "#011717",
+        "colBeam": "#010f12"
+      },
+      "hotspots": [
+        {
+          "x": 0.2944444444444445,
+          "y": 0.40972222222222227
+        },
+        {
+          "x": 0.3416666666666666,
+          "y": 0.3958333333333333
+        }
+      ]
+    },
+    {
+      "filename": "photo_089.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:51:12",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#000e01",
+          "#001501",
+          "#011401",
+          "#011404",
+          "#031a01"
+        ],
+        "colTop": "#031a01",
+        "colBase": "#011404",
+        "colDeep": "#000e01",
+        "colPlume": "#011401",
+        "colBeam": "#001501"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_090.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:51:54",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010a1a",
+          "#012244",
+          "#012b51",
+          "#01467c",
+          "#062f53"
+        ],
+        "colTop": "#01467c",
+        "colBase": "#062f53",
+        "colDeep": "#010a1a",
+        "colPlume": "#012b51",
+        "colBeam": "#012244"
+      },
+      "hotspots": [
+        {
+          "x": 0.9625,
+          "y": 0.6
+        }
+      ]
+    },
+    {
+      "filename": "photo_091.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:52:07",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#02020b",
+          "#050819",
+          "#0d1a3f",
+          "#231793",
+          "#2b4a6c"
+        ],
+        "colTop": "#2b4a6c",
+        "colBase": "#231793",
+        "colDeep": "#02020b",
+        "colPlume": "#0d1a3f",
+        "colBeam": "#050819"
+      },
+      "hotspots": [
+        {
+          "x": 0.80625,
+          "y": 0.14375
+        },
+        {
+          "x": 0.1,
+          "y": 0.1875
+        }
+      ]
+    },
+    {
+      "filename": "photo_092.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:52:14",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0b152b",
+          "#111f59",
+          "#152d66",
+          "#2f4a60",
+          "#1b248a"
+        ],
+        "colTop": "#2f4a60",
+        "colBase": "#1b248a",
+        "colDeep": "#0b152b",
+        "colPlume": "#152d66",
+        "colBeam": "#111f59"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_093.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:52:34",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#070c37",
+          "#0c0e69",
+          "#181b6d",
+          "#3f5a71",
+          "#21149f"
+        ],
+        "colTop": "#3f5a71",
+        "colBase": "#21149f",
+        "colDeep": "#070c37",
+        "colPlume": "#181b6d",
+        "colBeam": "#0c0e69"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_094.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:53:15",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#04040f",
+          "#0e1325",
+          "#232f4f",
+          "#283164",
+          "#4d6674"
+        ],
+        "colTop": "#4d6674",
+        "colBase": "#283164",
+        "colDeep": "#04040f",
+        "colPlume": "#232f4f",
+        "colBeam": "#0e1325"
+      },
+      "hotspots": [
+        {
+          "x": 0.71875,
+          "y": 0.19218749999999998
+        },
+        {
+          "x": 0.5833333333333334,
+          "y": 0.3333333333333333
+        },
+        {
+          "x": 0.4375,
+          "y": 0.3875
+        },
+        {
+          "x": 0.85,
+          "y": 0.2125
+        }
+      ]
+    },
+    {
+      "filename": "photo_095.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:53:22",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#142e44",
+          "#1d385a",
+          "#25396e",
+          "#2f3982",
+          "#394876"
+        ],
+        "colTop": "#394876",
+        "colBase": "#2f3982",
+        "colDeep": "#142e44",
+        "colPlume": "#25396e",
+        "colBeam": "#1d385a"
+      },
+      "hotspots": [
+        {
+          "x": 0.3125,
+          "y": 0.775
+        },
+        {
+          "x": 0.375,
+          "y": 0.7875
+        }
+      ]
+    },
+    {
+      "filename": "photo_096.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:53:28",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#080815",
+          "#1a1b39",
+          "#230766",
+          "#241d59",
+          "#3d2084"
+        ],
+        "colTop": "#3d2084",
+        "colBase": "#241d59",
+        "colDeep": "#080815",
+        "colPlume": "#230766",
+        "colBeam": "#1a1b39"
+      },
+      "hotspots": [
+        {
+          "x": 0.5875,
+          "y": 0.35
+        },
+        {
+          "x": 0.6958333333333333,
+          "y": 0.3499999999999999
+        }
+      ]
+    },
+    {
+      "filename": "photo_097.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:53:54",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#22aa1b",
+          "#2dd617",
+          "#1aab2b",
+          "#1ea750",
+          "#50f009"
+        ],
+        "colTop": "#50f009",
+        "colBase": "#2dd617",
+        "colDeep": "#22aa1b",
+        "colPlume": "#1aab2b",
+        "colBeam": "#2dd617"
+      },
+      "hotspots": [
+        {
+          "x": 0.051676829268292694,
+          "y": 0.6216463414634147
+        },
+        {
+          "x": 0.89625,
+          "y": 0.8704166666666663
+        },
+        {
+          "x": 0.7583333333333333,
+          "y": 0.5377192982456144
+        },
+        {
+          "x": 0.7354166666666667,
+          "y": 0.4653645833333335
+        }
+      ]
+    },
+    {
+      "filename": "photo_098.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:54:08",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#f9dcfd",
+          "#f3f7fd",
+          "#fbfcfc",
+          "#fcfcfc",
+          "#f4fefe"
+        ],
+        "colTop": "#fcfcfc",
+        "colBase": "#fbfcfc",
+        "colDeep": "#f9dcfd",
+        "colPlume": "#fbfcfc",
+        "colBeam": "#f3f7fd"
+      },
+      "hotspots": [
+        {
+          "x": 0.5812499999999999,
+          "y": 0.11874999999999993
+        },
+        {
+          "x": 0.5812499999999999,
+          "y": 0.3687499999999998
+        },
+        {
+          "x": 0.5812499999999999,
+          "y": 0.6187499999999997
+        },
+        {
+          "x": 0.08124999999999996,
+          "y": 0.86875
+        }
+      ]
+    },
+    {
+      "filename": "photo_099.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:54:13",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#64aff4",
+          "#82cef9",
+          "#92edfc",
+          "#9efafd",
+          "#b5fcfe"
+        ],
+        "colTop": "#b5fcfe",
+        "colBase": "#9efafd",
+        "colDeep": "#64aff4",
+        "colPlume": "#92edfc",
+        "colBeam": "#82cef9"
+      },
+      "hotspots": [
+        {
+          "x": 0.5812499999999999,
+          "y": 0.86875
+        },
+        {
+          "x": 0.41362745098039205,
+          "y": 0.8674509803921573
+        },
+        {
+          "x": 0.7478174603174605,
+          "y": 0.8657242063492068
+        },
+        {
+          "x": 0.24810126582278488,
+          "y": 0.8613924050632912
+        }
+      ]
+    },
+    {
+      "filename": "photo_100.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:54:20",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#37f48f",
+          "#45f1de",
+          "#41e5f9",
+          "#62eefa",
+          "#b9fd48"
+        ],
+        "colTop": "#b9fd48",
+        "colBase": "#62eefa",
+        "colDeep": "#37f48f",
+        "colPlume": "#41e5f9",
+        "colBeam": "#45f1de"
+      },
+      "hotspots": [
+        {
+          "x": 0.4128275109170307,
+          "y": 0.6135917030567692
+        },
+        {
+          "x": 0.2540482954545455,
+          "y": 0.6525568181818184
+        },
+        {
+          "x": 0.40764285714285703,
+          "y": 0.8554285714285719
+        },
+        {
+          "x": 0.2494186046511627,
+          "y": 0.8463662790697669
+        }
+      ]
+    },
+    {
+      "filename": "photo_101.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:55:00",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010207",
+          "#050712",
+          "#0a1025",
+          "#1d1363",
+          "#1d2e5f"
+        ],
+        "colTop": "#1d2e5f",
+        "colBase": "#1d1363",
+        "colDeep": "#010207",
+        "colPlume": "#0a1025",
+        "colBeam": "#050712"
+      },
+      "hotspots": [
+        {
+          "x": 0.5575000000000001,
+          "y": 0.7925000000000001
+        },
+        {
+          "x": 0.58125,
+          "y": 0.7375
+        },
+        {
+          "x": 0.2875,
+          "y": 0.65
+        }
+      ]
+    },
+    {
+      "filename": "photo_102.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:55:01",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#050512",
+          "#101036",
+          "#191d5b",
+          "#1e2c81",
+          "#2d348c"
+        ],
+        "colTop": "#2d348c",
+        "colBase": "#1e2c81",
+        "colDeep": "#050512",
+        "colPlume": "#191d5b",
+        "colBeam": "#101036"
+      },
+      "hotspots": [
+        {
+          "x": 0.3041666666666667,
+          "y": 0.7083333333333334
+        },
+        {
+          "x": 0.0625,
+          "y": 0.5875
+        },
+        {
+          "x": 0.3375,
+          "y": 0.6625
+        }
+      ]
+    },
+    {
+      "filename": "photo_103.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:55:15",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#020311",
+          "#030a29",
+          "#03173e",
+          "#024b60",
+          "#0a0d39"
+        ],
+        "colTop": "#024b60",
+        "colBase": "#03173e",
+        "colDeep": "#020311",
+        "colPlume": "#03173e",
+        "colBeam": "#030a29"
+      },
+      "hotspots": [
+        {
+          "x": 0.2333333333333333,
+          "y": 0.5708333333333333
+        },
+        {
+          "x": 0.6875,
+          "y": 0.7125
+        }
+      ]
+    },
+    {
+      "filename": "photo_104.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:55:28",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0d1304",
+          "#244108",
+          "#405113",
+          "#55652b",
+          "#38a708"
+        ],
+        "colTop": "#38a708",
+        "colBase": "#55652b",
+        "colDeep": "#0d1304",
+        "colPlume": "#405113",
+        "colBeam": "#244108"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_105.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:55:46",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#030006",
+          "#040509",
+          "#1f0532",
+          "#363e41",
+          "#5c0ba7"
+        ],
+        "colTop": "#363e41",
+        "colBase": "#5c0ba7",
+        "colDeep": "#030006",
+        "colPlume": "#1f0532",
+        "colBeam": "#040509"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_106.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:55:48",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#040107",
+          "#071117",
+          "#19183a",
+          "#4d3a65",
+          "#5408ab"
+        ],
+        "colTop": "#4d3a65",
+        "colBase": "#5408ab",
+        "colDeep": "#040107",
+        "colPlume": "#19183a",
+        "colBeam": "#071117"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_107.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:55:51",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#050007",
+          "#0e0914",
+          "#160966",
+          "#2118d7",
+          "#64156e"
+        ],
+        "colTop": "#64156e",
+        "colBase": "#2118d7",
+        "colDeep": "#050007",
+        "colPlume": "#160966",
+        "colBeam": "#0e0914"
+      },
+      "hotspots": [
+        {
+          "x": 0.175,
+          "y": 0.6875
+        }
+      ]
+    },
+    {
+      "filename": "photo_108.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:55:59",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#030108",
+          "#07020d",
+          "#0e0442",
+          "#0c3f5f",
+          "#241773"
+        ],
+        "colTop": "#0c3f5f",
+        "colBase": "#241773",
+        "colDeep": "#030108",
+        "colPlume": "#0e0442",
+        "colBeam": "#07020d"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_109.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T21:56:14",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#03050d",
+          "#07152a",
+          "#0a3863",
+          "#0790b8",
+          "#393663"
+        ],
+        "colTop": "#0790b8",
+        "colBase": "#393663",
+        "colDeep": "#03050d",
+        "colPlume": "#0a3863",
+        "colBeam": "#07152a"
+      },
+      "hotspots": [
+        {
+          "x": 0.5964285714285714,
+          "y": 0.14285714285714285
+        },
+        {
+          "x": 0.4125,
+          "y": 0.4
+        }
+      ]
+    },
+    {
+      "filename": "photo_110.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T21:56:19",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0a081c",
+          "#22205b",
+          "#196bb8",
+          "#15c0f8",
+          "#5c348d"
+        ],
+        "colTop": "#15c0f8",
+        "colBase": "#196bb8",
+        "colDeep": "#0a081c",
+        "colPlume": "#196bb8",
+        "colBeam": "#22205b"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_111.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T22:02:35",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#294d7b",
+          "#346097",
+          "#2b6dac",
+          "#5c77ae",
+          "#367cc8"
+        ],
+        "colTop": "#5c77ae",
+        "colBase": "#367cc8",
+        "colDeep": "#294d7b",
+        "colPlume": "#2b6dac",
+        "colBeam": "#346097"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_112.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T22:02:42",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#44474f",
+          "#63646a",
+          "#70727c",
+          "#778192",
+          "#8d8a93"
+        ],
+        "colTop": "#8d8a93",
+        "colBase": "#778192",
+        "colDeep": "#44474f",
+        "colPlume": "#70727c",
+        "colBeam": "#63646a"
+      },
+      "hotspots": [
+        {
+          "x": 0.040625,
+          "y": 0.42500000000000004
+        },
+        {
+          "x": 0.1375,
+          "y": 0.86875
+        },
+        {
+          "x": 0.025,
+          "y": 0.5875
+        }
+      ]
+    },
+    {
+      "filename": "photo_113.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T22:03:28",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#11090d",
+          "#331d1c",
+          "#3b2430",
+          "#4a3249",
+          "#663d45"
+        ],
+        "colTop": "#663d45",
+        "colBase": "#4a3249",
+        "colDeep": "#11090d",
+        "colPlume": "#3b2430",
+        "colBeam": "#331d1c"
+      },
+      "hotspots": [
+        {
+          "x": 0.04244791666666666,
+          "y": 0.30312499999999987
+        },
+        {
+          "x": 0.0625,
+          "y": 0.234375
+        }
+      ]
+    },
+    {
+      "filename": "photo_114.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T22:03:39",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#1c0b0d",
+          "#39161a",
+          "#4e1b24",
+          "#7a3326",
+          "#5e2e53"
+        ],
+        "colTop": "#7a3326",
+        "colBase": "#5e2e53",
+        "colDeep": "#1c0b0d",
+        "colPlume": "#4e1b24",
+        "colBeam": "#39161a"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_115.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:03:51",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010101",
+          "#040207",
+          "#291c2e",
+          "#8b5d2e",
+          "#4d3760"
+        ],
+        "colTop": "#8b5d2e",
+        "colBase": "#4d3760",
+        "colDeep": "#010101",
+        "colPlume": "#291c2e",
+        "colBeam": "#040207"
+      },
+      "hotspots": [
+        {
+          "x": 0.6,
+          "y": 0.375
+        }
+      ]
+    },
+    {
+      "filename": "photo_116.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:04:00",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#716966",
+          "#95857c",
+          "#968d93",
+          "#a19ea2",
+          "#b59d9a"
+        ],
+        "colTop": "#b59d9a",
+        "colBase": "#a19ea2",
+        "colDeep": "#716966",
+        "colPlume": "#968d93",
+        "colBeam": "#95857c"
+      },
+      "hotspots": [
+        {
+          "x": 0.09062500000000001,
+          "y": 0.334375
+        },
+        {
+          "x": 0.2,
+          "y": 0.4625
+        },
+        {
+          "x": 0.0375,
+          "y": 0.1625
+        }
+      ]
+    },
+    {
+      "filename": "photo_117.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:11:28",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#020000",
+          "#070100",
+          "#0f0302",
+          "#1c0c0c",
+          "#301415"
+        ],
+        "colTop": "#301415",
+        "colBase": "#1c0c0c",
+        "colDeep": "#020000",
+        "colPlume": "#0f0302",
+        "colBeam": "#070100"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_118.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:11:43",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#170304",
+          "#530a0d",
+          "#640e13",
+          "#6d2529",
+          "#971d1e"
+        ],
+        "colTop": "#971d1e",
+        "colBase": "#6d2529",
+        "colDeep": "#170304",
+        "colPlume": "#640e13",
+        "colBeam": "#530a0d"
+      },
+      "hotspots": [
+        {
+          "x": 0.2580065359477125,
+          "y": 0.4149509803921568
+        },
+        {
+          "x": 0.39697265625,
+          "y": 0.41406250000000006
+        },
+        {
+          "x": 0.26810747663551404,
+          "y": 0.5586448598130843
+        },
+        {
+          "x": 0.37995283018867926,
+          "y": 0.5337264150943397
+        }
+      ]
+    },
+    {
+      "filename": "photo_119.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:11:52",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#040103",
+          "#0d0106",
+          "#1b030f",
+          "#2c091c",
+          "#431328"
+        ],
+        "colTop": "#431328",
+        "colBase": "#2c091c",
+        "colDeep": "#040103",
+        "colPlume": "#1b030f",
+        "colBeam": "#0d0106"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_120.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:12:27",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#040301",
+          "#191503",
+          "#1c1a0d",
+          "#362b48",
+          "#6e6504"
+        ],
+        "colTop": "#6e6504",
+        "colBase": "#362b48",
+        "colDeep": "#040301",
+        "colPlume": "#1c1a0d",
+        "colBeam": "#191503"
+      },
+      "hotspots": [
+        {
+          "x": 0.29062499999999997,
+          "y": 0.56875
+        }
+      ]
+    },
+    {
+      "filename": "photo_121.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T22:12:36",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#050003",
+          "#120203",
+          "#170309",
+          "#3c1027",
+          "#57182c"
+        ],
+        "colTop": "#57182c",
+        "colBase": "#3c1027",
+        "colDeep": "#050003",
+        "colPlume": "#170309",
+        "colBeam": "#120203"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_122.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T22:12:55",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#080903",
+          "#17180c",
+          "#2c2f19",
+          "#474c2e",
+          "#6a6e40"
+        ],
+        "colTop": "#6a6e40",
+        "colBase": "#474c2e",
+        "colDeep": "#080903",
+        "colPlume": "#2c2f19",
+        "colBeam": "#17180c"
+      },
+      "hotspots": [
+        {
+          "x": 0.24006696428571422,
+          "y": 0.36037946428571405
+        },
+        {
+          "x": 0.12388059701492536,
+          "y": 0.3577425373134328
+        },
+        {
+          "x": 0.22958860759493674,
+          "y": 0.19509493670886086
+        },
+        {
+          "x": 0.15108695652173915,
+          "y": 0.18749999999999997
+        }
+      ]
+    },
+    {
+      "filename": "photo_123.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:13:32",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#340204",
+          "#73080f",
+          "#cb0e20",
+          "#eb5145",
+          "#fe7d67"
+        ],
+        "colTop": "#fe7d67",
+        "colBase": "#eb5145",
+        "colDeep": "#340204",
+        "colPlume": "#cb0e20",
+        "colBeam": "#73080f"
+      },
+      "hotspots": [
+        {
+          "x": 0.5802272727272727,
+          "y": 0.37090909090909074
+        },
+        {
+          "x": 0.4124999999999998,
+          "y": 0.3687499999999999
+        },
+        {
+          "x": 0.25275,
+          "y": 0.37064999999999987
+        },
+        {
+          "x": 0.7469907407407407,
+          "y": 0.38940972222222225
+        }
+      ]
+    },
+    {
+      "filename": "photo_124.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:13:39",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#012e4f",
+          "#013f67",
+          "#03598f",
+          "#0897e8",
+          "#2a7dc3"
+        ],
+        "colTop": "#0897e8",
+        "colBase": "#2a7dc3",
+        "colDeep": "#012e4f",
+        "colPlume": "#03598f",
+        "colBeam": "#013f67"
+      },
+      "hotspots": [
+        {
+          "x": 0.0041666666666666675,
+          "y": 0.10833333333333332
+        },
+        {
+          "x": 0.725,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "filename": "photo_125.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:47:09",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#06060e",
+          "#15151e",
+          "#1b1e2b",
+          "#401d5f",
+          "#29323b"
+        ],
+        "colTop": "#29323b",
+        "colBase": "#401d5f",
+        "colDeep": "#06060e",
+        "colPlume": "#1b1e2b",
+        "colBeam": "#15151e"
+      },
+      "hotspots": [
+        {
+          "x": 0.1,
+          "y": 0.5575
+        },
+        {
+          "x": 0.2125,
+          "y": 0.60625
+        }
+      ]
+    },
+    {
+      "filename": "photo_126.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:47:25",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#dd8510",
+          "#fddd1d",
+          "#fdfe04",
+          "#fdfe2a",
+          "#fde761"
+        ],
+        "colTop": "#fdfe2a",
+        "colBase": "#fdfe04",
+        "colDeep": "#dd8510",
+        "colPlume": "#fdfe04",
+        "colBeam": "#fddd1d"
+      },
+      "hotspots": [
+        {
+          "x": 0.5788888888888888,
+          "y": 0.372685185185185
+        },
+        {
+          "x": 0.25,
+          "y": 0.3687499999999999
+        },
+        {
+          "x": 0.41216085271317815,
+          "y": 0.3696220930232557
+        },
+        {
+          "x": 0.09438073394495412,
+          "y": 0.35172018348623846
+        }
+      ]
+    },
+    {
+      "filename": "photo_127.jpg",
+      "width": 1600,
+      "height": 1205,
+      "capturedAt": "2026-10-03T22:47:52",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#e3c4b9",
+          "#f8dfdd",
+          "#fdf5e0",
+          "#fefcf8",
+          "#ffffff"
+        ],
+        "colTop": "#ffffff",
+        "colBase": "#fefcf8",
+        "colDeep": "#e3c4b9",
+        "colPlume": "#fdf5e0",
+        "colBeam": "#f8dfdd"
+      },
+      "hotspots": [
+        {
+          "x": 0.08124999999999996,
+          "y": 0.11874999999999993
+        },
+        {
+          "x": 0.5812499999999999,
+          "y": 0.11874999999999993
+        },
+        {
+          "x": 0.08124999999999996,
+          "y": 0.3687499999999998
+        },
+        {
+          "x": 0.5812499999999999,
+          "y": 0.3687499999999998
+        }
+      ]
+    },
+    {
+      "filename": "photo_128.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:48:03",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#b6817f",
+          "#efa295",
+          "#f7c6b4",
+          "#fcf6f3",
+          "#fffffd"
+        ],
+        "colTop": "#fffffd",
+        "colBase": "#fcf6f3",
+        "colDeep": "#b6817f",
+        "colPlume": "#f7c6b4",
+        "colBeam": "#efa295"
+      },
+      "hotspots": [
+        {
+          "x": 0.5812499999999999,
+          "y": 0.11874999999999993
+        },
+        {
+          "x": 0.5812499999999999,
+          "y": 0.3687499999999998
+        },
+        {
+          "x": 0.4124999999999998,
+          "y": 0.11874999999999998
+        },
+        {
+          "x": 0.75,
+          "y": 0.11874999999999998
+        }
+      ]
+    },
+    {
+      "filename": "photo_129.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:48:24",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#100a17",
+          "#362234",
+          "#4e3355",
+          "#69569b",
+          "#b49349"
+        ],
+        "colTop": "#b49349",
+        "colBase": "#69569b",
+        "colDeep": "#100a17",
+        "colPlume": "#4e3355",
+        "colBeam": "#362234"
+      },
+      "hotspots": [
+        {
+          "x": 0.4193604651162789,
+          "y": 0.36505813953488403
+        },
+        {
+          "x": 0.5496575342465754,
+          "y": 0.35787671232876717
+        },
+        {
+          "x": 0.40890287769784167,
+          "y": 0.17598920863309364
+        },
+        {
+          "x": 0.2612403100775194,
+          "y": 0.3195736434108528
+        }
+      ]
+    },
+    {
+      "filename": "photo_130.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:48:33",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#1a181a",
+          "#473e3d",
+          "#6e6661",
+          "#8a8899",
+          "#c0be89"
+        ],
+        "colTop": "#c0be89",
+        "colBase": "#8a8899",
+        "colDeep": "#1a181a",
+        "colPlume": "#6e6661",
+        "colBeam": "#473e3d"
+      },
+      "hotspots": [
+        {
+          "x": 0.08124999999999996,
+          "y": 0.3687499999999998
+        },
+        {
+          "x": 0.25,
+          "y": 0.3687499999999999
+        },
+        {
+          "x": 0.4095435684647301,
+          "y": 0.36047717842323646
+        },
+        {
+          "x": 0.2536713286713287,
+          "y": 0.17368881118881127
+        }
+      ]
+    },
+    {
+      "filename": "photo_131.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:48:53",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#0d0b0a",
+          "#403d33",
+          "#76735a",
+          "#9a9a97",
+          "#d2c98d"
+        ],
+        "colTop": "#d2c98d",
+        "colBase": "#9a9a97",
+        "colDeep": "#0d0b0a",
+        "colPlume": "#76735a",
+        "colBeam": "#403d33"
+      },
+      "hotspots": [
+        {
+          "x": 0.4138100436681222,
+          "y": 0.38351528384279476
+        },
+        {
+          "x": 0.08258733624454145,
+          "y": 0.5968886462882091
+        },
+        {
+          "x": 0.25242890995260664,
+          "y": 0.3919431279620853
+        },
+        {
+          "x": 0.5688432835820897,
+          "y": 0.39508706467661653
+        }
+      ]
+    },
+    {
+      "filename": "photo_132.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:49:05",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#030000",
+          "#110401",
+          "#250d02",
+          "#3a1405",
+          "#572112"
+        ],
+        "colTop": "#572112",
+        "colBase": "#3a1405",
+        "colDeep": "#030000",
+        "colPlume": "#250d02",
+        "colBeam": "#110401"
+      },
+      "hotspots": [
+        {
+          "x": 0.575,
+          "y": 0.66875
+        },
+        {
+          "x": 0.7031249999999999,
+          "y": 0.771875
+        }
+      ]
+    },
+    {
+      "filename": "photo_133.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:49:11",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#040303",
+          "#363029",
+          "#766f5c",
+          "#93948b",
+          "#bfb5a1"
+        ],
+        "colTop": "#bfb5a1",
+        "colBase": "#93948b",
+        "colDeep": "#040303",
+        "colPlume": "#766f5c",
+        "colBeam": "#363029"
+      },
+      "hotspots": [
+        {
+          "x": 0.25,
+          "y": 0.3687499999999999
+        },
+        {
+          "x": 0.4124999999999998,
+          "y": 0.3687499999999999
+        },
+        {
+          "x": 0.09096074380165287,
+          "y": 0.37334710743801636
+        },
+        {
+          "x": 0.563888888888889,
+          "y": 0.38683574879227006
+        }
+      ]
+    },
+    {
+      "filename": "photo_134.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:49:17",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#010101",
+          "#060506",
+          "#383733",
+          "#848684",
+          "#a9a9a2"
+        ],
+        "colTop": "#a9a9a2",
+        "colBase": "#848684",
+        "colDeep": "#010101",
+        "colPlume": "#383733",
+        "colBeam": "#060506"
+      },
+      "hotspots": [
+        {
+          "x": 0.08149641577060929,
+          "y": 0.3683243727598564
+        },
+        {
+          "x": 0.25,
+          "y": 0.3687499999999999
+        },
+        {
+          "x": 0.07850418410041837,
+          "y": 0.13498953974895392
+        },
+        {
+          "x": 0.4063325991189426,
+          "y": 0.3603524229074891
+        }
+      ]
+    },
+    {
+      "filename": "photo_135.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:49:23",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#020000",
+          "#281401",
+          "#6c3208",
+          "#75371d",
+          "#be6820"
+        ],
+        "colTop": "#be6820",
+        "colBase": "#75371d",
+        "colDeep": "#020000",
+        "colPlume": "#6c3208",
+        "colBeam": "#281401"
+      },
+      "hotspots": [
+        {
+          "x": 0.23097826086956524,
+          "y": 0.3613224637681157
+        },
+        {
+          "x": 0.11048387096774193,
+          "y": 0.37026209677419347
+        },
+        {
+          "x": 0.21925675675675677,
+          "y": 0.19932432432432423
+        },
+        {
+          "x": 0.13522727272727272,
+          "y": 0.1539772727272727
+        }
+      ]
+    },
+    {
+      "filename": "photo_136.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:49:38",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#000000",
+          "#010001",
+          "#0d000e",
+          "#2d0139",
+          "#58024b"
+        ],
+        "colTop": "#58024b",
+        "colBase": "#2d0139",
+        "colDeep": "#000000",
+        "colPlume": "#0d000e",
+        "colBeam": "#010001"
+      },
+      "hotspots": [
+        {
+          "x": 0.2,
+          "y": 0.25
+        },
+        {
+          "x": 0.35,
+          "y": 0.22
+        }
+      ]
+    },
+    {
+      "filename": "photo_137.jpg",
+      "width": 1205,
+      "height": 1600,
+      "capturedAt": "2026-10-03T22:51:55",
+      "sourceShow": "2026-10-03-boardwalk-hall",
+      "palette": {
+        "raw": [
+          "#e2e76c",
+          "#fcf586",
+          "#fbfea2",
+          "#feffb0",
+          "#ffffe6"
+        ],
+        "colTop": "#ffffe6",
+        "colBase": "#feffb0",
+        "colDeep": "#e2e76c",
+        "colPlume": "#fbfea2",
+        "colBeam": "#fcf586"
+      },
+      "hotspots": [
+        {
+          "x": 0.5812499999999999,
+          "y": 0.11874999999999993
+        },
+        {
+          "x": 0.08124999999999996,
+          "y": 0.3687499999999998
+        },
+        {
+          "x": 0.5812499999999999,
+          "y": 0.3687499999999998
+        },
+        {
+          "x": 0.08124999999999996,
+          "y": 0.6187499999999997
+        }
+      ]
     }
   ],
   "generated": "2026-09-06T04:16:28.430Z"

@@ -1,0 +1,16 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "Resonant Spectra",
+  "Description": "Live-audio conductor and rig driver for light stages grown from photographs (art.whostosay.org).",
+  "Category": "Audio",
+  "CreatedBy": "Who's to Say? Foundation",
+  "CreatedByURL": "https://whostosay.org",
+  "CanContainContent": false,
+  "IsBetaVersion": false,
+  "Installed": false,
+  "Modules": [
+    { "Name": "ResonantSpectra", "Type": "Runtime", "LoadingPhase": "Default" }
+  ]
+}
