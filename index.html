@@ -589,6 +589,18 @@ function buildStudy(img, src){
     let score=(h>=265&&h<=350)?s*v:0; if(score>best){best=score;plumeCol=[c.r,c.g,c.b];}
   }
   let warm = wsum>0?{x:wx/wsum,y:wy/wsum}:{x:.5,y:.85};
+  // anchor: where the photo's actual subject sits, so cover-crop can centre on
+  // content instead of the canvas's geometric middle. Blend the brightest-spot
+  // centroid (intensity-weighted) with the warm centroid, then pull most of the
+  // way back toward dead-center so the effect is a gentle nudge, not a hard snap.
+  let anchor = {x:.5,y:.5};
+  { let sxw=0,syw=0,sw=0;
+    for(let s of spots){ let w=s.intensity||0.2; sxw+=s.x*w; syw+=s.y*w; sw+=w; }
+    let spotAnchor = sw>0?{x:sxw/sw,y:syw/sw}:null;
+    let content = spotAnchor ? {x:spotAnchor.x*0.6+warm.x*0.4, y:spotAnchor.y*0.6+warm.y*0.4} : warm;
+    const PULL=0.3; // 0 = stay at center, 1 = snap fully to content
+    anchor = {x:.5+(content.x-.5)*PULL, y:.5+(content.y-.5)*PULL};
+  }
   let Jxx=0,Jyy=0,Jxy=0;
   for(let y=1;y<AH-1;y++)for(let x=1;x<AW-1;x++){
     let lx=lum[y*AW+x+1]-lum[y*AW+x-1], ly=lum[(y+1)*AW+x]-lum[(y-1)*AW+x];
@@ -604,7 +616,7 @@ function buildStudy(img, src){
   let duo; { const src0=pal[0]?hexToRgb(pal[0]):[regions[0].r,regions[0].g,regions[0].b]; const hs=rgb2hsv(src0[0],src0[1],src0[2]);
     const top=hsv2rgb(hs[0],Math.max(.55,hs[1]),1), deep=hsv2rgb((hs[0]+180)%360,.7,.16); duo=[deep,top]; }
   g.remove();
-  return {img,name:src.name,url:src.url,regions,spots,beamCol,plumeCol,warm,smearAngle,flowCoh,energy,palette:pal,duo,seed:Math.random()*100,
+  return {img,name:src.name,url:src.url,regions,spots,beamCol,plumeCol,warm,anchor,smearAngle,flowCoh,energy,palette:pal,duo,seed:Math.random()*100,
     capturedAt:src.entry&&src.entry.capturedAt||null, sourceShow:src.entry&&src.entry.sourceShow||null};
 }
 function satv(c){let h=rgb2hsv(c.r,c.g,c.b);return h[1]*h[2];}
@@ -741,7 +753,17 @@ function drawPhotoTo(g, st, alpha, cast, castAmt, t){
   const ph=Math.sin(t*0.13+st.seed*0.3);
   const px=Math.cos(ang)*ph*amp, py=Math.sin(ang)*ph*amp;
   let iw=W, ih=W*img.height/img.width; if(ih<H){ih=H;iw=H*img.width/img.height;}
-  g.push(); g.imageMode(g.CENTER); g.translate(W/2+px,H/2+py); g.scale(z);
+  // content-aware recentring: shift the cover-crop so the photo's own anchor
+  // point (its brightest/warmest content, from buildStudy) lands near canvas
+  // center instead of always the image's geometric middle — clamped to the
+  // crop's actual overflow so we never reveal canvas edges beyond the image.
+  let ax=0,ay=0;
+  if(st.anchor){
+    const overflowX=Math.max(0,(iw*z-W)/2), overflowY=Math.max(0,(ih*z-H)/2);
+    ax=clamp(-z*(st.anchor.x-0.5)*iw, -overflowX, overflowX);
+    ay=clamp(-z*(st.anchor.y-0.5)*ih, -overflowY, overflowY);
+  }
+  g.push(); g.imageMode(g.CENTER); g.translate(W/2+px+ax,H/2+py+ay); g.scale(z);
   if(cast&&castAmt>0){ const cc=C(cast[0],cast[1],cast[2]);
     g.tint(255+(cc[0]-255)*castAmt, 255+(cc[1]-255)*castAmt, 255+(cc[2]-255)*castAmt, 255*alpha); }
   else g.tint(255,255*alpha);
