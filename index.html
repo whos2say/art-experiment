@@ -172,6 +172,16 @@ details.sec summary::-webkit-details-marker{display:none}
 .gcard .buy{margin-top:auto;background:var(--orange);color:#fff;border:0;border-radius:7px;padding:8px 10px;font-size:11.5px;font-weight:600;cursor:pointer;letter-spacing:.02em}
 .gcard .buy:hover{background:#c96d47}
 #shopGallery .more{display:block;text-align:center;margin-top:16px;font-size:12px;color:var(--ink2);text-decoration:underline;text-underline-offset:3px}
+
+/* ── ?tune panel: the untuned feel constants, exposed for tuning by ear ── */
+#tunePanel{display:none;position:fixed;left:0;top:0;bottom:0;width:300px;z-index:11;background:var(--glass);backdrop-filter:blur(18px);border-right:1px solid var(--line);overflow-y:auto;padding:16px 16px 24px}
+#tunePanel.open{display:block}
+#tunePanel h2{font-family:'Lora',serif;font-size:16px;margin-bottom:2px}
+#tunePanel .sub{font-size:11px;color:var(--ink3);line-height:1.5;margin-bottom:14px}
+#tunePanel .g{margin:10px 0}
+#tunePanel .g label{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink2);margin-bottom:4px}
+#tunePanel .g label .v{font-family:'Courier New',monospace;color:var(--ink3)}
+#tunePanel input[type=range]{width:100%}
 </style>
 </head>
 <body class="panel-open">
@@ -342,6 +352,17 @@ if(window.innerWidth<=760) document.body.classList.remove('panel-open');
   </div>
 </div>
 
+<!-- ── ?tune panel: open with index.html?tune — the feel constants that were
+     never tuned by ear (CHANGELOG 2026-06-29). Not linked from the UI on
+     purpose; it's a tool for Joe, not a visitor-facing control. ── -->
+<aside id="tunePanel">
+  <h2>Tuning worksheet</h2>
+  <div class="sub">These never got the human-ear pass. Play real audio, adjust until releases feel right, then copy the JSON into <code>config.json</code> (or hand it back for a proper commit).</div>
+  <div id="tuneFields"></div>
+  <div class="row" style="margin-top:12px"><button class="btn pri" onclick="copyTuneJSON()">Copy settings JSON</button></div>
+  <div class="row" style="margin-top:6px"><button class="btn" onclick="resetTune()">Reset to defaults</button></div>
+</aside>
+
 <script>
 // ═══════════════════════════════════════════════════════════════════════════
 //  Resonant Spectra v3 — the photograph as a first-class layer
@@ -369,6 +390,21 @@ const LOOK_HINT={
   prism:'Red, green and blue pulled apart along the photo\'s smear angle and pulsing with the bass.',
   spectra:'The original mode — pure light grown from the photo, the photo itself only a ghost.'};
 
+// ── Feel constants, never tuned by ear (see CHANGELOG 2026-06-29 and the
+// tuning worksheet in REPORT.md). Exposed live via ?tune so they can be
+// dialed in against real audio without a redeploy per guess.
+const TUNE_DEFAULTS={
+  attackTau:0.28,        // seconds: how fast tension rises toward a louder target
+  decayTau:0.9,          // seconds: how fast tension relaxes toward a quieter target
+  releaseGateRecentMax:0.8,  // tension must have peaked above this in the last releaseWindowMs...
+  releaseGateSlope:-0.22,    // ...then dropped by at least this much to fire a release
+  releaseWindowMs:1800,      // how far back "recent" looks, in ms
+  releaseCooldownSec:4.5,    // minimum gap between releases
+  maxHoldSec:60,             // force a release if none has fired in this long
+  beamIgniteBase:0.20,       // build level at which the first beam ignites
+  beamIgniteStep:0.14        // additional build needed for each subsequent beam
+};
+let TUNE={...TUNE_DEFAULTS};
 let params={intensity:1,flow:1,plumes:1,beams:1,smear:1,sweep:1,trail:.55,photoDur:24, zoom:1.12, drift:1, presence:1};
 let look='bloom', cmode='natural', hueShift=0, satMul=1;
 let studies=[], curIdx=0, studyStart=0, pausedAt=0, prevStudy=null, prevSwitch=-9999, transKind='dissolve';
@@ -383,8 +419,43 @@ function setup(){
   if(window.innerWidth<=760) document.body.classList.remove('panel-open'); // mobile: panel starts as a closed drawer, gallery is what you see first
   fitCanvas();
   const l=document.querySelector('.loading'); if(l) l.remove();
-  loadSources(); bindInput(); syncUI();
+  loadSources(); bindInput(); syncUI(); initTunePanel();
   toast('Drag on the picture to shift colour · scroll to zoom · press <kbd>?</kbd> for all controls', 7000);
+}
+
+// ── ?tune panel: untuned feel constants, exposed live + a "copy JSON" button ──
+const TUNE_SPEC=[
+  {k:'attackTau',label:'Attack (s)',min:0.05,max:1.0,step:0.01},
+  {k:'decayTau',label:'Decay (s)',min:0.1,max:2.5,step:0.01},
+  {k:'releaseGateRecentMax',label:'Release gate: peak above',min:0.4,max:0.98,step:0.01},
+  {k:'releaseGateSlope',label:'Release gate: drop by',min:-0.6,max:-0.05,step:0.01},
+  {k:'releaseWindowMs',label:'Release look-back (ms)',min:600,max:4000,step:50},
+  {k:'releaseCooldownSec',label:'Release cooldown (s)',min:1,max:12,step:0.1},
+  {k:'maxHoldSec',label:'Max hold before forced release (s)',min:15,max:120,step:1},
+  {k:'beamIgniteBase',label:'First beam ignites at',min:0.05,max:0.6,step:0.01},
+  {k:'beamIgniteStep',label:'Ignition step per beam',min:0.02,max:0.3,step:0.01}
+];
+function initTunePanel(){
+  if(!new URLSearchParams(location.search).has('tune')) return;
+  document.getElementById('tunePanel').classList.add('open');
+  const host=document.getElementById('tuneFields'); host.innerHTML='';
+  TUNE_SPEC.forEach(spec=>{
+    const row=document.createElement('div'); row.className='g';
+    row.innerHTML=`<label>${spec.label} <span class="v" id="tune-${spec.k}-v">${TUNE[spec.k]}</span></label>
+      <input type="range" id="tune-${spec.k}" min="${spec.min}" max="${spec.max}" step="${spec.step}" value="${TUNE[spec.k]}">`;
+    host.appendChild(row);
+    row.querySelector('input').addEventListener('input', e=>{
+      TUNE[spec.k]=+e.target.value;
+      document.getElementById('tune-'+spec.k+'-v').textContent=TUNE[spec.k];
+    });
+  });
+}
+function resetTune(){ TUNE={...TUNE_DEFAULTS}; initTunePanel(); document.getElementById('tunePanel').classList.add('open'); toast('Reset to the shipped (untuned) defaults'); }
+function copyTuneJSON(){
+  const txt=JSON.stringify(TUNE,null,2);
+  (navigator.clipboard&&navigator.clipboard.writeText ? navigator.clipboard.writeText(txt) : Promise.reject())
+    .then(()=>toast('Copied — paste into config.json or hand back for a commit'))
+    .catch(()=>{ toast('Clipboard blocked — JSON logged to the console instead'); console.log(txt); });
 }
 function windowResized(){ fitCanvas(); }
 
@@ -632,7 +703,7 @@ function renderLight(g, st, alpha, entrance, t){
   let N=st.spots.length||1, swp=params.sweep||1, midI=(N-1)/2;
   const bc=C(st.beamCol[0],st.beamCol[1],st.beamCol[2]);
   st.spots.forEach((s,i)=>{
-    let thr=0.20+i*0.14, gate=ss(thr,thr+0.18,build);
+    let thr=TUNE.beamIgniteBase+i*TUNE.beamIgniteStep, gate=ss(thr,thr+0.18,build);
     let a=gate*params.beams*treb*(0.85+0.15*noise(i*7,t*3))*master*(0.5+s.intensity);
     if(a<0.02)return;
     let x=s.x*W,y=s.y*H;
@@ -767,21 +838,21 @@ function computeConductor(dt, now, audioOn){
     let nE=gMax.e>1e-4?Math.min(1,e/gMax.e):0, nC=gMax.c>1e-4?Math.min(1,cent/gMax.c):0, nF=gMax.f>1e-4?Math.min(1,fl/gMax.f):0;
     let target=0.5*nE+0.2*nC+0.3*nF;
     if(jamStartSec>0 && audioEl && audioEl.currentTime<jamStartSec) target=Math.min(target,0.22);
-    let k=target>tension?(1-Math.exp(-dt/0.28)):(1-Math.exp(-dt/0.9));
+    let k=target>tension?(1-Math.exp(-dt/TUNE.attackTau)):(1-Math.exp(-dt/TUNE.decayTau));
     tension+=(target-tension)*k;
   } else {
     let p=Math.min(1,(playing?(now-studyStart):pausedAt)/(params.photoDur*1000));
     tension=ss(.12,.55,p)*(1-ss(.8,1,p)); bass=mid=treb=0.9+0.1*Math.sin(now/1000*3);
   }
-  tHist.push({t:now,v:tension}); while(tHist.length && now-tHist[0].t>1800) tHist.shift();
+  tHist.push({t:now,v:tension}); while(tHist.length && now-tHist[0].t>TUNE.releaseWindowMs) tHist.shift();
   releaseCD-=dt; flash=Math.max(0,flash-dt*1.7);
   if(audioOn && releaseCD<=0){
     let vAgo=tHist.length?tHist[0].v:tension, recentMax=tHist.reduce((m,h)=>Math.max(m,h.v),0);
     let slope=tension-vAgo, held=(now-studyStart)/1000, fired=false;
-    if(recentMax>0.8 && slope<-0.22) fired=true;
-    else if(held>MAXHOLD) fired=true;
+    if(recentMax>TUNE.releaseGateRecentMax && slope<TUNE.releaseGateSlope) fired=true;
+    else if(held>TUNE.maxHoldSec) fired=true;
     else if(audioEl && audioEl.ended) fired=true;
-    if(fired){ flash=1; releaseCD=4.5; tHist=[];
+    if(fired){ flash=1; releaseCD=TUNE.releaseCooldownSec; tHist=[];
       if(cycle && studies.length>1) switchTo((curIdx+1)%studies.length,'wipe',now); else studyStart=now;
       updateHUD(); }
   }
@@ -943,7 +1014,6 @@ async function rescanAlbum(){
 
 // ── Audio: phish.in via same-origin proxy, or a local file (unchanged) ──────
 const PROXY='/api/phishin';
-const MAXHOLD=60;
 let audioEl=null, actx=null, analyser=null, freq=null, audioPlaying=false;
 let jamStartSec=0, tension=0, fluxPrev=null, gMax={e:1e-4,c:1e-4,f:1e-4}, tHist=[], releaseCD=0, flash=0, showDbg=false, wasAudioOn=false;
 let bass=1, mid=1, treb=1;
@@ -1012,7 +1082,7 @@ function collectTracks(data){
   walk(data,{}); return out;
 }
 function fmt(v){let s=Math.round(v>10000?v/1000:v);let m=Math.floor(s/60);return m+':'+String(s%60).padStart(2,'0');}
-function triggerRelease(){ flash=1; releaseCD=4.5; tHist=[];
+function triggerRelease(){ flash=1; releaseCD=TUNE.releaseCooldownSec; tHist=[];
   if(cycle && studies.length>1) switchTo((curIdx+1)%studies.length,'wipe'); else studyStart=millis();
   updateHUD(); }
 </script>
