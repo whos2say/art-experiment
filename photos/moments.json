@@ -1,0 +1,4787 @@
+{
+  "photo_057.jpg": {
+    "capturedAt": "2026-10-03T19:47:10",
+    "wallClockOffsetSec": 0,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 0,
+    "confidence": "low",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 57.2,
+      "flowCoh": 0.184,
+      "curvature": 0.361,
+      "energy": 0.929,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.44,
+        "y": 0.583
+      },
+      "spots": [
+        {
+          "x": 0.239,
+          "y": 0.787,
+          "intensity": 0.808,
+          "ang": 1.0658,
+          "aniso": 0.2
+        },
+        {
+          "x": 0.915,
+          "y": 0.281,
+          "intensity": 0.549,
+          "ang": 0.755,
+          "aniso": 0.412
+        },
+        {
+          "x": 0.071,
+          "y": 0.827,
+          "intensity": 0.55,
+          "ang": 1.2395,
+          "aniso": 0.168
+        },
+        {
+          "x": 0.537,
+          "y": 0.61,
+          "intensity": 0.46,
+          "ang": 1.1043,
+          "aniso": 0.19
+        },
+        {
+          "x": 0.766,
+          "y": 0.604,
+          "intensity": 0.417,
+          "ang": -1.5383,
+          "aniso": 0.126
+        },
+        {
+          "x": 0.994,
+          "y": 0.433,
+          "intensity": 0.393,
+          "ang": 0.8227,
+          "aniso": 0.384
+        },
+        {
+          "x": 0.469,
+          "y": 0.9,
+          "intensity": 0.311,
+          "ang": -0.8766,
+          "aniso": 0.13
+        }
+      ]
+    }
+  },
+  "photo_058.jpg": {
+    "capturedAt": "2026-10-03T19:47:36",
+    "wallClockOffsetSec": 26,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 26,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 84.9,
+      "flowCoh": 0.435,
+      "curvature": 0.116,
+      "energy": 0.892,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.516,
+        "y": 0.406
+      },
+      "spots": [
+        {
+          "x": 0.309,
+          "y": 0.416,
+          "intensity": 0.567,
+          "ang": 1.5638,
+          "aniso": 0.64
+        },
+        {
+          "x": 0.094,
+          "y": 0.462,
+          "intensity": 0.663,
+          "ang": -1.543,
+          "aniso": 0.599
+        },
+        {
+          "x": 0.911,
+          "y": 0.346,
+          "intensity": 0.616,
+          "ang": 0.9782,
+          "aniso": 0.548
+        },
+        {
+          "x": 0.558,
+          "y": 0.442,
+          "intensity": 0.665,
+          "ang": -1.4777,
+          "aniso": 0.335
+        },
+        {
+          "x": 0.919,
+          "y": 0.563,
+          "intensity": 0.49,
+          "ang": 1.5532,
+          "aniso": 0.235
+        }
+      ]
+    }
+  },
+  "photo_059.jpg": {
+    "capturedAt": "2026-10-03T19:47:39",
+    "wallClockOffsetSec": 29,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 29,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 86.9,
+      "flowCoh": 0.51,
+      "curvature": 0.013,
+      "energy": 0.869,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.452,
+        "y": 0.426
+      },
+      "spots": [
+        {
+          "x": 0.816,
+          "y": 0.405,
+          "intensity": 0.648,
+          "ang": 1.3877,
+          "aniso": 0.512
+        },
+        {
+          "x": 0.329,
+          "y": 0.377,
+          "intensity": 0.676,
+          "ang": -1.5357,
+          "aniso": 0.565
+        },
+        {
+          "x": 0.626,
+          "y": 0.527,
+          "intensity": 0.579,
+          "ang": -1.5224,
+          "aniso": 0.577
+        },
+        {
+          "x": 0.086,
+          "y": 0.435,
+          "intensity": 0.628,
+          "ang": 1.5354,
+          "aniso": 0.556
+        },
+        {
+          "x": 0.924,
+          "y": 0.529,
+          "intensity": 0.621,
+          "ang": 1.5444,
+          "aniso": 0.566
+        }
+      ]
+    }
+  },
+  "photo_060.jpg": {
+    "capturedAt": "2026-10-03T19:47:43",
+    "wallClockOffsetSec": 33,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 33,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 55.4,
+      "flowCoh": 0.085,
+      "curvature": 0.031,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.448,
+        "y": 0.475
+      },
+      "spots": [
+        {
+          "x": 0.078,
+          "y": 0.34,
+          "intensity": 0.764,
+          "ang": -0.9708,
+          "aniso": 0.561
+        },
+        {
+          "x": 0.269,
+          "y": 0.496,
+          "intensity": 0.727,
+          "ang": -1.2935,
+          "aniso": 0.209
+        },
+        {
+          "x": 0.732,
+          "y": 0.58,
+          "intensity": 0.713,
+          "ang": -1.3051,
+          "aniso": 0.387
+        },
+        {
+          "x": 0.19,
+          "y": 0.465,
+          "intensity": 0.715,
+          "ang": -1.2189,
+          "aniso": 0.299
+        },
+        {
+          "x": 0.403,
+          "y": 0.475,
+          "intensity": 0.713,
+          "ang": -1.1091,
+          "aniso": 0.248
+        }
+      ]
+    }
+  },
+  "photo_061.jpg": {
+    "capturedAt": "2026-10-03T19:47:58",
+    "wallClockOffsetSec": 48,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 48,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 60.5,
+      "flowCoh": 0.039,
+      "curvature": 0.646,
+      "energy": 0.646,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.524,
+        "y": 0.509
+      },
+      "spots": [
+        {
+          "x": 0.327,
+          "y": 0.477,
+          "intensity": 0.873,
+          "ang": -0.8659,
+          "aniso": 0.228
+        },
+        {
+          "x": 0.494,
+          "y": 0.605,
+          "intensity": 0.486,
+          "ang": -0.865,
+          "aniso": 0.165
+        },
+        {
+          "x": 0.669,
+          "y": 0.713,
+          "intensity": 0.401,
+          "ang": 0.8326,
+          "aniso": 0.088
+        }
+      ]
+    }
+  },
+  "photo_062.jpg": {
+    "capturedAt": "2026-10-03T19:47:59",
+    "wallClockOffsetSec": 49,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 49,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 71.6,
+      "flowCoh": 0.047,
+      "curvature": 0.653,
+      "energy": 0.595,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.557,
+        "y": 0.455
+      },
+      "spots": [
+        {
+          "x": 0.353,
+          "y": 0.415,
+          "intensity": 0.768,
+          "ang": -0.9945,
+          "aniso": 0.261
+        },
+        {
+          "x": 0.504,
+          "y": 0.545,
+          "intensity": 0.461,
+          "ang": -0.9747,
+          "aniso": 0.244
+        },
+        {
+          "x": 0.509,
+          "y": 0.921,
+          "intensity": 0.416,
+          "ang": 0.689,
+          "aniso": 0.494
+        }
+      ]
+    }
+  },
+  "photo_063.jpg": {
+    "capturedAt": "2026-10-03T19:48:05",
+    "wallClockOffsetSec": 55,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 55,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 62.6,
+      "flowCoh": 0.052,
+      "curvature": 0,
+      "energy": 0.624,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.589,
+        "y": 0.506
+      },
+      "spots": [
+        {
+          "x": 0.276,
+          "y": 0.446,
+          "intensity": 0.988,
+          "ang": -1.1009,
+          "aniso": 0.213
+        },
+        {
+          "x": 0.494,
+          "y": 0.515,
+          "intensity": 0.586,
+          "ang": -1.1221,
+          "aniso": 0.202
+        }
+      ]
+    }
+  },
+  "photo_064.jpg": {
+    "capturedAt": "2026-10-03T19:48:57",
+    "wallClockOffsetSec": 107,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 107,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -62,
+      "flowCoh": 0.217,
+      "curvature": 0.033,
+      "energy": 0.879,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.399,
+        "y": 0.284
+      },
+      "spots": [
+        {
+          "x": 0.527,
+          "y": 0.472,
+          "intensity": 0.868,
+          "ang": -1.2402,
+          "aniso": 0.385
+        },
+        {
+          "x": 0.381,
+          "y": 0.485,
+          "intensity": 0.712,
+          "ang": -1.0196,
+          "aniso": 0.265
+        },
+        {
+          "x": 0.741,
+          "y": 0.533,
+          "intensity": 0.687,
+          "ang": -1.2582,
+          "aniso": 0.517
+        },
+        {
+          "x": 0.884,
+          "y": 0.637,
+          "intensity": 0.575,
+          "ang": -1.3789,
+          "aniso": 0.243
+        }
+      ]
+    }
+  },
+  "photo_065.jpg": {
+    "capturedAt": "2026-10-03T19:49:10",
+    "wallClockOffsetSec": 120,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 120,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -82.4,
+      "flowCoh": 0.463,
+      "curvature": 0.069,
+      "energy": 1,
+      "brightFrac": 0.0223,
+      "warm": {
+        "x": 0.504,
+        "y": 0.306
+      },
+      "spots": [
+        {
+          "x": 0.317,
+          "y": 0.469,
+          "intensity": 1,
+          "ang": -1.2726,
+          "aniso": 0.341
+        },
+        {
+          "x": 0.444,
+          "y": 0.371,
+          "intensity": 1,
+          "ang": 1.4947,
+          "aniso": 0.793
+        }
+      ]
+    }
+  },
+  "photo_066.jpg": {
+    "capturedAt": "2026-10-03T19:49:55",
+    "wallClockOffsetSec": 165,
+    "track": "Sand",
+    "set": "1",
+    "offsetIntoTrackSec": 165,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 85.6,
+      "flowCoh": 0.324,
+      "curvature": 0.003,
+      "energy": 0.991,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.412,
+          "y": 0.844,
+          "intensity": 0.979,
+          "ang": 1.4787,
+          "aniso": 0.476
+        },
+        {
+          "x": 0.262,
+          "y": 0.825,
+          "intensity": 0.994,
+          "ang": 1.4049,
+          "aniso": 0.392
+        }
+      ]
+    }
+  },
+  "photo_067.jpg": {
+    "capturedAt": "2026-10-03T20:36:54",
+    "wallClockOffsetSec": 2984,
+    "track": "555",
+    "set": "1",
+    "offsetIntoTrackSec": 292,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -86.9,
+      "flowCoh": 0.441,
+      "curvature": 0.049,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.67,
+          "y": 0.085,
+          "intensity": 1,
+          "ang": 1.4801,
+          "aniso": 0.751
+        },
+        {
+          "x": 0.461,
+          "y": 0.713,
+          "intensity": 0.958,
+          "ang": 1.3943,
+          "aniso": 0.374
+        },
+        {
+          "x": 0.147,
+          "y": 0.777,
+          "intensity": 0.992,
+          "ang": 1.5075,
+          "aniso": 0.405
+        },
+        {
+          "x": 0.69,
+          "y": 0.689,
+          "intensity": 0.949,
+          "ang": -1.4257,
+          "aniso": 0.32
+        },
+        {
+          "x": 0.356,
+          "y": 0.228,
+          "intensity": 0.924,
+          "ang": 1.4795,
+          "aniso": 0.699
+        },
+        {
+          "x": 0.512,
+          "y": 0.931,
+          "intensity": 0.736,
+          "ang": 1.3781,
+          "aniso": 0.312
+        },
+        {
+          "x": 0.933,
+          "y": 0.867,
+          "intensity": 0.754,
+          "ang": 1.1067,
+          "aniso": 0.149
+        },
+        {
+          "x": 0.534,
+          "y": 0.058,
+          "intensity": 0.781,
+          "ang": 1.3916,
+          "aniso": 0.808
+        }
+      ]
+    }
+  },
+  "photo_068.jpg": {
+    "capturedAt": "2026-10-03T20:37:29",
+    "wallClockOffsetSec": 3019,
+    "track": "555",
+    "set": "1",
+    "offsetIntoTrackSec": 327,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -89.3,
+      "flowCoh": 0.12,
+      "curvature": 0.002,
+      "energy": 0.87,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.386,
+        "y": 0.609
+      },
+      "spots": [
+        {
+          "x": 0.3,
+          "y": 0.579,
+          "intensity": 1,
+          "ang": 0.4458,
+          "aniso": 0.178
+        },
+        {
+          "x": 0.216,
+          "y": 0.729,
+          "intensity": 0.985,
+          "ang": 0.5054,
+          "aniso": 0.169
+        }
+      ]
+    }
+  },
+  "photo_069.jpg": {
+    "capturedAt": "2026-10-03T20:37:47",
+    "wallClockOffsetSec": 3037,
+    "track": "555",
+    "set": "1",
+    "offsetIntoTrackSec": 345,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -59.8,
+      "flowCoh": 0.216,
+      "curvature": 0.073,
+      "energy": 0.867,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.519,
+        "y": 0.665
+      },
+      "spots": [
+        {
+          "x": 0.536,
+          "y": 0.336,
+          "intensity": 0.905,
+          "ang": -1.2013,
+          "aniso": 0.066
+        },
+        {
+          "x": 0.432,
+          "y": 0.489,
+          "intensity": 0.731,
+          "ang": -1.2355,
+          "aniso": 0.36
+        },
+        {
+          "x": 0.688,
+          "y": 0.464,
+          "intensity": 0.746,
+          "ang": -0.8104,
+          "aniso": 0.343
+        }
+      ]
+    }
+  },
+  "photo_070.jpg": {
+    "capturedAt": "2026-10-03T20:38:15",
+    "wallClockOffsetSec": 3065,
+    "track": "555",
+    "set": "1",
+    "offsetIntoTrackSec": 373,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 61.2,
+      "flowCoh": 0.248,
+      "curvature": 0.22,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.253,
+        "y": 0.107
+      },
+      "spots": [
+        {
+          "x": 0.276,
+          "y": 0.641,
+          "intensity": 0.819,
+          "ang": 1.3159,
+          "aniso": 0.371
+        },
+        {
+          "x": 0.245,
+          "y": 0.311,
+          "intensity": 0.863,
+          "ang": 0.4907,
+          "aniso": 0.263
+        },
+        {
+          "x": 0.045,
+          "y": 0.683,
+          "intensity": 0.77,
+          "ang": 1.4082,
+          "aniso": 0.578
+        },
+        {
+          "x": 0.189,
+          "y": 0.835,
+          "intensity": 0.698,
+          "ang": 1.4316,
+          "aniso": 0.574
+        },
+        {
+          "x": 0.516,
+          "y": 0.186,
+          "intensity": 0.728,
+          "ang": 0.7257,
+          "aniso": 0.206
+        },
+        {
+          "x": 0.428,
+          "y": 0.377,
+          "intensity": 0.744,
+          "ang": 1.0971,
+          "aniso": 0.293
+        },
+        {
+          "x": 0.487,
+          "y": 0.625,
+          "intensity": 0.672,
+          "ang": 1.3791,
+          "aniso": 0.432
+        }
+      ]
+    }
+  },
+  "photo_071.jpg": {
+    "capturedAt": "2026-10-03T20:49:35",
+    "wallClockOffsetSec": 3745,
+    "track": "Bathtub Gin",
+    "set": "1",
+    "offsetIntoTrackSec": 66,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 44.3,
+      "flowCoh": 0.285,
+      "curvature": 0.319,
+      "energy": 1,
+      "brightFrac": 0.0626,
+      "warm": {
+        "x": 0.371,
+        "y": 0.361
+      },
+      "spots": [
+        {
+          "x": 0.141,
+          "y": 0.103,
+          "intensity": 1,
+          "ang": -0.6973,
+          "aniso": 0.253
+        },
+        {
+          "x": 0.417,
+          "y": 0.324,
+          "intensity": 1,
+          "ang": 1.3582,
+          "aniso": 0.179
+        },
+        {
+          "x": 0.487,
+          "y": 0.056,
+          "intensity": 1,
+          "ang": 0.6795,
+          "aniso": 0.109
+        },
+        {
+          "x": 0.293,
+          "y": 0.16,
+          "intensity": 1,
+          "ang": 1.0452,
+          "aniso": 0.125
+        },
+        {
+          "x": 0.656,
+          "y": 0.283,
+          "intensity": 1,
+          "ang": 0.9192,
+          "aniso": 0.234
+        },
+        {
+          "x": 0.637,
+          "y": 0.846,
+          "intensity": 1,
+          "ang": 0.8007,
+          "aniso": 0.391
+        },
+        {
+          "x": 0.256,
+          "y": 0.358,
+          "intensity": 1,
+          "ang": 1.084,
+          "aniso": 0.245
+        },
+        {
+          "x": 0.188,
+          "y": 0.508,
+          "intensity": 1,
+          "ang": 0.8711,
+          "aniso": 0.285
+        }
+      ]
+    }
+  },
+  "photo_072.jpg": {
+    "capturedAt": "2026-10-03T21:27:58",
+    "wallClockOffsetSec": 6048,
+    "track": "Chalk Dust Torture",
+    "set": "2",
+    "offsetIntoTrackSec": 419,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 82.1,
+      "flowCoh": 0.412,
+      "curvature": 0.003,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.761,
+        "y": 0.61
+      },
+      "spots": [
+        {
+          "x": 0.621,
+          "y": 0.553,
+          "intensity": 0.984,
+          "ang": -1.5619,
+          "aniso": 0.461
+        },
+        {
+          "x": 0.419,
+          "y": 0.562,
+          "intensity": 0.92,
+          "ang": 1.5152,
+          "aniso": 0.634
+        },
+        {
+          "x": 0.645,
+          "y": 0.356,
+          "intensity": 0.808,
+          "ang": -1.5376,
+          "aniso": 0.395
+        },
+        {
+          "x": 0.222,
+          "y": 0.596,
+          "intensity": 0.795,
+          "ang": 1.5164,
+          "aniso": 0.613
+        }
+      ]
+    }
+  },
+  "photo_073.jpg": {
+    "capturedAt": "2026-10-03T21:28:04",
+    "wallClockOffsetSec": 6054,
+    "track": "Chalk Dust Torture",
+    "set": "2",
+    "offsetIntoTrackSec": 425,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 89.9,
+      "flowCoh": 0.904,
+      "curvature": 0,
+      "energy": 0.847,
+      "brightFrac": 0.0151,
+      "warm": {
+        "x": 0.364,
+        "y": 0.828
+      },
+      "spots": [
+        {
+          "x": 0.418,
+          "y": 0.399,
+          "intensity": 0.792,
+          "ang": 1.5395,
+          "aniso": 0.916
+        },
+        {
+          "x": 0.271,
+          "y": 0.584,
+          "intensity": 0.809,
+          "ang": 1.5646,
+          "aniso": 0.939
+        },
+        {
+          "x": 0.086,
+          "y": 0.58,
+          "intensity": 0.807,
+          "ang": -1.5682,
+          "aniso": 0.957
+        }
+      ]
+    }
+  },
+  "photo_074.jpg": {
+    "capturedAt": "2026-10-03T21:28:40",
+    "wallClockOffsetSec": 6090,
+    "track": "Chalk Dust Torture",
+    "set": "2",
+    "offsetIntoTrackSec": 461,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 82.1,
+      "flowCoh": 0.298,
+      "curvature": 0.095,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.042,
+        "y": 0.585
+      },
+      "spots": [
+        {
+          "x": 0.526,
+          "y": 0.451,
+          "intensity": 1,
+          "ang": 1.5211,
+          "aniso": 0.533
+        },
+        {
+          "x": 0.399,
+          "y": 0.439,
+          "intensity": 0.958,
+          "ang": -1.5439,
+          "aniso": 0.38
+        },
+        {
+          "x": 0.804,
+          "y": 0.433,
+          "intensity": 0.864,
+          "ang": 1.096,
+          "aniso": 0.301
+        }
+      ]
+    }
+  },
+  "photo_075.jpg": {
+    "capturedAt": "2026-10-03T21:29:04",
+    "wallClockOffsetSec": 6114,
+    "track": "Chalk Dust Torture",
+    "set": "2",
+    "offsetIntoTrackSec": 485,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 84,
+      "flowCoh": 0.325,
+      "curvature": 0,
+      "energy": 0.75,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.224,
+        "y": 0.665
+      },
+      "spots": [
+        {
+          "x": 0.489,
+          "y": 0.495,
+          "intensity": 1,
+          "ang": -1.5592,
+          "aniso": 0.554
+        }
+      ]
+    }
+  },
+  "photo_076.jpg": {
+    "capturedAt": "2026-10-03T21:29:26",
+    "wallClockOffsetSec": 6136,
+    "track": "Chalk Dust Torture",
+    "set": "2",
+    "offsetIntoTrackSec": 507,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 84.4,
+      "flowCoh": 0.485,
+      "curvature": 0.003,
+      "energy": 1,
+      "brightFrac": 0.0174,
+      "warm": {
+        "x": 0.496,
+        "y": 0.609
+      },
+      "spots": [
+        {
+          "x": 0.472,
+          "y": 0.367,
+          "intensity": 1,
+          "ang": 1.4695,
+          "aniso": 0.568
+        },
+        {
+          "x": 0.063,
+          "y": 0.473,
+          "intensity": 0.996,
+          "ang": 1.3756,
+          "aniso": 0.582
+        },
+        {
+          "x": 0.326,
+          "y": 0.385,
+          "intensity": 1,
+          "ang": 1.408,
+          "aniso": 0.453
+        }
+      ]
+    }
+  },
+  "photo_077.jpg": {
+    "capturedAt": "2026-10-03T21:29:55",
+    "wallClockOffsetSec": 6165,
+    "track": "Chalk Dust Torture",
+    "set": "2",
+    "offsetIntoTrackSec": 536,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 89.4,
+      "flowCoh": 0.436,
+      "curvature": 0.027,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.41,
+        "y": 0.256
+      },
+      "spots": [
+        {
+          "x": 0.88,
+          "y": 0.61,
+          "intensity": 1,
+          "ang": 1.5545,
+          "aniso": 0.445
+        },
+        {
+          "x": 0.5,
+          "y": 0.321,
+          "intensity": 1,
+          "ang": 1.5548,
+          "aniso": 0.415
+        },
+        {
+          "x": 0.819,
+          "y": 0.779,
+          "intensity": 0.799,
+          "ang": 1.2766,
+          "aniso": 0.298
+        },
+        {
+          "x": 0.725,
+          "y": 0.183,
+          "intensity": 0.788,
+          "ang": 1.4102,
+          "aniso": 0.504
+        }
+      ]
+    }
+  },
+  "photo_078.jpg": {
+    "capturedAt": "2026-10-03T21:30:35",
+    "wallClockOffsetSec": 6205,
+    "track": "Chalk Dust Torture",
+    "set": "2",
+    "offsetIntoTrackSec": 576,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 79.7,
+      "flowCoh": 0.591,
+      "curvature": 0,
+      "energy": 0.984,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.459,
+        "y": 0.824
+      },
+      "spots": [
+        {
+          "x": 0.394,
+          "y": 0.438,
+          "intensity": 0.98,
+          "ang": 1.4259,
+          "aniso": 0.747
+        },
+        {
+          "x": 0.546,
+          "y": 0.444,
+          "intensity": 0.853,
+          "ang": 1.4023,
+          "aniso": 0.651
+        },
+        {
+          "x": 0.184,
+          "y": 0.392,
+          "intensity": 0.883,
+          "ang": 1.4174,
+          "aniso": 0.581
+        }
+      ]
+    }
+  },
+  "photo_079.jpg": {
+    "capturedAt": "2026-10-03T21:36:59",
+    "wallClockOffsetSec": 6589,
+    "track": "Chalk Dust Torture",
+    "set": "2",
+    "offsetIntoTrackSec": 960,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 77.3,
+      "flowCoh": 0.05,
+      "curvature": 0,
+      "energy": 0.942,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.562,
+        "y": 0.318
+      },
+      "spots": [
+        {
+          "x": 0.337,
+          "y": 0.389,
+          "intensity": 1,
+          "ang": -1.1403,
+          "aniso": 0.118
+        }
+      ]
+    }
+  },
+  "photo_080.jpg": {
+    "capturedAt": "2026-10-03T21:47:13",
+    "wallClockOffsetSec": 7203,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 374,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 88.8,
+      "flowCoh": 0.255,
+      "curvature": 0.324,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.488,
+        "y": 0.216
+      },
+      "spots": [
+        {
+          "x": 0.525,
+          "y": 0.562,
+          "intensity": 0.999,
+          "ang": 1.3845,
+          "aniso": 0.299
+        },
+        {
+          "x": 0.233,
+          "y": 0.608,
+          "intensity": 0.989,
+          "ang": 1.3999,
+          "aniso": 0.417
+        },
+        {
+          "x": 0.588,
+          "y": 0.917,
+          "intensity": 0.891,
+          "ang": -0.8521,
+          "aniso": 0.334
+        }
+      ]
+    }
+  },
+  "photo_081.jpg": {
+    "capturedAt": "2026-10-03T21:47:32",
+    "wallClockOffsetSec": 7222,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 393,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 76.2,
+      "flowCoh": 0.666,
+      "curvature": 0,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.482,
+        "y": 0.363
+      },
+      "spots": [
+        {
+          "x": 0.838,
+          "y": 0.722,
+          "intensity": 0.986,
+          "ang": 1.4324,
+          "aniso": 0.784
+        },
+        {
+          "x": 0.655,
+          "y": 0.71,
+          "intensity": 0.978,
+          "ang": 1.4156,
+          "aniso": 0.803
+        },
+        {
+          "x": 0.442,
+          "y": 0.783,
+          "intensity": 0.969,
+          "ang": 1.4207,
+          "aniso": 0.779
+        }
+      ]
+    }
+  },
+  "photo_082.jpg": {
+    "capturedAt": "2026-10-03T21:47:59",
+    "wallClockOffsetSec": 7249,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 420,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 28.1,
+      "flowCoh": 0.439,
+      "curvature": 0.748,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.505,
+        "y": 0.571
+      },
+      "spots": [
+        {
+          "x": 0.305,
+          "y": 0.953,
+          "intensity": 0.952,
+          "ang": 1.1756,
+          "aniso": 0.75
+        },
+        {
+          "x": 0.306,
+          "y": 0.207,
+          "intensity": 0.932,
+          "ang": 0.4095,
+          "aniso": 0.705
+        },
+        {
+          "x": 0.178,
+          "y": 0.63,
+          "intensity": 0.915,
+          "ang": 0.2037,
+          "aniso": 0.574
+        },
+        {
+          "x": 0.034,
+          "y": 0.943,
+          "intensity": 0.664,
+          "ang": 0.7043,
+          "aniso": 0.205
+        },
+        {
+          "x": 0.003,
+          "y": 0.079,
+          "intensity": 0.879,
+          "ang": 0.4127,
+          "aniso": 0.66
+        },
+        {
+          "x": 0.55,
+          "y": 0.992,
+          "intensity": 0.515,
+          "ang": 1.564,
+          "aniso": 0.816
+        },
+        {
+          "x": 0.585,
+          "y": 0.379,
+          "intensity": 0.56,
+          "ang": -0.5468,
+          "aniso": 0.391
+        },
+        {
+          "x": 0.953,
+          "y": 0.033,
+          "intensity": 0.505,
+          "ang": -1.1575,
+          "aniso": 0.234
+        }
+      ]
+    }
+  },
+  "photo_083.jpg": {
+    "capturedAt": "2026-10-03T21:48:17",
+    "wallClockOffsetSec": 7267,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 438,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 70.9,
+      "flowCoh": 0.769,
+      "curvature": 0.033,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.493,
+        "y": 0.533
+      },
+      "spots": [
+        {
+          "x": 0.336,
+          "y": 0.618,
+          "intensity": 0.951,
+          "ang": 1.3232,
+          "aniso": 0.812
+        },
+        {
+          "x": 0.886,
+          "y": 0.561,
+          "intensity": 0.968,
+          "ang": 1.2386,
+          "aniso": 0.693
+        },
+        {
+          "x": 0.091,
+          "y": 0.677,
+          "intensity": 0.813,
+          "ang": 1.387,
+          "aniso": 0.791
+        },
+        {
+          "x": 0.961,
+          "y": 0.978,
+          "intensity": 0.74,
+          "ang": 1.5028,
+          "aniso": 0.548
+        },
+        {
+          "x": 0.647,
+          "y": 0.699,
+          "intensity": 0.568,
+          "ang": 1.1935,
+          "aniso": 0.869
+        },
+        {
+          "x": 0.075,
+          "y": 0.898,
+          "intensity": 0.607,
+          "ang": 1.1254,
+          "aniso": 0.875
+        },
+        {
+          "x": 0.455,
+          "y": 0.782,
+          "intensity": 0.56,
+          "ang": 1.171,
+          "aniso": 0.853
+        },
+        {
+          "x": 0.002,
+          "y": 0.642,
+          "intensity": 0.695,
+          "ang": 1.4448,
+          "aniso": 0.734
+        }
+      ]
+    }
+  },
+  "photo_084.jpg": {
+    "capturedAt": "2026-10-03T21:49:15",
+    "wallClockOffsetSec": 7325,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 496,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 75.7,
+      "flowCoh": 0.385,
+      "curvature": 0.007,
+      "energy": 0.757,
+      "brightFrac": 0.0151,
+      "warm": {
+        "x": 0.602,
+        "y": 0.47
+      },
+      "spots": [
+        {
+          "x": 0.121,
+          "y": 0.597,
+          "intensity": 1,
+          "ang": 1.4594,
+          "aniso": 0.826
+        },
+        {
+          "x": 0.016,
+          "y": 0.728,
+          "intensity": 1,
+          "ang": 1.3394,
+          "aniso": 0.779
+        }
+      ]
+    }
+  },
+  "photo_085.jpg": {
+    "capturedAt": "2026-10-03T21:49:36",
+    "wallClockOffsetSec": 7346,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 517,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -69.2,
+      "flowCoh": 0.404,
+      "curvature": 0.391,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.552,
+        "y": 0.351
+      },
+      "spots": [
+        {
+          "x": 0.237,
+          "y": 0.696,
+          "intensity": 0.995,
+          "ang": -1.2972,
+          "aniso": 0.454
+        },
+        {
+          "x": 0.489,
+          "y": 0.733,
+          "intensity": 1,
+          "ang": -1.1091,
+          "aniso": 0.509
+        },
+        {
+          "x": 0.065,
+          "y": 0.771,
+          "intensity": 0.922,
+          "ang": -1.2955,
+          "aniso": 0.558
+        },
+        {
+          "x": 0.24,
+          "y": 0.87,
+          "intensity": 0.852,
+          "ang": -1.3698,
+          "aniso": 0.63
+        },
+        {
+          "x": 0.844,
+          "y": 0.142,
+          "intensity": 0.911,
+          "ang": 0.5147,
+          "aniso": 0.326
+        }
+      ]
+    }
+  },
+  "photo_086.jpg": {
+    "capturedAt": "2026-10-03T21:49:58",
+    "wallClockOffsetSec": 7368,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 539,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -69.7,
+      "flowCoh": 0.268,
+      "curvature": 0.021,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.767,
+        "y": 0.255
+      },
+      "spots": [
+        {
+          "x": 0.584,
+          "y": 0.43,
+          "intensity": 0.997,
+          "ang": -1.0895,
+          "aniso": 0.101
+        },
+        {
+          "x": 0.28,
+          "y": 0.486,
+          "intensity": 0.95,
+          "ang": -1.2904,
+          "aniso": 0.185
+        },
+        {
+          "x": 0.77,
+          "y": 0.367,
+          "intensity": 0.887,
+          "ang": -1.2297,
+          "aniso": 0.191
+        },
+        {
+          "x": 0.019,
+          "y": 0.467,
+          "intensity": 0.851,
+          "ang": -1.3676,
+          "aniso": 0.269
+        }
+      ]
+    }
+  },
+  "photo_087.jpg": {
+    "capturedAt": "2026-10-03T21:50:37",
+    "wallClockOffsetSec": 7407,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 578,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 34.7,
+      "flowCoh": 0.518,
+      "curvature": 0.018,
+      "energy": 1,
+      "brightFrac": 0.0151,
+      "warm": {
+        "x": 0.126,
+        "y": 0.944
+      },
+      "spots": [
+        {
+          "x": 0.897,
+          "y": 0.255,
+          "intensity": 0.918,
+          "ang": 0.5718,
+          "aniso": 0.708
+        },
+        {
+          "x": 0.79,
+          "y": 0.454,
+          "intensity": 0.857,
+          "ang": 0.5641,
+          "aniso": 0.552
+        },
+        {
+          "x": 0.574,
+          "y": 0.34,
+          "intensity": 0.837,
+          "ang": 0.4904,
+          "aniso": 0.694
+        },
+        {
+          "x": 0.361,
+          "y": 0.438,
+          "intensity": 0.774,
+          "ang": 0.4647,
+          "aniso": 0.555
+        },
+        {
+          "x": 0.419,
+          "y": 0.174,
+          "intensity": 0.749,
+          "ang": 0.6418,
+          "aniso": 0.567
+        },
+        {
+          "x": 0.153,
+          "y": 0.166,
+          "intensity": 0.795,
+          "ang": 0.7775,
+          "aniso": 0.321
+        },
+        {
+          "x": 0.968,
+          "y": 0.138,
+          "intensity": 0.763,
+          "ang": 0.6458,
+          "aniso": 0.659
+        },
+        {
+          "x": 0.002,
+          "y": 0.219,
+          "intensity": 0.734,
+          "ang": 0.6535,
+          "aniso": 0.466
+        }
+      ]
+    }
+  },
+  "photo_088.jpg": {
+    "capturedAt": "2026-10-03T21:50:51",
+    "wallClockOffsetSec": 7421,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 592,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 68.1,
+      "flowCoh": 0.438,
+      "curvature": 0.025,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.309,
+          "y": 0.435,
+          "intensity": 0.979,
+          "ang": 1.1235,
+          "aniso": 0.378
+        },
+        {
+          "x": 0.295,
+          "y": 0.619,
+          "intensity": 0.812,
+          "ang": 0.8874,
+          "aniso": 0.213
+        },
+        {
+          "x": 0.9,
+          "y": 0.6,
+          "intensity": 0.949,
+          "ang": 0.9124,
+          "aniso": 0.38
+        },
+        {
+          "x": 0.794,
+          "y": 0.431,
+          "intensity": 0.872,
+          "ang": 1.0618,
+          "aniso": 0.492
+        },
+        {
+          "x": 0.106,
+          "y": 0.592,
+          "intensity": 0.808,
+          "ang": 1.1712,
+          "aniso": 0.439
+        }
+      ]
+    }
+  },
+  "photo_089.jpg": {
+    "capturedAt": "2026-10-03T21:51:12",
+    "wallClockOffsetSec": 7442,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 613,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -71.5,
+      "flowCoh": 0.528,
+      "curvature": 0.008,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.512,
+          "y": 0.698,
+          "intensity": 0.815,
+          "ang": -1.2587,
+          "aniso": 0.518
+        },
+        {
+          "x": 0.913,
+          "y": 0.732,
+          "intensity": 0.899,
+          "ang": -1.2667,
+          "aniso": 0.497
+        },
+        {
+          "x": 0.711,
+          "y": 0.914,
+          "intensity": 0.791,
+          "ang": -1.1934,
+          "aniso": 0.474
+        },
+        {
+          "x": 0.468,
+          "y": 0.943,
+          "intensity": 0.821,
+          "ang": -1.0912,
+          "aniso": 0.201
+        },
+        {
+          "x": 0.248,
+          "y": 0.732,
+          "intensity": 0.779,
+          "ang": -1.2449,
+          "aniso": 0.686
+        },
+        {
+          "x": 0.893,
+          "y": 0.976,
+          "intensity": 0.822,
+          "ang": -1.2873,
+          "aniso": 0.612
+        },
+        {
+          "x": 0.632,
+          "y": 0.665,
+          "intensity": 0.798,
+          "ang": -1.2221,
+          "aniso": 0.505
+        },
+        {
+          "x": 0.106,
+          "y": 0.737,
+          "intensity": 0.771,
+          "ang": -1.3131,
+          "aniso": 0.722
+        }
+      ]
+    }
+  },
+  "photo_090.jpg": {
+    "capturedAt": "2026-10-03T21:51:54",
+    "wallClockOffsetSec": 7484,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 655,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 87.5,
+      "flowCoh": 0.185,
+      "curvature": 0.131,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.737,
+          "y": 0.484,
+          "intensity": 0.848,
+          "ang": -1.486,
+          "aniso": 0.243
+        },
+        {
+          "x": 0.912,
+          "y": 0.658,
+          "intensity": 1,
+          "ang": 1.0242,
+          "aniso": 0.193
+        },
+        {
+          "x": 0.68,
+          "y": 0.711,
+          "intensity": 0.882,
+          "ang": 1.2867,
+          "aniso": 0.071
+        },
+        {
+          "x": 0.129,
+          "y": 0.521,
+          "intensity": 0.665,
+          "ang": -1.5451,
+          "aniso": 0.44
+        },
+        {
+          "x": 0.139,
+          "y": 0.287,
+          "intensity": 0.746,
+          "ang": 1.0615,
+          "aniso": 0.181
+        },
+        {
+          "x": 0.414,
+          "y": 0.242,
+          "intensity": 0.687,
+          "ang": 1.3523,
+          "aniso": 0.268
+        },
+        {
+          "x": 0.421,
+          "y": 0.558,
+          "intensity": 0.656,
+          "ang": -1.5271,
+          "aniso": 0.216
+        },
+        {
+          "x": 0.148,
+          "y": 0.781,
+          "intensity": 0.684,
+          "ang": -1.3867,
+          "aniso": 0.358
+        }
+      ]
+    }
+  },
+  "photo_091.jpg": {
+    "capturedAt": "2026-10-03T21:52:07",
+    "wallClockOffsetSec": 7497,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 668,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 78.2,
+      "flowCoh": 0.041,
+      "curvature": 0.299,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.072,
+        "y": 0.26
+      },
+      "spots": [
+        {
+          "x": 0.305,
+          "y": 0.186,
+          "intensity": 0.973,
+          "ang": -1.5225,
+          "aniso": 0.294
+        },
+        {
+          "x": 0.871,
+          "y": 0.194,
+          "intensity": 0.969,
+          "ang": 1.3168,
+          "aniso": 0.062
+        },
+        {
+          "x": 0.121,
+          "y": 0.174,
+          "intensity": 0.99,
+          "ang": -1.4295,
+          "aniso": 0.292
+        },
+        {
+          "x": 0.604,
+          "y": 0.202,
+          "intensity": 0.908,
+          "ang": 1.2321,
+          "aniso": 0.126
+        },
+        {
+          "x": 0.472,
+          "y": 0.529,
+          "intensity": 0.93,
+          "ang": -1.2275,
+          "aniso": 0.127
+        },
+        {
+          "x": 0.176,
+          "y": 0.415,
+          "intensity": 0.923,
+          "ang": 0.3207,
+          "aniso": 0.266
+        },
+        {
+          "x": 0.862,
+          "y": 0.487,
+          "intensity": 0.881,
+          "ang": 1.4768,
+          "aniso": 0.041
+        },
+        {
+          "x": 0.8,
+          "y": 0.125,
+          "intensity": 0.94,
+          "ang": 1.3191,
+          "aniso": 0.081
+        }
+      ]
+    }
+  },
+  "photo_092.jpg": {
+    "capturedAt": "2026-10-03T21:52:14",
+    "wallClockOffsetSec": 7504,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 675,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -86,
+      "flowCoh": 0.549,
+      "curvature": 0.035,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.122,
+        "y": 0.278
+      },
+      "spots": [
+        {
+          "x": 0.199,
+          "y": 0.469,
+          "intensity": 0.995,
+          "ang": 1.5652,
+          "aniso": 0.71
+        },
+        {
+          "x": 0.747,
+          "y": 0.478,
+          "intensity": 0.972,
+          "ang": -1.4879,
+          "aniso": 0.682
+        },
+        {
+          "x": 0.494,
+          "y": 0.499,
+          "intensity": 0.906,
+          "ang": -1.5144,
+          "aniso": 0.744
+        },
+        {
+          "x": 0.302,
+          "y": 0.857,
+          "intensity": 0.897,
+          "ang": -1.3648,
+          "aniso": 0.379
+        },
+        {
+          "x": 0.806,
+          "y": 0.774,
+          "intensity": 0.898,
+          "ang": -1.406,
+          "aniso": 0.651
+        },
+        {
+          "x": 0.924,
+          "y": 0.507,
+          "intensity": 0.945,
+          "ang": -1.4621,
+          "aniso": 0.647
+        },
+        {
+          "x": 0.073,
+          "y": 0.44,
+          "intensity": 0.947,
+          "ang": -1.5498,
+          "aniso": 0.753
+        },
+        {
+          "x": 0.055,
+          "y": 0.633,
+          "intensity": 0.923,
+          "ang": 1.3089,
+          "aniso": 0.224
+        }
+      ]
+    }
+  },
+  "photo_093.jpg": {
+    "capturedAt": "2026-10-03T21:52:34",
+    "wallClockOffsetSec": 7524,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 695,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -89.4,
+      "flowCoh": 0.936,
+      "curvature": 0,
+      "energy": 0.962,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.41,
+        "y": 0.452
+      },
+      "spots": [
+        {
+          "x": 0.658,
+          "y": 0.588,
+          "intensity": 0.912,
+          "ang": -1.5535,
+          "aniso": 0.978
+        },
+        {
+          "x": 0.329,
+          "y": 0.57,
+          "intensity": 0.898,
+          "ang": -1.5596,
+          "aniso": 0.971
+        },
+        {
+          "x": 0.875,
+          "y": 0.585,
+          "intensity": 0.887,
+          "ang": 1.5687,
+          "aniso": 0.966
+        }
+      ]
+    }
+  },
+  "photo_094.jpg": {
+    "capturedAt": "2026-10-03T21:53:15",
+    "wallClockOffsetSec": 7565,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 736,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -83.2,
+      "flowCoh": 0.559,
+      "curvature": 0.002,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.602,
+        "y": 0.42
+      },
+      "spots": [
+        {
+          "x": 0.735,
+          "y": 0.244,
+          "intensity": 1,
+          "ang": -1.3693,
+          "aniso": 0.501
+        },
+        {
+          "x": 0.515,
+          "y": 0.372,
+          "intensity": 1,
+          "ang": -1.4492,
+          "aniso": 0.594
+        },
+        {
+          "x": 0.736,
+          "y": 0.488,
+          "intensity": 0.943,
+          "ang": -1.4225,
+          "aniso": 0.619
+        },
+        {
+          "x": 0.045,
+          "y": 0.602,
+          "intensity": 0.972,
+          "ang": -1.4491,
+          "aniso": 0.529
+        },
+        {
+          "x": 0.202,
+          "y": 0.575,
+          "intensity": 0.947,
+          "ang": -1.4187,
+          "aniso": 0.559
+        },
+        {
+          "x": 0.031,
+          "y": 0.294,
+          "intensity": 0.966,
+          "ang": -1.499,
+          "aniso": 0.444
+        },
+        {
+          "x": 0.922,
+          "y": 0.431,
+          "intensity": 0.915,
+          "ang": -1.4372,
+          "aniso": 0.51
+        },
+        {
+          "x": 0.378,
+          "y": 0.625,
+          "intensity": 0.92,
+          "ang": -1.4346,
+          "aniso": 0.585
+        }
+      ]
+    }
+  },
+  "photo_095.jpg": {
+    "capturedAt": "2026-10-03T21:53:22",
+    "wallClockOffsetSec": 7572,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 743,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 77.3,
+      "flowCoh": 0.531,
+      "curvature": 0.023,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.249,
+          "y": 0.773,
+          "intensity": 0.997,
+          "ang": 1.4502,
+          "aniso": 0.651
+        },
+        {
+          "x": 0.452,
+          "y": 0.732,
+          "intensity": 0.934,
+          "ang": 1.2458,
+          "aniso": 0.465
+        },
+        {
+          "x": 0.113,
+          "y": 0.959,
+          "intensity": 0.938,
+          "ang": 1.537,
+          "aniso": 0.562
+        },
+        {
+          "x": 0.036,
+          "y": 0.806,
+          "intensity": 0.953,
+          "ang": 1.4708,
+          "aniso": 0.65
+        },
+        {
+          "x": 0.371,
+          "y": 0.974,
+          "intensity": 0.86,
+          "ang": 1.2757,
+          "aniso": 0.396
+        },
+        {
+          "x": 0.636,
+          "y": 0.773,
+          "intensity": 0.858,
+          "ang": 1.3293,
+          "aniso": 0.55
+        }
+      ]
+    }
+  },
+  "photo_096.jpg": {
+    "capturedAt": "2026-10-03T21:53:28",
+    "wallClockOffsetSec": 7578,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 749,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -89.6,
+      "flowCoh": 0.845,
+      "curvature": 0.001,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.514,
+        "y": 0.414
+      },
+      "spots": [
+        {
+          "x": 0.879,
+          "y": 0.549,
+          "intensity": 0.904,
+          "ang": -1.5421,
+          "aniso": 0.871
+        },
+        {
+          "x": 0.654,
+          "y": 0.351,
+          "intensity": 1,
+          "ang": 1.5599,
+          "aniso": 0.912
+        },
+        {
+          "x": 0.759,
+          "y": 0.529,
+          "intensity": 0.988,
+          "ang": 1.5651,
+          "aniso": 0.927
+        },
+        {
+          "x": 0.427,
+          "y": 0.38,
+          "intensity": 0.93,
+          "ang": 1.5699,
+          "aniso": 0.863
+        },
+        {
+          "x": 0.152,
+          "y": 0.823,
+          "intensity": 0.864,
+          "ang": -1.5672,
+          "aniso": 0.859
+        },
+        {
+          "x": 0.874,
+          "y": 0.342,
+          "intensity": 0.999,
+          "ang": 1.5426,
+          "aniso": 0.879
+        },
+        {
+          "x": 0.184,
+          "y": 0.423,
+          "intensity": 1,
+          "ang": -1.5559,
+          "aniso": 0.777
+        },
+        {
+          "x": 0.356,
+          "y": 0.817,
+          "intensity": 0.909,
+          "ang": 1.5421,
+          "aniso": 0.799
+        }
+      ]
+    }
+  },
+  "photo_097.jpg": {
+    "capturedAt": "2026-10-03T21:53:54",
+    "wallClockOffsetSec": 7604,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 775,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -78.8,
+      "flowCoh": 0.546,
+      "curvature": 0.007,
+      "energy": 1,
+      "brightFrac": 0.023,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.682,
+          "y": 0.505,
+          "intensity": 1,
+          "ang": -1.4137,
+          "aniso": 0.709
+        },
+        {
+          "x": 0.049,
+          "y": 0.624,
+          "intensity": 1,
+          "ang": -1.4201,
+          "aniso": 0.592
+        },
+        {
+          "x": 0.83,
+          "y": 0.51,
+          "intensity": 0.994,
+          "ang": -1.3166,
+          "aniso": 0.667
+        },
+        {
+          "x": 0.798,
+          "y": 0.934,
+          "intensity": 0.997,
+          "ang": -1.2628,
+          "aniso": 0.574
+        },
+        {
+          "x": 0.879,
+          "y": 0.767,
+          "intensity": 0.994,
+          "ang": -1.3338,
+          "aniso": 0.718
+        },
+        {
+          "x": 0.227,
+          "y": 0.186,
+          "intensity": 0.995,
+          "ang": -1.3817,
+          "aniso": 0.52
+        },
+        {
+          "x": 0.98,
+          "y": 0.505,
+          "intensity": 0.997,
+          "ang": -1.3577,
+          "aniso": 0.708
+        },
+        {
+          "x": 0.619,
+          "y": 0.642,
+          "intensity": 0.99,
+          "ang": -1.2535,
+          "aniso": 0.472
+        }
+      ]
+    }
+  },
+  "photo_098.jpg": {
+    "capturedAt": "2026-10-03T21:54:08",
+    "wallClockOffsetSec": 7618,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 789,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 39.8,
+      "flowCoh": 0.101,
+      "curvature": 0.263,
+      "energy": 0.828,
+      "brightFrac": 0.0158,
+      "warm": {
+        "x": 0.27,
+        "y": 0.202
+      },
+      "spots": [
+        {
+          "x": 0.474,
+          "y": 0.679,
+          "intensity": 0.998,
+          "ang": -1.4643,
+          "aniso": 0.077
+        },
+        {
+          "x": 0.34,
+          "y": 0.473,
+          "intensity": 0.996,
+          "ang": 1.109,
+          "aniso": 0.02
+        },
+        {
+          "x": 0.272,
+          "y": 0.836,
+          "intensity": 0.998,
+          "ang": 0.6336,
+          "aniso": 0.066
+        },
+        {
+          "x": 0.89,
+          "y": 0.49,
+          "intensity": 0.996,
+          "ang": 1.1903,
+          "aniso": 0.128
+        },
+        {
+          "x": 0.093,
+          "y": 0.968,
+          "intensity": 0.996,
+          "ang": 0.737,
+          "aniso": 0.206
+        },
+        {
+          "x": 0.23,
+          "y": 0.638,
+          "intensity": 0.995,
+          "ang": 0.5149,
+          "aniso": 0.131
+        },
+        {
+          "x": 0.256,
+          "y": 0.083,
+          "intensity": 0.992,
+          "ang": 0.636,
+          "aniso": 0.323
+        }
+      ]
+    }
+  },
+  "photo_099.jpg": {
+    "capturedAt": "2026-10-03T21:54:13",
+    "wallClockOffsetSec": 7623,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 794,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 84.9,
+      "flowCoh": 0.251,
+      "curvature": 0.055,
+      "energy": 1,
+      "brightFrac": 0.1237,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.642,
+          "y": 0.874,
+          "intensity": 0.992,
+          "ang": 1.3742,
+          "aniso": 0.683
+        },
+        {
+          "x": 0.394,
+          "y": 0.865,
+          "intensity": 0.994,
+          "ang": -1.5309,
+          "aniso": 0.328
+        },
+        {
+          "x": 0.883,
+          "y": 0.825,
+          "intensity": 0.991,
+          "ang": 1.5034,
+          "aniso": 0.584
+        },
+        {
+          "x": 0.145,
+          "y": 0.706,
+          "intensity": 0.993,
+          "ang": -1.4021,
+          "aniso": 0.383
+        },
+        {
+          "x": 0.186,
+          "y": 0.924,
+          "intensity": 0.998,
+          "ang": 1.5513,
+          "aniso": 0.413
+        },
+        {
+          "x": 0.01,
+          "y": 0.947,
+          "intensity": 0.996,
+          "ang": 1.5106,
+          "aniso": 0.25
+        },
+        {
+          "x": 0.778,
+          "y": 0.972,
+          "intensity": 0.989,
+          "ang": 1.2217,
+          "aniso": 0.351
+        },
+        {
+          "x": 0.514,
+          "y": 0.984,
+          "intensity": 0.988,
+          "ang": -1.3835,
+          "aniso": 0.254
+        }
+      ]
+    }
+  },
+  "photo_100.jpg": {
+    "capturedAt": "2026-10-03T21:54:20",
+    "wallClockOffsetSec": 7630,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 801,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -85.8,
+      "flowCoh": 0.51,
+      "curvature": 0.011,
+      "energy": 1,
+      "brightFrac": 0.0152,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.391,
+          "y": 0.875,
+          "intensity": 0.996,
+          "ang": -1.5052,
+          "aniso": 0.735
+        },
+        {
+          "x": 0.099,
+          "y": 0.816,
+          "intensity": 0.994,
+          "ang": -1.5027,
+          "aniso": 0.661
+        },
+        {
+          "x": 0.885,
+          "y": 0.551,
+          "intensity": 0.994,
+          "ang": -1.3765,
+          "aniso": 0.532
+        },
+        {
+          "x": 0.66,
+          "y": 0.785,
+          "intensity": 0.992,
+          "ang": -1.5275,
+          "aniso": 0.655
+        },
+        {
+          "x": 0.443,
+          "y": 0.583,
+          "intensity": 0.994,
+          "ang": 1.552,
+          "aniso": 0.208
+        },
+        {
+          "x": 0.711,
+          "y": 0.511,
+          "intensity": 0.992,
+          "ang": -1.5382,
+          "aniso": 0.487
+        },
+        {
+          "x": 0.196,
+          "y": 0.634,
+          "intensity": 0.999,
+          "ang": 1.4895,
+          "aniso": 0.609
+        },
+        {
+          "x": 0.897,
+          "y": 0.881,
+          "intensity": 0.993,
+          "ang": -1.5108,
+          "aniso": 0.508
+        }
+      ]
+    }
+  },
+  "photo_101.jpg": {
+    "capturedAt": "2026-10-03T21:55:00",
+    "wallClockOffsetSec": 7670,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 841,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -80.3,
+      "flowCoh": 0.294,
+      "curvature": 0.143,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.578,
+        "y": 0.36
+      },
+      "spots": [
+        {
+          "x": 0.511,
+          "y": 0.759,
+          "intensity": 1,
+          "ang": -1.3527,
+          "aniso": 0.32
+        },
+        {
+          "x": 0.277,
+          "y": 0.686,
+          "intensity": 0.999,
+          "ang": -1.2227,
+          "aniso": 0.379
+        },
+        {
+          "x": 0.66,
+          "y": 0.797,
+          "intensity": 1,
+          "ang": -1.4161,
+          "aniso": 0.298
+        },
+        {
+          "x": 0.915,
+          "y": 0.381,
+          "intensity": 0.726,
+          "ang": 1.1667,
+          "aniso": 0.671
+        },
+        {
+          "x": 0.572,
+          "y": 0.533,
+          "intensity": 0.789,
+          "ang": -1.4953,
+          "aniso": 0.096
+        },
+        {
+          "x": 0.716,
+          "y": 0.725,
+          "intensity": 0.722,
+          "ang": -1.4395,
+          "aniso": 0.234
+        },
+        {
+          "x": 0.963,
+          "y": 0.575,
+          "intensity": 0.703,
+          "ang": 1.1843,
+          "aniso": 0.735
+        }
+      ]
+    }
+  },
+  "photo_102.jpg": {
+    "capturedAt": "2026-10-03T21:55:01",
+    "wallClockOffsetSec": 7671,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 842,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -85.3,
+      "flowCoh": 0.325,
+      "curvature": 0.166,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.388,
+        "y": 0.356
+      },
+      "spots": [
+        {
+          "x": 0.172,
+          "y": 0.661,
+          "intensity": 1,
+          "ang": -1.2808,
+          "aniso": 0.428
+        },
+        {
+          "x": 0.348,
+          "y": 0.698,
+          "intensity": 1,
+          "ang": -1.4033,
+          "aniso": 0.312
+        },
+        {
+          "x": 0.499,
+          "y": 0.752,
+          "intensity": 0.899,
+          "ang": -1.4781,
+          "aniso": 0.296
+        },
+        {
+          "x": 0.905,
+          "y": 0.632,
+          "intensity": 0.715,
+          "ang": 1.3768,
+          "aniso": 0.622
+        },
+        {
+          "x": 0.369,
+          "y": 0.425,
+          "intensity": 0.774,
+          "ang": 1.1561,
+          "aniso": 0.296
+        },
+        {
+          "x": 0.675,
+          "y": 0.283,
+          "intensity": 0.705,
+          "ang": 1.0843,
+          "aniso": 0.489
+        }
+      ]
+    }
+  },
+  "photo_103.jpg": {
+    "capturedAt": "2026-10-03T21:55:15",
+    "wallClockOffsetSec": 7685,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 856,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -68.3,
+      "flowCoh": 0.366,
+      "curvature": 0.032,
+      "energy": 0.93,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.731,
+        "y": 0.294
+      },
+      "spots": [
+        {
+          "x": 0.586,
+          "y": 0.714,
+          "intensity": 0.974,
+          "ang": -1.2878,
+          "aniso": 0.331
+        },
+        {
+          "x": 0.83,
+          "y": 0.743,
+          "intensity": 0.996,
+          "ang": -1.3652,
+          "aniso": 0.314
+        },
+        {
+          "x": 0.254,
+          "y": 0.572,
+          "intensity": 1,
+          "ang": -1.1323,
+          "aniso": 0.44
+        },
+        {
+          "x": 0.787,
+          "y": 0.4,
+          "intensity": 0.656,
+          "ang": -1.0422,
+          "aniso": 0.226
+        }
+      ]
+    }
+  },
+  "photo_104.jpg": {
+    "capturedAt": "2026-10-03T21:55:28",
+    "wallClockOffsetSec": 7698,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 869,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -45.5,
+      "flowCoh": 0.1,
+      "curvature": 0.29,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.541,
+          "y": 0.685,
+          "intensity": 0.823,
+          "ang": -0.5811,
+          "aniso": 0.288
+        },
+        {
+          "x": 0.197,
+          "y": 0.724,
+          "intensity": 0.902,
+          "ang": -0.903,
+          "aniso": 0.105
+        },
+        {
+          "x": 0.371,
+          "y": 0.316,
+          "intensity": 0.863,
+          "ang": -0.605,
+          "aniso": 0.242
+        },
+        {
+          "x": 0.622,
+          "y": 0.843,
+          "intensity": 0.747,
+          "ang": -0.485,
+          "aniso": 0.3
+        },
+        {
+          "x": 0.276,
+          "y": 0.901,
+          "intensity": 0.816,
+          "ang": 1.0501,
+          "aniso": 0.105
+        },
+        {
+          "x": 0.631,
+          "y": 0.354,
+          "intensity": 0.708,
+          "ang": -0.5829,
+          "aniso": 0.164
+        },
+        {
+          "x": 0.013,
+          "y": 0.267,
+          "intensity": 0.724,
+          "ang": -0.7348,
+          "aniso": 0.278
+        },
+        {
+          "x": 0.8,
+          "y": 0.725,
+          "intensity": 0.709,
+          "ang": -0.3772,
+          "aniso": 0.089
+        }
+      ]
+    }
+  },
+  "photo_105.jpg": {
+    "capturedAt": "2026-10-03T21:55:46",
+    "wallClockOffsetSec": 7716,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 887,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -89.8,
+      "flowCoh": 0.273,
+      "curvature": 0.103,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.536,
+        "y": 0.26
+      },
+      "spots": [
+        {
+          "x": 0.816,
+          "y": 0.416,
+          "intensity": 0.775,
+          "ang": -1.0543,
+          "aniso": 0.387
+        },
+        {
+          "x": 0.533,
+          "y": 0.503,
+          "intensity": 0.886,
+          "ang": -1.2607,
+          "aniso": 0.343
+        },
+        {
+          "x": 0.347,
+          "y": 0.547,
+          "intensity": 0.779,
+          "ang": -1.5246,
+          "aniso": 0.18
+        },
+        {
+          "x": 0.709,
+          "y": 0.63,
+          "intensity": 0.795,
+          "ang": 1.5534,
+          "aniso": 0.553
+        },
+        {
+          "x": 0.495,
+          "y": 0.706,
+          "intensity": 0.66,
+          "ang": -1.5621,
+          "aniso": 0.34
+        },
+        {
+          "x": 0.975,
+          "y": 0.467,
+          "intensity": 0.622,
+          "ang": -1.0541,
+          "aniso": 0.485
+        }
+      ]
+    }
+  },
+  "photo_106.jpg": {
+    "capturedAt": "2026-10-03T21:55:48",
+    "wallClockOffsetSec": 7718,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 889,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 76.4,
+      "flowCoh": 0.196,
+      "curvature": 0.325,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.564,
+        "y": 0.301
+      },
+      "spots": [
+        {
+          "x": 0.8,
+          "y": 0.472,
+          "intensity": 0.828,
+          "ang": 1.0457,
+          "aniso": 0.295
+        },
+        {
+          "x": 0.56,
+          "y": 0.521,
+          "intensity": 0.887,
+          "ang": 1.1685,
+          "aniso": 0.459
+        },
+        {
+          "x": 0.447,
+          "y": 0.762,
+          "intensity": 0.718,
+          "ang": 1.5186,
+          "aniso": 0.182
+        },
+        {
+          "x": 0.263,
+          "y": 0.544,
+          "intensity": 0.705,
+          "ang": 0.8829,
+          "aniso": 0.386
+        },
+        {
+          "x": 0.777,
+          "y": 0.694,
+          "intensity": 0.653,
+          "ang": 1.5282,
+          "aniso": 0.283
+        },
+        {
+          "x": 0.203,
+          "y": 0.796,
+          "intensity": 0.642,
+          "ang": -0.9159,
+          "aniso": 0.099
+        }
+      ]
+    }
+  },
+  "photo_107.jpg": {
+    "capturedAt": "2026-10-03T21:55:51",
+    "wallClockOffsetSec": 7721,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 892,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 69.3,
+      "flowCoh": 0.348,
+      "curvature": 0.03,
+      "energy": 0.973,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.562,
+        "y": 0.311
+      },
+      "spots": [
+        {
+          "x": 0.507,
+          "y": 0.633,
+          "intensity": 0.827,
+          "ang": 1.0239,
+          "aniso": 0.43
+        },
+        {
+          "x": 0.688,
+          "y": 0.588,
+          "intensity": 0.697,
+          "ang": 1.1048,
+          "aniso": 0.494
+        },
+        {
+          "x": 0.211,
+          "y": 0.688,
+          "intensity": 0.964,
+          "ang": 1.3512,
+          "aniso": 0.406
+        },
+        {
+          "x": 0.011,
+          "y": 0.737,
+          "intensity": 0.725,
+          "ang": 1.1124,
+          "aniso": 0.457
+        }
+      ]
+    }
+  },
+  "photo_108.jpg": {
+    "capturedAt": "2026-10-03T21:55:59",
+    "wallClockOffsetSec": 7729,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 900,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 82.2,
+      "flowCoh": 0.572,
+      "curvature": 0.007,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.615,
+        "y": 0.348
+      },
+      "spots": [
+        {
+          "x": 0.869,
+          "y": 0.536,
+          "intensity": 0.745,
+          "ang": 1.3152,
+          "aniso": 0.745
+        },
+        {
+          "x": 0.649,
+          "y": 0.594,
+          "intensity": 0.752,
+          "ang": 1.3627,
+          "aniso": 0.647
+        },
+        {
+          "x": 0.175,
+          "y": 0.701,
+          "intensity": 0.774,
+          "ang": 1.4355,
+          "aniso": 0.603
+        },
+        {
+          "x": 0.419,
+          "y": 0.65,
+          "intensity": 0.781,
+          "ang": 1.4101,
+          "aniso": 0.703
+        },
+        {
+          "x": 0.063,
+          "y": 0.693,
+          "intensity": 0.68,
+          "ang": 1.4815,
+          "aniso": 0.614
+        }
+      ]
+    }
+  },
+  "photo_109.jpg": {
+    "capturedAt": "2026-10-03T21:56:14",
+    "wallClockOffsetSec": 7744,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 915,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 51.9,
+      "flowCoh": 0.216,
+      "curvature": 0.268,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.412,
+        "y": 0.539
+      },
+      "spots": [
+        {
+          "x": 0.579,
+          "y": 0.144,
+          "intensity": 0.984,
+          "ang": 0.2847,
+          "aniso": 0.223
+        },
+        {
+          "x": 0.569,
+          "y": 0.348,
+          "intensity": 0.975,
+          "ang": 0.8031,
+          "aniso": 0.198
+        },
+        {
+          "x": 0.596,
+          "y": 0.317,
+          "intensity": 0.952,
+          "ang": 0.6608,
+          "aniso": 0.203
+        },
+        {
+          "x": 0.412,
+          "y": 0.404,
+          "intensity": 0.957,
+          "ang": 1.3564,
+          "aniso": 0.207
+        }
+      ]
+    }
+  },
+  "photo_110.jpg": {
+    "capturedAt": "2026-10-03T21:56:19",
+    "wallClockOffsetSec": 7749,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 920,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 82.4,
+      "flowCoh": 0.262,
+      "curvature": 0.167,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.627,
+        "y": 0.282
+      },
+      "spots": [
+        {
+          "x": 0.351,
+          "y": 0.552,
+          "intensity": 0.94,
+          "ang": -1.3856,
+          "aniso": 0.241
+        },
+        {
+          "x": 0.552,
+          "y": 0.613,
+          "intensity": 0.961,
+          "ang": 0.9377,
+          "aniso": 0.222
+        },
+        {
+          "x": 0.83,
+          "y": 0.696,
+          "intensity": 0.896,
+          "ang": 0.8531,
+          "aniso": 0.416
+        },
+        {
+          "x": 0.537,
+          "y": 0.83,
+          "intensity": 0.894,
+          "ang": 1.1493,
+          "aniso": 0.425
+        },
+        {
+          "x": 0.287,
+          "y": 0.75,
+          "intensity": 0.848,
+          "ang": 1.393,
+          "aniso": 0.342
+        },
+        {
+          "x": 0.637,
+          "y": 0.767,
+          "intensity": 0.805,
+          "ang": 1.2004,
+          "aniso": 0.367
+        }
+      ]
+    }
+  },
+  "photo_111.jpg": {
+    "capturedAt": "2026-10-03T22:02:35",
+    "wallClockOffsetSec": 8125,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 1296,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -39.3,
+      "flowCoh": 0.299,
+      "curvature": 0.064,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.067,
+          "y": 0.46,
+          "intensity": 0.845,
+          "ang": -0.6937,
+          "aniso": 0.259
+        },
+        {
+          "x": 0.34,
+          "y": 0.414,
+          "intensity": 0.811,
+          "ang": -0.8405,
+          "aniso": 0.352
+        },
+        {
+          "x": 0.045,
+          "y": 0.647,
+          "intensity": 0.804,
+          "ang": -0.8101,
+          "aniso": 0.195
+        },
+        {
+          "x": 0.21,
+          "y": 0.908,
+          "intensity": 0.746,
+          "ang": -0.4204,
+          "aniso": 0.26
+        },
+        {
+          "x": 0.55,
+          "y": 0.608,
+          "intensity": 0.732,
+          "ang": -0.8854,
+          "aniso": 0.323
+        },
+        {
+          "x": 0.369,
+          "y": 0.983,
+          "intensity": 0.734,
+          "ang": -0.4716,
+          "aniso": 0.358
+        }
+      ]
+    }
+  },
+  "photo_112.jpg": {
+    "capturedAt": "2026-10-03T22:02:42",
+    "wallClockOffsetSec": 8132,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 1303,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -32.8,
+      "flowCoh": 0.192,
+      "curvature": 0.237,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.448,
+        "y": 0.579
+      },
+      "spots": [
+        {
+          "x": 0.082,
+          "y": 0.456,
+          "intensity": 0.973,
+          "ang": 0.161,
+          "aniso": 0.085
+        },
+        {
+          "x": 0.368,
+          "y": 0.391,
+          "intensity": 0.995,
+          "ang": -0.6002,
+          "aniso": 0.153
+        },
+        {
+          "x": 0.149,
+          "y": 0.875,
+          "intensity": 0.951,
+          "ang": -0.1297,
+          "aniso": 0.044
+        },
+        {
+          "x": 0.233,
+          "y": 0.633,
+          "intensity": 0.932,
+          "ang": 0.1032,
+          "aniso": 0.061
+        },
+        {
+          "x": 0.542,
+          "y": 0.404,
+          "intensity": 0.903,
+          "ang": -0.6936,
+          "aniso": 0.236
+        },
+        {
+          "x": 0.016,
+          "y": 0.657,
+          "intensity": 0.895,
+          "ang": 0.0334,
+          "aniso": 0.067
+        },
+        {
+          "x": 0.485,
+          "y": 0.578,
+          "intensity": 0.879,
+          "ang": -0.553,
+          "aniso": 0.19
+        },
+        {
+          "x": 0.302,
+          "y": 0.961,
+          "intensity": 0.903,
+          "ang": -0.7157,
+          "aniso": 0.132
+        }
+      ]
+    }
+  },
+  "photo_113.jpg": {
+    "capturedAt": "2026-10-03T22:03:28",
+    "wallClockOffsetSec": 8178,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 1349,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -72.2,
+      "flowCoh": 0.173,
+      "curvature": 0.064,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.403,
+        "y": 0.385
+      },
+      "spots": [
+        {
+          "x": 0.056,
+          "y": 0.305,
+          "intensity": 1,
+          "ang": 1.4369,
+          "aniso": 0.221
+        },
+        {
+          "x": 0.539,
+          "y": 0.229,
+          "intensity": 0.879,
+          "ang": -1.1898,
+          "aniso": 0.282
+        },
+        {
+          "x": 0.953,
+          "y": 0.006,
+          "intensity": 0.859,
+          "ang": -1.2651,
+          "aniso": 0.572
+        },
+        {
+          "x": 0.256,
+          "y": 0.347,
+          "intensity": 0.935,
+          "ang": -1.3546,
+          "aniso": 0.238
+        },
+        {
+          "x": 0.256,
+          "y": 0,
+          "intensity": 0.85,
+          "ang": -1.2425,
+          "aniso": 0.536
+        },
+        {
+          "x": 0.613,
+          "y": 0.225,
+          "intensity": 0.803,
+          "ang": -1.1272,
+          "aniso": 0.359
+        },
+        {
+          "x": 0.475,
+          "y": 0.425,
+          "intensity": 0.895,
+          "ang": -1.1517,
+          "aniso": 0.075
+        }
+      ]
+    }
+  },
+  "photo_114.jpg": {
+    "capturedAt": "2026-10-03T22:03:39",
+    "wallClockOffsetSec": 8189,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 1360,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -72.8,
+      "flowCoh": 0.425,
+      "curvature": 0.01,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.449,
+        "y": 0.388
+      },
+      "spots": [
+        {
+          "x": 0.065,
+          "y": 0.361,
+          "intensity": 0.945,
+          "ang": -1.1479,
+          "aniso": 0.63
+        },
+        {
+          "x": 0.725,
+          "y": 0.01,
+          "intensity": 0.787,
+          "ang": -1.2716,
+          "aniso": 0.319
+        },
+        {
+          "x": 0.072,
+          "y": 0.024,
+          "intensity": 0.695,
+          "ang": -1.2775,
+          "aniso": 0.605
+        },
+        {
+          "x": 0.313,
+          "y": 0.182,
+          "intensity": 0.709,
+          "ang": -1.2802,
+          "aniso": 0.366
+        },
+        {
+          "x": 0.581,
+          "y": 0.26,
+          "intensity": 0.683,
+          "ang": -1.2444,
+          "aniso": 0.509
+        },
+        {
+          "x": 0.912,
+          "y": 0.292,
+          "intensity": 0.635,
+          "ang": -1.0583,
+          "aniso": 0.496
+        },
+        {
+          "x": 0.066,
+          "y": 0.767,
+          "intensity": 0.671,
+          "ang": -1.2145,
+          "aniso": 0.644
+        },
+        {
+          "x": 0.931,
+          "y": 0.05,
+          "intensity": 0.636,
+          "ang": -1.2088,
+          "aniso": 0.814
+        }
+      ]
+    }
+  },
+  "photo_115.jpg": {
+    "capturedAt": "2026-10-03T22:03:51",
+    "wallClockOffsetSec": 8201,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 1372,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -80.3,
+      "flowCoh": 0.296,
+      "curvature": 0.095,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.597,
+        "y": 0.324
+      },
+      "spots": [
+        {
+          "x": 0.622,
+          "y": 0.395,
+          "intensity": 1,
+          "ang": -1.3618,
+          "aniso": 0.205
+        },
+        {
+          "x": 0.22,
+          "y": 0.388,
+          "intensity": 0.967,
+          "ang": -1.4167,
+          "aniso": 0.432
+        },
+        {
+          "x": 0.05,
+          "y": 0.401,
+          "intensity": 0.913,
+          "ang": -1.3661,
+          "aniso": 0.486
+        },
+        {
+          "x": 0.421,
+          "y": 0.471,
+          "intensity": 0.981,
+          "ang": -1.274,
+          "aniso": 0.308
+        },
+        {
+          "x": 0.872,
+          "y": 0.494,
+          "intensity": 0.769,
+          "ang": -1.3574,
+          "aniso": 0.046
+        },
+        {
+          "x": 0.877,
+          "y": 0.194,
+          "intensity": 0.675,
+          "ang": -1.4342,
+          "aniso": 0.265
+        },
+        {
+          "x": 0.706,
+          "y": 0.654,
+          "intensity": 0.705,
+          "ang": 1.3322,
+          "aniso": 0.109
+        },
+        {
+          "x": 0.644,
+          "y": 0.025,
+          "intensity": 0.612,
+          "ang": -0.9292,
+          "aniso": 0.699
+        }
+      ]
+    }
+  },
+  "photo_116.jpg": {
+    "capturedAt": "2026-10-03T22:04:00",
+    "wallClockOffsetSec": 8210,
+    "track": "What's Going Through Your Mind",
+    "set": "2",
+    "offsetIntoTrackSec": 1381,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 45.3,
+      "flowCoh": 0.083,
+      "curvature": 0.683,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.571,
+        "y": 0.384
+      },
+      "spots": [
+        {
+          "x": 0.12,
+          "y": 0.328,
+          "intensity": 0.969,
+          "ang": -0.2441,
+          "aniso": 0.08
+        },
+        {
+          "x": 0.32,
+          "y": 0.343,
+          "intensity": 0.963,
+          "ang": -0.4355,
+          "aniso": 0.095
+        },
+        {
+          "x": 0.224,
+          "y": 0.504,
+          "intensity": 0.961,
+          "ang": -0.503,
+          "aniso": 0.124
+        },
+        {
+          "x": 0.514,
+          "y": 0.433,
+          "intensity": 0.919,
+          "ang": -1.3557,
+          "aniso": 0.026
+        },
+        {
+          "x": 0.412,
+          "y": 0.563,
+          "intensity": 0.925,
+          "ang": 0.5217,
+          "aniso": 0.109
+        },
+        {
+          "x": 0.025,
+          "y": 0.481,
+          "intensity": 0.893,
+          "ang": -0.5646,
+          "aniso": 0.078
+        },
+        {
+          "x": 0.729,
+          "y": 0.54,
+          "intensity": 0.929,
+          "ang": 0.6056,
+          "aniso": 0.077
+        },
+        {
+          "x": 0.744,
+          "y": 0.787,
+          "intensity": 0.904,
+          "ang": 0.7703,
+          "aniso": 0.206
+        }
+      ]
+    }
+  },
+  "photo_117.jpg": {
+    "capturedAt": "2026-10-03T22:11:28",
+    "wallClockOffsetSec": 8658,
+    "track": "Mike's Song",
+    "set": "2",
+    "offsetIntoTrackSec": 298,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 79.4,
+      "flowCoh": 0.39,
+      "curvature": 0.04,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.422,
+        "y": 0.425
+      },
+      "spots": [
+        {
+          "x": 0.71,
+          "y": 0.218,
+          "intensity": 0.834,
+          "ang": 1.3791,
+          "aniso": 0.507
+        },
+        {
+          "x": 0.16,
+          "y": 0.529,
+          "intensity": 0.844,
+          "ang": 1.478,
+          "aniso": 0.538
+        },
+        {
+          "x": 0.426,
+          "y": 0.42,
+          "intensity": 0.61,
+          "ang": 1.3675,
+          "aniso": 0.338
+        },
+        {
+          "x": 0.961,
+          "y": 0.344,
+          "intensity": 0.748,
+          "ang": 1.088,
+          "aniso": 0.393
+        },
+        {
+          "x": 0.834,
+          "y": 0.487,
+          "intensity": 0.577,
+          "ang": 1.2355,
+          "aniso": 0.177
+        },
+        {
+          "x": 0.006,
+          "y": 0.575,
+          "intensity": 0.548,
+          "ang": 1.4971,
+          "aniso": 0.514
+        }
+      ]
+    }
+  },
+  "photo_118.jpg": {
+    "capturedAt": "2026-10-03T22:11:43",
+    "wallClockOffsetSec": 8673,
+    "track": "Mike's Song",
+    "set": "2",
+    "offsetIntoTrackSec": 313,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 87.3,
+      "flowCoh": 0.23,
+      "curvature": 0.049,
+      "energy": 1,
+      "brightFrac": 0.0247,
+      "warm": {
+        "x": 0.561,
+        "y": 0.519
+      },
+      "spots": [
+        {
+          "x": 0.284,
+          "y": 0.444,
+          "intensity": 1,
+          "ang": -1.5636,
+          "aniso": 0.094
+        },
+        {
+          "x": 0.494,
+          "y": 0.408,
+          "intensity": 0.996,
+          "ang": 1.2358,
+          "aniso": 0.373
+        },
+        {
+          "x": 0.362,
+          "y": 0.592,
+          "intensity": 0.994,
+          "ang": 1.5586,
+          "aniso": 0.366
+        }
+      ]
+    }
+  },
+  "photo_119.jpg": {
+    "capturedAt": "2026-10-03T22:11:52",
+    "wallClockOffsetSec": 8682,
+    "track": "Mike's Song",
+    "set": "2",
+    "offsetIntoTrackSec": 322,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -81.8,
+      "flowCoh": 0.458,
+      "curvature": 0.095,
+      "energy": 0.953,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.548,
+        "y": 0.448
+      },
+      "spots": [
+        {
+          "x": 0.396,
+          "y": 0.457,
+          "intensity": 0.679,
+          "ang": -1.2696,
+          "aniso": 0.636
+        },
+        {
+          "x": 0.864,
+          "y": 0.33,
+          "intensity": 0.716,
+          "ang": 1.3335,
+          "aniso": 0.652
+        },
+        {
+          "x": 0.215,
+          "y": 0.548,
+          "intensity": 0.659,
+          "ang": -1.2872,
+          "aniso": 0.581
+        },
+        {
+          "x": 0.588,
+          "y": 0.525,
+          "intensity": 0.54,
+          "ang": 1.5291,
+          "aniso": 0.476
+        },
+        {
+          "x": 0.923,
+          "y": 0.587,
+          "intensity": 0.538,
+          "ang": 1.4329,
+          "aniso": 0.478
+        }
+      ]
+    }
+  },
+  "photo_120.jpg": {
+    "capturedAt": "2026-10-03T22:12:27",
+    "wallClockOffsetSec": 8717,
+    "track": "Mike's Song",
+    "set": "2",
+    "offsetIntoTrackSec": 357,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 68.5,
+      "flowCoh": 0.272,
+      "curvature": 0.058,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.64,
+        "y": 0.345
+      },
+      "spots": [
+        {
+          "x": 0.265,
+          "y": 0.602,
+          "intensity": 0.971,
+          "ang": 1.1389,
+          "aniso": 0.444
+        },
+        {
+          "x": 0.407,
+          "y": 0.663,
+          "intensity": 0.943,
+          "ang": 1.108,
+          "aniso": 0.58
+        },
+        {
+          "x": 0.083,
+          "y": 0.658,
+          "intensity": 0.973,
+          "ang": 1.4873,
+          "aniso": 0.366
+        }
+      ]
+    }
+  },
+  "photo_121.jpg": {
+    "capturedAt": "2026-10-03T22:12:36",
+    "wallClockOffsetSec": 8726,
+    "track": "Mike's Song",
+    "set": "2",
+    "offsetIntoTrackSec": 366,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -84.3,
+      "flowCoh": 0.009,
+      "curvature": 0.302,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.554,
+        "y": 0.512
+      },
+      "spots": [
+        {
+          "x": 0.525,
+          "y": 0.647,
+          "intensity": 0.873,
+          "ang": 0.9177,
+          "aniso": 0.355
+        },
+        {
+          "x": 0.459,
+          "y": 0.847,
+          "intensity": 0.805,
+          "ang": 1.1067,
+          "aniso": 0.286
+        },
+        {
+          "x": 0.698,
+          "y": 0.676,
+          "intensity": 0.8,
+          "ang": 0.8637,
+          "aniso": 0.233
+        },
+        {
+          "x": 0.287,
+          "y": 0.872,
+          "intensity": 0.813,
+          "ang": -1.1944,
+          "aniso": 0.173
+        },
+        {
+          "x": 0.444,
+          "y": 0.575,
+          "intensity": 0.612,
+          "ang": 0.7473,
+          "aniso": 0.318
+        }
+      ]
+    }
+  },
+  "photo_122.jpg": {
+    "capturedAt": "2026-10-03T22:12:55",
+    "wallClockOffsetSec": 8745,
+    "track": "Mike's Song",
+    "set": "2",
+    "offsetIntoTrackSec": 385,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 46.5,
+      "flowCoh": 0.118,
+      "curvature": 0.698,
+      "energy": 1,
+      "brightFrac": 0.0151,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.159,
+          "y": 0.309,
+          "intensity": 1,
+          "ang": 0.5462,
+          "aniso": 0.487
+        },
+        {
+          "x": 0.255,
+          "y": 0.488,
+          "intensity": 1,
+          "ang": -0.7182,
+          "aniso": 0.336
+        }
+      ]
+    }
+  },
+  "photo_123.jpg": {
+    "capturedAt": "2026-10-03T22:13:32",
+    "wallClockOffsetSec": 8782,
+    "track": "Mike's Song",
+    "set": "2",
+    "offsetIntoTrackSec": 422,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -59.2,
+      "flowCoh": 0.262,
+      "curvature": 0.023,
+      "energy": 1,
+      "brightFrac": 0.0991,
+      "warm": {
+        "x": 0.38,
+        "y": 0.537
+      },
+      "spots": [
+        {
+          "x": 0.409,
+          "y": 0.404,
+          "intensity": 1,
+          "ang": -1.1495,
+          "aniso": 0.562
+        },
+        {
+          "x": 0.639,
+          "y": 0.452,
+          "intensity": 1,
+          "ang": -1.3539,
+          "aniso": 0.624
+        },
+        {
+          "x": 0.226,
+          "y": 0.42,
+          "intensity": 1,
+          "ang": -1.0346,
+          "aniso": 0.431
+        },
+        {
+          "x": 0.8,
+          "y": 0.488,
+          "intensity": 1,
+          "ang": -1.2654,
+          "aniso": 0.224
+        },
+        {
+          "x": 0.503,
+          "y": 0.533,
+          "intensity": 1,
+          "ang": -1.2143,
+          "aniso": 0.56
+        }
+      ]
+    }
+  },
+  "photo_124.jpg": {
+    "capturedAt": "2026-10-03T22:13:39",
+    "wallClockOffsetSec": 8789,
+    "track": "Mike's Song",
+    "set": "2",
+    "offsetIntoTrackSec": 429,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -85.2,
+      "flowCoh": 0.504,
+      "curvature": 0.284,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.58,
+          "y": 0.217,
+          "intensity": 0.97,
+          "ang": -1.4471,
+          "aniso": 0.588
+        },
+        {
+          "x": 0.815,
+          "y": 0.217,
+          "intensity": 0.957,
+          "ang": -1.4919,
+          "aniso": 0.474
+        },
+        {
+          "x": 0.007,
+          "y": 0.113,
+          "intensity": 1,
+          "ang": -0.0173,
+          "aniso": 0.28
+        },
+        {
+          "x": 0.458,
+          "y": 0.199,
+          "intensity": 0.788,
+          "ang": -1.2945,
+          "aniso": 0.555
+        },
+        {
+          "x": 0.287,
+          "y": 0.407,
+          "intensity": 0.758,
+          "ang": -1.4425,
+          "aniso": 0.745
+        },
+        {
+          "x": 0.74,
+          "y": 0.001,
+          "intensity": 0.961,
+          "ang": -1.4795,
+          "aniso": 0.668
+        },
+        {
+          "x": 0.347,
+          "y": 0.2,
+          "intensity": 0.766,
+          "ang": -1.3569,
+          "aniso": 0.665
+        }
+      ]
+    }
+  },
+  "photo_125.jpg": {
+    "capturedAt": "2026-10-03T22:47:09",
+    "wallClockOffsetSec": 10799,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 538,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -59.9,
+      "flowCoh": 0.34,
+      "curvature": 0.078,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.578,
+        "y": 0.683
+      },
+      "spots": [
+        {
+          "x": 0.168,
+          "y": 0.556,
+          "intensity": 1,
+          "ang": -0.9824,
+          "aniso": 0.09
+        },
+        {
+          "x": 0.47,
+          "y": 0.596,
+          "intensity": 1,
+          "ang": -0.9786,
+          "aniso": 0.723
+        },
+        {
+          "x": 0.606,
+          "y": 0.707,
+          "intensity": 0.803,
+          "ang": -1.027,
+          "aniso": 0.816
+        },
+        {
+          "x": 0.148,
+          "y": 0.4,
+          "intensity": 0.882,
+          "ang": -0.563,
+          "aniso": 0.107
+        },
+        {
+          "x": 0.031,
+          "y": 0.542,
+          "intensity": 0.85,
+          "ang": -0.9593,
+          "aniso": 0.154
+        },
+        {
+          "x": 0.419,
+          "y": 0.842,
+          "intensity": 0.842,
+          "ang": -0.5691,
+          "aniso": 0.179
+        }
+      ]
+    }
+  },
+  "photo_126.jpg": {
+    "capturedAt": "2026-10-03T22:47:25",
+    "wallClockOffsetSec": 10815,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 554,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -73.2,
+      "flowCoh": 0.27,
+      "curvature": 0.133,
+      "energy": 1,
+      "brightFrac": 0.1973,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.234,
+          "y": 0.336,
+          "intensity": 1,
+          "ang": -0.9356,
+          "aniso": 0.45
+        },
+        {
+          "x": 0.489,
+          "y": 0.412,
+          "intensity": 1,
+          "ang": -1.1106,
+          "aniso": 0.534
+        },
+        {
+          "x": 0.713,
+          "y": 0.479,
+          "intensity": 1,
+          "ang": -1.2068,
+          "aniso": 0.602
+        },
+        {
+          "x": 0.372,
+          "y": 0.548,
+          "intensity": 1,
+          "ang": -0.8619,
+          "aniso": 0.343
+        },
+        {
+          "x": 0.079,
+          "y": 0.372,
+          "intensity": 1,
+          "ang": -0.6575,
+          "aniso": 0.355
+        },
+        {
+          "x": 0.508,
+          "y": 0.614,
+          "intensity": 1,
+          "ang": -0.7643,
+          "aniso": 0.545
+        },
+        {
+          "x": 0.631,
+          "y": 0.935,
+          "intensity": 1,
+          "ang": -0.8394,
+          "aniso": 0.4
+        },
+        {
+          "x": 0.111,
+          "y": 0.542,
+          "intensity": 1,
+          "ang": -1.542,
+          "aniso": 0.277
+        }
+      ]
+    }
+  },
+  "photo_127.jpg": {
+    "capturedAt": "2026-10-03T22:47:52",
+    "wallClockOffsetSec": 10842,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 581,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 43.5,
+      "flowCoh": 0.344,
+      "curvature": 0.528,
+      "energy": 1,
+      "brightFrac": 0.4903,
+      "warm": {
+        "x": 0.551,
+        "y": 0.827
+      },
+      "spots": [
+        {
+          "x": 0.219,
+          "y": 0.152,
+          "intensity": 1,
+          "ang": 1.4754,
+          "aniso": 0.408
+        },
+        {
+          "x": 0.397,
+          "y": 0.391,
+          "intensity": 1,
+          "ang": -0.6988,
+          "aniso": 0.256
+        },
+        {
+          "x": 0.476,
+          "y": 0.129,
+          "intensity": 1,
+          "ang": 0,
+          "aniso": 0
+        },
+        {
+          "x": 0.653,
+          "y": 0.403,
+          "intensity": 1,
+          "ang": -0.0586,
+          "aniso": 0.463
+        },
+        {
+          "x": 0.509,
+          "y": 0.655,
+          "intensity": 1,
+          "ang": -0.53,
+          "aniso": 0.63
+        },
+        {
+          "x": 0.705,
+          "y": 0.125,
+          "intensity": 1,
+          "ang": -0.4686,
+          "aniso": 0.278
+        },
+        {
+          "x": 0.712,
+          "y": 0.63,
+          "intensity": 1,
+          "ang": -0.7164,
+          "aniso": 0.305
+        },
+        {
+          "x": 0.049,
+          "y": 0.209,
+          "intensity": 1,
+          "ang": 0.6271,
+          "aniso": 0.061
+        }
+      ]
+    }
+  },
+  "photo_128.jpg": {
+    "capturedAt": "2026-10-03T22:48:03",
+    "wallClockOffsetSec": 10853,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 592,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -86.9,
+      "flowCoh": 0.164,
+      "curvature": 0.59,
+      "energy": 1,
+      "brightFrac": 0.4887,
+      "warm": {
+        "x": 0.243,
+        "y": 0.497
+      },
+      "spots": [
+        {
+          "x": 0.681,
+          "y": 0.127,
+          "intensity": 1,
+          "ang": 1.3617,
+          "aniso": 0.119
+        },
+        {
+          "x": 0.625,
+          "y": 0.401,
+          "intensity": 1,
+          "ang": -0.9526,
+          "aniso": 0.114
+        },
+        {
+          "x": 0.415,
+          "y": 0.192,
+          "intensity": 1,
+          "ang": 0.9803,
+          "aniso": 0.39
+        },
+        {
+          "x": 0.209,
+          "y": 0.276,
+          "intensity": 1,
+          "ang": 1.2215,
+          "aniso": 0.858
+        },
+        {
+          "x": 0.41,
+          "y": 0.493,
+          "intensity": 1,
+          "ang": -1.2905,
+          "aniso": 0.681
+        },
+        {
+          "x": 0.899,
+          "y": 0.181,
+          "intensity": 1,
+          "ang": 0.2859,
+          "aniso": 0.094
+        },
+        {
+          "x": 0.871,
+          "y": 0.422,
+          "intensity": 1,
+          "ang": -1.3447,
+          "aniso": 0.254
+        },
+        {
+          "x": 0.22,
+          "y": 0.495,
+          "intensity": 1,
+          "ang": -0.766,
+          "aniso": 0.318
+        }
+      ]
+    }
+  },
+  "photo_129.jpg": {
+    "capturedAt": "2026-10-03T22:48:24",
+    "wallClockOffsetSec": 10874,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 613,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 60.7,
+      "flowCoh": 0.426,
+      "curvature": 0.001,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.513,
+        "y": 0.39
+      },
+      "spots": [
+        {
+          "x": 0.384,
+          "y": 0.332,
+          "intensity": 1,
+          "ang": 1.4438,
+          "aniso": 0.335
+        },
+        {
+          "x": 0.168,
+          "y": 0.266,
+          "intensity": 1,
+          "ang": 1.3967,
+          "aniso": 0.387
+        }
+      ]
+    }
+  },
+  "photo_130.jpg": {
+    "capturedAt": "2026-10-03T22:48:33",
+    "wallClockOffsetSec": 10883,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 622,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 70.9,
+      "flowCoh": 0.199,
+      "curvature": 0.114,
+      "energy": 1,
+      "brightFrac": 0.0948,
+      "warm": {
+        "x": 0.557,
+        "y": 0.409
+      },
+      "spots": [
+        {
+          "x": 0.21,
+          "y": 0.337,
+          "intensity": 1,
+          "ang": 1.3264,
+          "aniso": 0.55
+        },
+        {
+          "x": 0.048,
+          "y": 0.381,
+          "intensity": 1,
+          "ang": 1.4339,
+          "aniso": 0.426
+        },
+        {
+          "x": 0.385,
+          "y": 0.361,
+          "intensity": 1,
+          "ang": -1.5295,
+          "aniso": 0.434
+        },
+        {
+          "x": 0.176,
+          "y": 0.499,
+          "intensity": 1,
+          "ang": -1.4234,
+          "aniso": 0.342
+        },
+        {
+          "x": 0.552,
+          "y": 0.381,
+          "intensity": 1,
+          "ang": -1.114,
+          "aniso": 0.162
+        }
+      ]
+    }
+  },
+  "photo_131.jpg": {
+    "capturedAt": "2026-10-03T22:48:53",
+    "wallClockOffsetSec": 10903,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 642,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -88.3,
+      "flowCoh": 0.403,
+      "curvature": 0.043,
+      "energy": 1,
+      "brightFrac": 0.1289,
+      "warm": {
+        "x": 0.762,
+        "y": 0.347
+      },
+      "spots": [
+        {
+          "x": 0.273,
+          "y": 0.473,
+          "intensity": 1,
+          "ang": 1.355,
+          "aniso": 0.878
+        },
+        {
+          "x": 0.079,
+          "y": 0.536,
+          "intensity": 1,
+          "ang": 1.3271,
+          "aniso": 0.511
+        },
+        {
+          "x": 0.449,
+          "y": 0.514,
+          "intensity": 1,
+          "ang": 1.5697,
+          "aniso": 0.64
+        },
+        {
+          "x": 0.259,
+          "y": 0.626,
+          "intensity": 1,
+          "ang": -1.4612,
+          "aniso": 0.467
+        }
+      ]
+    }
+  },
+  "photo_132.jpg": {
+    "capturedAt": "2026-10-03T22:49:05",
+    "wallClockOffsetSec": 10915,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 654,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 82.1,
+      "flowCoh": 0.308,
+      "curvature": 0.001,
+      "energy": 1,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.655,
+        "y": 0.392
+      },
+      "spots": [
+        {
+          "x": 0.623,
+          "y": 0.673,
+          "intensity": 0.99,
+          "ang": 1.3371,
+          "aniso": 0.514
+        },
+        {
+          "x": 0.81,
+          "y": 0.686,
+          "intensity": 0.914,
+          "ang": 1.2945,
+          "aniso": 0.517
+        },
+        {
+          "x": 0.431,
+          "y": 0.638,
+          "intensity": 0.872,
+          "ang": 1.2892,
+          "aniso": 0.352
+        }
+      ]
+    }
+  },
+  "photo_133.jpg": {
+    "capturedAt": "2026-10-03T22:49:11",
+    "wallClockOffsetSec": 10921,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 660,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 72.7,
+      "flowCoh": 0.57,
+      "curvature": 0.131,
+      "energy": 1,
+      "brightFrac": 0.1013,
+      "warm": {
+        "x": 0.733,
+        "y": 0.25
+      },
+      "spots": [
+        {
+          "x": 0.232,
+          "y": 0.404,
+          "intensity": 1,
+          "ang": -1.1748,
+          "aniso": 0.378
+        },
+        {
+          "x": 0.45,
+          "y": 0.462,
+          "intensity": 1,
+          "ang": 1.4012,
+          "aniso": 0.53
+        },
+        {
+          "x": 0.047,
+          "y": 0.386,
+          "intensity": 1,
+          "ang": -1.1246,
+          "aniso": 0.704
+        },
+        {
+          "x": 0.612,
+          "y": 0.458,
+          "intensity": 1,
+          "ang": 1.4274,
+          "aniso": 0.392
+        },
+        {
+          "x": 0.289,
+          "y": 0.561,
+          "intensity": 1,
+          "ang": -1.4882,
+          "aniso": 0.714
+        }
+      ]
+    }
+  },
+  "photo_134.jpg": {
+    "capturedAt": "2026-10-03T22:49:17",
+    "wallClockOffsetSec": 10927,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 666,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -66.9,
+      "flowCoh": 0.319,
+      "curvature": 0.027,
+      "energy": 1,
+      "brightFrac": 0.0378,
+      "warm": {
+        "x": 0.493,
+        "y": 0.662
+      },
+      "spots": [
+        {
+          "x": 0.117,
+          "y": 0.324,
+          "intensity": 1,
+          "ang": 1.5523,
+          "aniso": 0.54
+        },
+        {
+          "x": 0.287,
+          "y": 0.384,
+          "intensity": 1,
+          "ang": -1.3577,
+          "aniso": 0.648
+        }
+      ]
+    }
+  },
+  "photo_135.jpg": {
+    "capturedAt": "2026-10-03T22:49:23",
+    "wallClockOffsetSec": 10933,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 672,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": -75,
+      "flowCoh": 0.165,
+      "curvature": 0.514,
+      "energy": 1,
+      "brightFrac": 0.0151,
+      "warm": {
+        "x": 0.406,
+        "y": 0.638
+      },
+      "spots": [
+        {
+          "x": 0.186,
+          "y": 0.348,
+          "intensity": 0.999,
+          "ang": 1.5535,
+          "aniso": 0.196
+        },
+        {
+          "x": 0.185,
+          "y": 0.575,
+          "intensity": 0.999,
+          "ang": -1.394,
+          "aniso": 0.312
+        },
+        {
+          "x": 0.304,
+          "y": 0.389,
+          "intensity": 0.992,
+          "ang": 0.3979,
+          "aniso": 0.054
+        },
+        {
+          "x": 0.035,
+          "y": 0.403,
+          "intensity": 0.996,
+          "ang": -0.9475,
+          "aniso": 0.142
+        },
+        {
+          "x": 0.425,
+          "y": 0.575,
+          "intensity": 0.978,
+          "ang": 1.3145,
+          "aniso": 0.321
+        }
+      ]
+    }
+  },
+  "photo_136.jpg": {
+    "capturedAt": "2026-10-03T22:49:38",
+    "wallClockOffsetSec": 10948,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 687,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 87.1,
+      "flowCoh": 0.252,
+      "curvature": 0.146,
+      "energy": 0.91,
+      "brightFrac": 0.015,
+      "warm": {
+        "x": 0.513,
+        "y": 0.307
+      },
+      "spots": [
+        {
+          "x": 0.437,
+          "y": 0.361,
+          "intensity": 0.786,
+          "ang": 1.4462,
+          "aniso": 0.253
+        },
+        {
+          "x": 0.199,
+          "y": 0.407,
+          "intensity": 0.678,
+          "ang": -1.3616,
+          "aniso": 0.377
+        },
+        {
+          "x": 0.296,
+          "y": 0.386,
+          "intensity": 0.381,
+          "ang": -1.5173,
+          "aniso": 0.312
+        },
+        {
+          "x": 0.659,
+          "y": 0.325,
+          "intensity": 0.317,
+          "ang": 1.13,
+          "aniso": 0.335
+        },
+        {
+          "x": 0.519,
+          "y": 0.225,
+          "intensity": 0.301,
+          "ang": 1.291,
+          "aniso": 0.214
+        },
+        {
+          "x": 0.938,
+          "y": 0.4,
+          "intensity": 0.295,
+          "ang": 0.9774,
+          "aniso": 0.12
+        }
+      ]
+    }
+  },
+  "photo_137.jpg": {
+    "capturedAt": "2026-10-03T22:51:55",
+    "wallClockOffsetSec": 11085,
+    "track": "Harry Hood",
+    "set": "2",
+    "offsetIntoTrackSec": 824,
+    "confidence": "high",
+    "anchorUncertaintySec": 600,
+    "motion": {
+      "smearAngleDeg": 71.6,
+      "flowCoh": 0.313,
+      "curvature": 0.278,
+      "energy": 0.986,
+      "brightFrac": 0.3661,
+      "warm": {
+        "x": 0.5,
+        "y": 0.85
+      },
+      "spots": [
+        {
+          "x": 0.701,
+          "y": 0.286,
+          "intensity": 1,
+          "ang": 1.4516,
+          "aniso": 0.784
+        },
+        {
+          "x": 0.233,
+          "y": 0.51,
+          "intensity": 1,
+          "ang": 0.9292,
+          "aniso": 0.677
+        },
+        {
+          "x": 0.455,
+          "y": 0.391,
+          "intensity": 1,
+          "ang": 1.2448,
+          "aniso": 0.689
+        },
+        {
+          "x": 0.685,
+          "y": 0.553,
+          "intensity": 1,
+          "ang": 1.3617,
+          "aniso": 0.647
+        },
+        {
+          "x": 0.887,
+          "y": 0.373,
+          "intensity": 1,
+          "ang": -0.5976,
+          "aniso": 0.137
+        },
+        {
+          "x": 0.433,
+          "y": 0.644,
+          "intensity": 1,
+          "ang": 1.3113,
+          "aniso": 0.698
+        },
+        {
+          "x": 0.181,
+          "y": 0.67,
+          "intensity": 1,
+          "ang": -1.5529,
+          "aniso": 0.482
+        },
+        {
+          "x": 0.898,
+          "y": 0.565,
+          "intensity": 1,
+          "ang": 1.2805,
+          "aniso": 0.388
+        }
+      ]
+    }
+  }
+}

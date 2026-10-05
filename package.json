@@ -5,7 +5,9 @@
   "scripts": {
     "build:photos": "node build/fetch-album.mjs && node build/palette.mjs",
     "verify:phishin": "node build/check-phishin.mjs",
-    "export:rigs": "node build/export-rigs.mjs"
+    "export:rigs": "node build/export-rigs.mjs",
+    "motion": "node build/motion.mjs",
+    "moments": "node build/motion.mjs && node build/moments.mjs"
   },
   "dependencies": {
     "sharp": "^0.33.5"

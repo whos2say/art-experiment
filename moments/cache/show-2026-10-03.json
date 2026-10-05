@@ -1,0 +1,25 @@
+{
+  "_comment": "Cached snapshot of https://phish.in/api/v2/shows/2026-10-03.json, fetched 2026-10-05 once phish.in finished archiving this show (it wasn't posted yet as of 2026-10-04). build/moments.mjs tries a live fetch first and only falls back to this file when phish.in is unreachable (e.g. this sandbox's network policy blocks the phish.in host entirely for direct fetch/curl — only the WebFetch tool could reach it, which is how this was captured). Durations cross-checked across two independent fetches and agreed both times. Re-run `npm run moments -- --date 2026-10-03` from an environment with real network access to phish.in to get a live copy instead of this cache.",
+  "date": "2026-10-03",
+  "venue": "Jim Whelan Boardwalk Hall",
+  "location": "Atlantic City, NJ",
+  "tracks": [
+    { "position": 1,  "set": "1", "title": "Sand",                             "duration_sec": 735,  "mp3_url": "https://phish.in/blob/ptxv4d19stsxf916a39qr49oxpbx.mp3" },
+    { "position": 2,  "set": "1", "title": "Everything's Right",               "duration_sec": 893,  "mp3_url": "https://phish.in/blob/6v6ghzyglgkgqvnrjbdrbobh0lqg.mp3" },
+    { "position": 3,  "set": "1", "title": "Back on the Train",                "duration_sec": 367,  "mp3_url": "https://phish.in/blob/0e3wfl7wvrq9jzdjoqu3imf39uwm.mp3" },
+    { "position": 4,  "set": "1", "title": "Stash",                           "duration_sec": 697,  "mp3_url": "https://phish.in/blob/am3rqhh90ldjvexjoep31zv11dgs.mp3" },
+    { "position": 5,  "set": "1", "title": "555",                             "duration_sec": 552,  "mp3_url": "https://phish.in/blob/2u93w9swec7m5zubg8jja16h6fpx.mp3" },
+    { "position": 6,  "set": "1", "title": "Mountains in the Mist",           "duration_sec": 435,  "mp3_url": "https://phish.in/blob/0fth888yeruimme8cxxqqa1agqco.mp3" },
+    { "position": 7,  "set": "1", "title": "Bathtub Gin",                     "duration_sec": 750,  "mp3_url": "https://phish.in/blob/exwqi4oxy1nrqrkzkqcd6w2egblp.mp3" },
+    { "position": 8,  "set": "2", "title": "Chalk Dust Torture",              "duration_sec": 1200, "mp3_url": "https://phish.in/blob/rtmz03ogjged6uwsjxai7c33ibrm.mp3" },
+    { "position": 9,  "set": "2", "title": "What's Going Through Your Mind",  "duration_sec": 1531, "mp3_url": "https://phish.in/blob/99mii1dojkqe0rvehaizjeldd1ck.mp3" },
+    { "position": 10, "set": "2", "title": "Mike's Song",                     "duration_sec": 590,  "mp3_url": "https://phish.in/blob/1nzdrfahcnlabzd7j86jfupuooda.mp3" },
+    { "position": 11, "set": "2", "title": "Waste",                          "duration_sec": 335,  "mp3_url": "https://phish.in/blob/b3i5gjgda64ib0gr3u3hffluprnr.mp3" },
+    { "position": 12, "set": "2", "title": "Weekapaug Groove",               "duration_sec": 492,  "mp3_url": "https://phish.in/blob/wjmqbop0xv8biedr1up9bxxbx00k.mp3" },
+    { "position": 13, "set": "2", "title": "Monsters",                       "duration_sec": 484,  "mp3_url": "https://phish.in/blob/b78udfw9cmkagrz3hmykyykqrd0n.mp3" },
+    { "position": 14, "set": "2", "title": "Harry Hood",                     "duration_sec": 952,  "mp3_url": "https://phish.in/blob/1qts7iphfi4fqypjqwuz0p1o583z.mp3" },
+    { "position": 15, "set": "E", "title": "Character Zero",                 "duration_sec": 318,  "mp3_url": "https://phish.in/blob/gs3d7voex12pjls185h8qs2ak7qa.mp3" },
+    { "position": 16, "set": "E", "title": "Sleeping Monkey",                "duration_sec": 276,  "mp3_url": "https://phish.in/blob/ah0zwxy4ombnrvipr0zjqy9b7glq.mp3" },
+    { "position": 17, "set": "E", "title": "Tweezer Reprise",                "duration_sec": 273,  "mp3_url": "https://phish.in/blob/s06tj27xzmog26nmmumqcyr6sie5.mp3" }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "venue": "Jim Whelan Boardwalk Hall",
+  "location": "Atlantic City, NJ",
+  "source": "cache",
+  "anchorAssumption": {
+    "anchoredOn": "first photo of the night ≈ Set 1 start",
+    "uncertaintySec": 600,
+    "setBreakAssumedSec": 1200,
+    "preEncoreAssumedSec": 180
+  },
+  "segs": [
+    {
+      "kind": "track",
+      "position": 1,
+      "set": "1",
+      "title": "Sand",
+      "mp3_url": "https://phish.in/blob/ptxv4d19stsxf916a39qr49oxpbx.mp3",
+      "startSec": 0,
+      "durSec": 735
+    },
+    {
+      "kind": "track",
+      "position": 2,
+      "set": "1",
+      "title": "Everything's Right",
+      "mp3_url": "https://phish.in/blob/6v6ghzyglgkgqvnrjbdrbobh0lqg.mp3",
+      "startSec": 735,
+      "durSec": 893
+    },
+    {
+      "kind": "track",
+      "position": 3,
+      "set": "1",
+      "title": "Back on the Train",
+      "mp3_url": "https://phish.in/blob/0e3wfl7wvrq9jzdjoqu3imf39uwm.mp3",
+      "startSec": 1628,
+      "durSec": 367
+    },
+    {
+      "kind": "track",
+      "position": 4,
+      "set": "1",
+      "title": "Stash",
+      "mp3_url": "https://phish.in/blob/am3rqhh90ldjvexjoep31zv11dgs.mp3",
+      "startSec": 1995,
+      "durSec": 697
+    },
+    {
+      "kind": "track",
+      "position": 5,
+      "set": "1",
+      "title": "555",
+      "mp3_url": "https://phish.in/blob/2u93w9swec7m5zubg8jja16h6fpx.mp3",
+      "startSec": 2692,
+      "durSec": 552
+    },
+    {
+      "kind": "track",
+      "position": 6,
+      "set": "1",
+      "title": "Mountains in the Mist",
+      "mp3_url": "https://phish.in/blob/0fth888yeruimme8cxxqqa1agqco.mp3",
+      "startSec": 3244,
+      "durSec": 435
+    },
+    {
+      "kind": "track",
+      "position": 7,
+      "set": "1",
+      "title": "Bathtub Gin",
+      "mp3_url": "https://phish.in/blob/exwqi4oxy1nrqrkzkqcd6w2egblp.mp3",
+      "startSec": 3679,
+      "durSec": 750
+    },
+    {
+      "kind": "gap",
+      "set": "1→2",
+      "startSec": 4429,
+      "durSec": 1200
+    },
+    {
+      "kind": "track",
+      "position": 8,
+      "set": "2",
+      "title": "Chalk Dust Torture",
+      "mp3_url": "https://phish.in/blob/rtmz03ogjged6uwsjxai7c33ibrm.mp3",
+      "startSec": 5629,
+      "durSec": 1200
+    },
+    {
+      "kind": "track",
+      "position": 9,
+      "set": "2",
+      "title": "What's Going Through Your Mind",
+      "mp3_url": "https://phish.in/blob/99mii1dojkqe0rvehaizjeldd1ck.mp3",
+      "startSec": 6829,
+      "durSec": 1531
+    },
+    {
+      "kind": "track",
+      "position": 10,
+      "set": "2",
+      "title": "Mike's Song",
+      "mp3_url": "https://phish.in/blob/1nzdrfahcnlabzd7j86jfupuooda.mp3",
+      "startSec": 8360,
+      "durSec": 590
+    },
+    {
+      "kind": "track",
+      "position": 11,
+      "set": "2",
+      "title": "Waste",
+      "mp3_url": "https://phish.in/blob/b3i5gjgda64ib0gr3u3hffluprnr.mp3",
+      "startSec": 8950,
+      "durSec": 335
+    },
+    {
+      "kind": "track",
+      "position": 12,
+      "set": "2",
+      "title": "Weekapaug Groove",
+      "mp3_url": "https://phish.in/blob/wjmqbop0xv8biedr1up9bxxbx00k.mp3",
+      "startSec": 9285,
+      "durSec": 492
+    },
+    {
+      "kind": "track",
+      "position": 13,
+      "set": "2",
+      "title": "Monsters",
+      "mp3_url": "https://phish.in/blob/b78udfw9cmkagrz3hmykyykqrd0n.mp3",
+      "startSec": 9777,
+      "durSec": 484
+    },
+    {
+      "kind": "track",
+      "position": 14,
+      "set": "2",
+      "title": "Harry Hood",
+      "mp3_url": "https://phish.in/blob/1qts7iphfi4fqypjqwuz0p1o583z.mp3",
+      "startSec": 10261,
+      "durSec": 952
+    },
+    {
+      "kind": "gap",
+      "set": "2→E",
+      "startSec": 11213,
+      "durSec": 180
+    },
+    {
+      "kind": "track",
+      "position": 15,
+      "set": "E",
+      "title": "Character Zero",
+      "mp3_url": "https://phish.in/blob/gs3d7voex12pjls185h8qs2ak7qa.mp3",
+      "startSec": 11393,
+      "durSec": 318
+    },
+    {
+      "kind": "track",
+      "position": 16,
+      "set": "E",
+      "title": "Sleeping Monkey",
+      "mp3_url": "https://phish.in/blob/ah0zwxy4ombnrvipr0zjqy9b7glq.mp3",
+      "startSec": 11711,
+      "durSec": 276
+    },
+    {
+      "kind": "track",
+      "position": 17,
+      "set": "E",
+      "title": "Tweezer Reprise",
+      "mp3_url": "https://phish.in/blob/s06tj27xzmog26nmmumqcyr6sie5.mp3",
+      "startSec": 11987,
+      "durSec": 273
+    }
+  ]
+}
