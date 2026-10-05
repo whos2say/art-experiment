@@ -311,20 +311,6 @@
       "energy": 0.758
     },
     {
-      "name": "photo_042",
-      "file": "photos/photo_042.jpg",
-      "beams": 10,
-      "washes": 12,
-      "energy": 1
-    },
-    {
-      "name": "photo_043",
-      "file": "photos/photo_043.jpg",
-      "beams": 9,
-      "washes": 12,
-      "energy": 1
-    },
-    {
       "name": "photo_044",
       "file": "photos/photo_044.jpg",
       "beams": 6,
